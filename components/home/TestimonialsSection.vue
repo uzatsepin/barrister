@@ -7,7 +7,7 @@
     </div>
 
     <div class="container-custom relative">
-      <SectionHeading :title="$t('home.testimonials.title')" />
+      <UiSectionHeading :title="$t('home.testimonials.title')" data-aos="fade-up" />
       
       <!-- Testimonials Slider -->
       <div class="relative">
@@ -17,6 +17,7 @@
           @mouseenter="pauseAutoSlide"
           @mouseleave="resumeAutoSlide"
           class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 text-secondary-600 hover:text-primary-600"
+          data-aos="fade-right"
         >
           <Icon name="ph:caret-left-bold" size="24" />
         </button>
@@ -26,6 +27,7 @@
           @mouseenter="pauseAutoSlide"
           @mouseleave="resumeAutoSlide"
           class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 text-secondary-600 hover:text-primary-600"
+          data-aos="fade-left"
         >
           <Icon name="ph:caret-right-bold" size="24" />
         </button>
@@ -36,6 +38,8 @@
           :class="{ 'pointer-events-none': isAnimating }"
           @mouseenter="pauseAutoSlide"
           @mouseleave="resumeAutoSlide"
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
           <div 
             v-for="(testimonial, index) in visibleTestimonials" 

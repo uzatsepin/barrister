@@ -1,7 +1,7 @@
 <template>
   <div class="section bg-gray-50">
     <div class="container-custom">
-      <SectionHeading 
+      <UiSectionHeading 
         :title="$t('contact.title')"
         :subtitle="$t('contact.description')"
       />

@@ -12,7 +12,7 @@
       <!-- Main Footer Content -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
         <!-- Company Info -->
-        <div class="lg:col-span-4">
+        <div class="lg:col-span-4" data-aos="fade-up">
           <div class="mb-8">
             <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400 inline-block">
               BarristerCorp
@@ -57,7 +57,7 @@
         </div>
 
         <!-- Quick Links -->
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="100">
           <h3 class="text-lg font-semibold mb-6 flex items-center">
             <Icon name="ph:graduation-cap" class="mr-2 text-primary-400" size="24" />
             {{ $t('header.study') }}
@@ -75,7 +75,7 @@
           </ul>
         </div>
 
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="200">
           <h3 class="text-lg font-semibold mb-6 flex items-center">
             <Icon name="ph:briefcase" class="mr-2 text-primary-400" size="24" />
             {{ $t('header.work') }}
@@ -93,7 +93,7 @@
           </ul>
         </div>
 
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="300">
           <h3 class="text-lg font-semibold mb-6 flex items-center">
             <Icon name="ph:buildings" class="mr-2 text-primary-400" size="24" />
             {{ $t('header.business') }}
@@ -112,7 +112,7 @@
         </div>
 
         <!-- Newsletter -->
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="400">
           <h3 class="text-lg font-semibold mb-6 flex items-center">
             <Icon name="ph:envelope" class="mr-2 text-primary-400" size="24" />
             Подписка
@@ -154,7 +154,7 @@
       </div>
 
       <!-- Bottom Bar -->
-      <div class="pt-8 border-t border-white/10">
+      <div class="pt-8 border-t border-white/10" data-aos="fade-up" data-aos-delay="500">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="text-gray-400 text-sm">
             &copy; {{ new Date().getFullYear() }} BarristerCorp. {{ $t('footer.rights') }}

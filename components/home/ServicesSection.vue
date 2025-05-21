@@ -10,6 +10,7 @@
       <SectionHeading 
         :title="$t('home.services.title')" 
         :subtitle="$t('home.services.description')" 
+        data-aos="fade-up"
       />
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -17,6 +18,8 @@
           v-for="(service, index) in services" 
           :key="index"
           class="group relative bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          :data-aos="'fade-up'"
+          :data-aos-delay="index * 100"
         >
           <!-- Card decoration -->
           <div class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>

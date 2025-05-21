@@ -1,7 +1,7 @@
 <template>
   <div class="section bg-gray-50">
     <div class="container-custom">
-      <SectionHeading 
+      <UiSectionHeading 
         :title="$t('blog.title')"
         subtitle="Актуальные новости и полезная информация об иммиграции, визах и образовании в США"
       />

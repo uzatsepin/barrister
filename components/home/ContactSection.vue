@@ -7,11 +7,19 @@
     </div>
 
     <div class="container-custom relative">
-      <SectionHeading :title="$t('contact.title')" :subtitle="$t('contact.description')" />
+      <UiSectionHeading 
+        :title="$t('contact.title')" 
+        :subtitle="$t('contact.description')" 
+        badge="Свяжитесь с нами"
+      >
+        <template #badge-icon>
+          <Icon name="ph:phone-call" class="w-4 h-4" />
+        </template>
+      </UiSectionHeading>
       
       <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 relative">
         <!-- Contact Form -->
-        <div class="lg:col-span-3 bg-white rounded-2xl shadow-xl p-8 relative z-10 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="lg:col-span-3 bg-white rounded-2xl shadow-xl p-8 relative z-10 transform hover:scale-[1.01] transition-all duration-300" data-aos="fade-right">
           <h3 class="text-2xl font-bold text-secondary-800 mb-6 flex items-center">
             <Icon name="ph:calendar-check" class="mr-2 text-primary-500" size="28" />
             {{ $t('contact.schedule') }}
@@ -22,7 +30,7 @@
         <!-- Contact Info -->
         <div class="lg:col-span-2">
           <!-- Info Card -->
-          <div class="bg-primary-600 rounded-2xl shadow-xl p-8 text-white mb-6 relative overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
+          <div class="bg-primary-600 rounded-2xl shadow-xl p-8 text-white mb-6 relative overflow-hidden transform hover:scale-[1.02] transition-all duration-300" data-aos="fade-left">
             <!-- Decorative background -->
             <div class="absolute -right-16 -top-16 w-32 h-32 bg-primary-500 rounded-full opacity-30"></div>
             <div class="absolute -left-16 -bottom-16 w-32 h-32 bg-primary-500 rounded-full opacity-30"></div>
@@ -30,7 +38,7 @@
             <h3 class="text-2xl font-bold mb-6 relative">{{ $t('contact.title') }}</h3>
             
             <ul class="space-y-6 relative">
-              <li class="flex items-center transform hover:translate-x-1 transition-transform">
+              <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="100">
                 <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
                   <Icon name="ph:map-pin" class="text-white" size="24" />
                 </div>
@@ -40,7 +48,7 @@
                 </div>
               </li>
               
-              <li class="flex items-center transform hover:translate-x-1 transition-transform">
+              <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="200">
                 <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
                   <Icon name="ph:envelope" class="text-white" size="24" />
                 </div>
@@ -50,7 +58,7 @@
                 </div>
               </li>
               
-              <li class="flex items-center transform hover:translate-x-1 transition-transform">
+              <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="300">
                 <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
                   <Icon name="ph:phone" class="text-white" size="24" />
                 </div>
@@ -60,7 +68,7 @@
                 </div>
               </li>
               
-              <li class="flex items-center transform hover:translate-x-1 transition-transform">
+              <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="400">
                 <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
                   <Icon name="ph:clock" class="text-white" size="24" />
                 </div>
@@ -72,7 +80,7 @@
             </ul>
             
             <!-- Social Media -->
-            <div class="mt-8 relative">
+            <div class="mt-8 relative" data-aos="fade-up" data-aos-delay="500">
               <div class="font-semibold mb-3">Социальные сети:</div>
               <div class="flex space-x-2">
                 <a 
@@ -90,7 +98,7 @@
           </div>
           
           <!-- Map -->
-          <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300" data-aos="fade-up" data-aos-delay="600">
             <img 
               src="https://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702,-74.011&key=YOUR_API_KEY" 
               alt="Map location" 

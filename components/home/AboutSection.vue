@@ -9,7 +9,7 @@
     <div class="container-custom relative">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <!-- Image Column -->
-        <div class="relative group">
+        <div class="relative group" data-aos="fade-right">
           <div class="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-accent-500/20 rounded-2xl transform group-hover:scale-105 transition-transform duration-500"></div>
           <img 
             src="https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
@@ -17,7 +17,9 @@
             class="rounded-2xl shadow-2xl relative z-10 transform group-hover:scale-95 transition-transform duration-500"
           />
           <!-- Floating elements -->
-          <div class="absolute -right-6 -bottom-6 bg-white rounded-xl shadow-xl p-4 z-20 transform group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-500">
+          <div class="absolute -right-6 -bottom-6 bg-white rounded-xl shadow-xl p-4 z-20 transform group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-500"
+               data-aos="fade-up"
+               data-aos-delay="300">
             <div class="flex items-center space-x-2">
               <Icon name="ph:users" class="text-primary-500" size="24" />
               <div class="text-sm">
@@ -26,7 +28,9 @@
               </div>
             </div>
           </div>
-          <div class="absolute -left-6 -top-6 bg-white rounded-xl shadow-xl p-4 z-20 transform group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform duration-500">
+          <div class="absolute -left-6 -top-6 bg-white rounded-xl shadow-xl p-4 z-20 transform group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform duration-500"
+               data-aos="fade-up"
+               data-aos-delay="500">
             <div class="flex items-center space-x-2">
               <Icon name="ph:chart-line-up" class="text-accent-500" size="24" />
               <div class="text-sm">
@@ -38,7 +42,7 @@
         </div>
 
         <!-- Content Column -->
-        <div>
+        <div data-aos="fade-left">
           <h2 class="text-3xl md:text-4xl font-bold text-secondary-800 mb-6">
             {{ $t('home.about.title') }}
           </h2>
@@ -58,6 +62,8 @@
               v-for="(stat, index) in stats" 
               :key="index"
               class="group bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              :data-aos="'fade-up'"
+              :data-aos-delay="index * 100"
             >
               <div class="flex items-center mb-2">
                 <Icon 

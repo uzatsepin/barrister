@@ -37,6 +37,7 @@
         <h1 
           class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 
                  motion-safe:animate-title-slide-up [text-wrap:balance]"
+          data-aos="fade-up"
         >
           {{ $t('home.hero.title') }}
         </h1>
@@ -44,12 +45,16 @@
         <p 
           class="text-xl md:text-2xl mb-8 text-gray-100 opacity-90 
                  motion-safe:animate-content-slide-up [text-wrap:balance]"
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
           {{ $t('home.hero.subtitle') }}
         </p>
 
         <!-- Interactive Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 motion-safe:animate-cards-slide-up">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 motion-safe:animate-cards-slide-up"
+             data-aos="fade-up"
+             data-aos-delay="400">
           <NuxtLink 
             v-for="(card, index) in serviceCards" 
             :key="index"
@@ -58,6 +63,8 @@
                    hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-glow"
             @mousemove="handleCardHover"
             @mouseleave="handleCardLeave"
+            :data-aos="'fade-up'"
+            :data-aos-delay="500 + (index * 100)"
           >
             <div class="relative overflow-hidden">
               <Icon 

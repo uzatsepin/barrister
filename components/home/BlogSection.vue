@@ -11,15 +11,18 @@
     </div>
 
     <div class="container-custom relative">
-      <SectionHeading
+      <UiSectionHeading
         :title="$t('blog.title')"
         subtitle="Полезная информация о визах, образовании и иммиграции в США"
+        data-aos="fade-up"
       />
 
       <!-- Featured Post -->
       <div class="mb-12 max-w-5xl mx-auto">
         <div
           class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.01] transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="relative h-[300px] md:h-[400px]">
@@ -75,9 +78,9 @@
       </div>
 
       <!-- Blog Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="400">
         <BlogCard
-          v-for="post in blogPosts"
+          v-for="(post, index) in blogPosts"
           :key="post.id"
           :title="post.title"
           :summary="post.summary"
@@ -86,11 +89,13 @@
           :category="post.category"
           :readTime="post.readTime"
           :link="post.link"
+          :data-aos="'fade-up'"
+          :data-aos-delay="500 + (index * 100)"
         />
       </div>
 
       <!-- View All Button -->
-      <div class="text-center mt-12">
+      <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="800">
         <NuxtLink to="/blog" class="btn btn-primary inline-flex items-center">
           {{ $t("blog.viewAll") }}
           <Icon name="ph:arrow-right" class="ml-2" size="20" />

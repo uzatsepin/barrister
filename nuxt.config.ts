@@ -8,6 +8,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/i18n',
     'nuxt-icon',
+    'nuxt-aos',
+    '@nuxt/image'
   ],
   app: {
     head: {
@@ -40,5 +42,23 @@ export default defineNuxtConfig({
     langDir: 'lang/',
     defaultLocale: 'ru',
     strategy: 'no_prefix'
+  },
+  aos: {
+    disable: false,
+    startEvent: 'DOMContentLoaded',
+    initClassName: 'aos-init',
+    animatedClassName: 'aos-animate',
+    useClassNames: false,
+    disableMutationObserver: false,
+    debounceDelay: 50,
+    throttleDelay: 99,
+    
+    offset: 50,
+    delay: 100,
+    duration: 1000,
+    easing: 'ease-out-cubic',
+    once: true,
+    mirror: false,
+    anchorPlacement: 'top-bottom'
   }
 })
