@@ -32,6 +32,8 @@
         <div 
           v-if="activeMenu === menu.key"
           class="absolute top-full left-0 min-w-[280px] bg-white shadow-xl rounded-lg py-3 px-2 z-50 border border-gray-100"
+          @mouseenter="clearTimeout(closeTimeout)"
+          @mouseleave="handleMouseLeave"
         >
           <template v-for="(submenu, subIndex) in menu.children" :key="subIndex">
             <div class="px-2 py-1">
@@ -75,20 +77,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 
-defineProps({
+const props = defineProps({
   menuItems: {
     type: Array,
     required: true
   }
 });
 
+const emit = defineEmits(['menu-hover', 'menu-click']);
+
+
 const activeMenu = ref(null);
 let closeTimeout = null;
 
 const handleMouseEnter = (menuKey) => {
-  console.log('handleMouseEnter', menuKey);
+  emit('menu-hover', menuKey);
+  
   if (closeTimeout) {
     clearTimeout(closeTimeout);
     closeTimeout = null;
@@ -103,7 +109,8 @@ const handleMouseLeave = () => {
 };
 
 const handleMenuClick = (menuKey) => {
-  console.log('handleMenuClick', menuKey);
+  emit('menu-click', menuKey);
+  
   activeMenu.value = activeMenu.value === menuKey ? null : menuKey;
 };
 
@@ -124,4 +131,5 @@ onUnmounted(() => {
     clearTimeout(closeTimeout);
   }
 });
+
 </script> 

@@ -1,41 +1,125 @@
 <template>
   <header class="bg-white shadow-lg fixed w-full top-0 z-50">
     <div class="container-custom">
-      <!-- Top Bar -->
-      <TopBar @open-search="openSearch" />
+      <!-- Top Bar - Hide on Mobile -->
+      <div class="hidden sm:block">
+        <TopBar @open-search="openSearch" />
+      </div>
       
       <!-- Main Navigation -->
-      <div class="py-4 flex justify-between items-center">
+      <div class="py-3 sm:py-4 flex justify-between items-center">
         <NuxtLink to="/" class="flex items-center group">
-          <span class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-800 group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-300">
+          <span class="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-800 group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-300">
             BarristerCorp
           </span>
         </NuxtLink>
         
         <!-- Desktop Menu -->
-        <MainNavigation :menu-items="mainMenuItems" />
+        <MainNavigation 
+          :menu-items="mainMenuItems" 
+          @menu-hover="item => console.log('Menu hover:', item)"
+          @menu-click="item => console.log('Menu click:', item)"
+        />
         
         <button 
           @click="toggleMobileMenu" 
-          class="lg:hidden text-secondary-600 hover:text-primary-600 p-2 hover:bg-primary-50 rounded-full transition-colors"
+          class="lg:hidden text-secondary-600 hover:text-primary-600 p-2 hover:bg-primary-50 rounded-full transition-all duration-300"
+          :class="{ 'transform': true }"
         >
-          <Icon :name="isMobileMenuOpen ? 'ph:x' : 'ph:list'" size="24" />
+          <div class="relative w-6 h-6">
+            <div class="absolute inset-0 transition-all duration-300"
+              :class="isMobileMenuOpen ? 'opacity-0 rotate-180 scale-0' : 'opacity-100 rotate-0 scale-100'"
+            >
+              <Icon name="ph:list-bold" size="24" />
+            </div>
+            <div class="absolute inset-0 transition-all duration-300"
+              :class="isMobileMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-180 scale-0'"
+            >
+              <Icon name="ph:x-bold" size="24" />
+            </div>
+          </div>
         </button>
       </div>
     </div>
     
     <!-- Mobile Menu -->
-    <div 
-      v-if="isMobileMenuOpen" 
-      class="lg:hidden absolute w-full bg-white shadow-xl animate-slide-down border-t border-gray-200"
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0 translate-x-full"
+      enter-to-class="opacity-100 translate-x-0"
+      leave-active-class="transition-all duration-300 ease-in"
+      leave-from-class="opacity-100 translate-x-0"
+      leave-to-class="opacity-0 translate-x-full"
     >
-      <div class="container-custom py-4">
-        <MobileMenu 
-          :menu-items="mainMenuItems" 
-          @close="closeMobileMenu" 
-        />
+      <div 
+        v-if="isMobileMenuOpen" 
+        class="lg:hidden fixed inset-0 bg-white z-40"
+      >
+        <!-- Mobile Header -->
+        <div class="h-[60px] sm:h-[98px] border-b border-gray-100 flex items-center justify-between px-4">
+          <NuxtLink to="/" class="flex items-center group" @click="closeMobileMenu">
+            <span class="text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-800 group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-300">
+              BarristerCorp
+            </span>
+          </NuxtLink>
+          <button 
+            @click="closeMobileMenu"
+            class="p-2 hover:bg-primary-50 rounded-full transition-colors"
+          >
+            <Icon name="ph:x-bold" class="text-secondary-600" size="24" />
+          </button>
+        </div>
+        
+        <!-- Mobile Menu Content -->
+        <div class="container-custom h-[calc(100vh-60px)] sm:h-[calc(100vh-98px)] overflow-y-auto pb-safe">
+          <!-- Mobile Contact Info -->
+          <div class="py-4 space-y-3 border-b border-gray-100">
+            <a 
+              href="tel:+18001234567" 
+              class="flex items-center text-secondary-600 hover:text-primary-600 transition-colors"
+            >
+              <div class="w-10 h-10 rounded-lg bg-primary-50 flex items-center justify-center mr-3">
+                <Icon name="ph:phone" class="text-primary-500" size="20"/>
+              </div>
+              <span class="font-medium">+1 (800) 123-4567</span>
+            </a>
+            <a 
+              href="mailto:info@barristercorp.com" 
+              class="flex items-center text-secondary-600 hover:text-primary-600 transition-colors"
+            >
+              <div class="w-10 h-10 rounded-lg bg-primary-50 flex items-center justify-center mr-3">
+                <Icon name="ph:envelope" class="text-primary-500" size="20"/>
+              </div>
+              <span class="font-medium">info@barristercorp.com</span>
+            </a>
+          </div>
+
+          <MobileMenu 
+            :menu-items="mainMenuItems" 
+            @close="closeMobileMenu" 
+          />
+
+          <!-- Mobile Actions -->
+          <div class="mt-6 space-y-4 pb-24">
+            <button 
+              @click="openSearch" 
+              class="w-full bg-primary-50 text-primary-700 hover:bg-primary-100 px-4 py-3 rounded-lg font-medium flex items-center justify-center transition-colors"
+            >
+              <Icon name="ph:magnifying-glass" class="mr-2" size="20"/>
+              {{ $t('common.search') }}
+            </button>
+            <NuxtLink 
+              to="/contacts" 
+              class="w-full bg-primary-600 text-white hover:bg-primary-700 px-4 py-3 rounded-lg font-medium flex items-center justify-center transition-colors"
+              @click="closeMobileMenu"
+            >
+              <Icon name="ph:calendar" class="mr-2" size="20"/>
+              {{ $t('common.contactUs') }}
+            </NuxtLink>
+          </div>
+        </div>
       </div>
-    </div>
+    </Transition>
     
     <!-- Search Modal -->
     <SearchModal 
@@ -44,44 +128,34 @@
     />
   </header>
 
-  <!-- Spacer for fixed header -->
-  <div class="h-[98px]"></div>
+  <!-- Spacer for fixed header - Responsive -->
+  <div class="h-[60px] sm:h-[98px]"></div>
 </template>
 
 <script setup>
-import { ref, provide } from 'vue';
+import { ref, provide, onMounted, watch } from 'vue';
 import TopBar from './header/TopBar.vue';
 import MainNavigation from './header/MainNavigation.vue';
 import MobileMenu from './header/MobileMenu.vue';
 import SearchModal from './header/SearchModal.vue';
 
+console.log('Header component initializing...');
+
 const isMobileMenuOpen = ref(false);
 const isSearchOpen = ref(false);
+
+// Watch for mobile menu state to toggle body scroll
+watch(isMobileMenuOpen, (isOpen) => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+});
 
 // Provide these values to child components
 provide('isMobileMenuOpen', isMobileMenuOpen);
 provide('isSearchOpen', isSearchOpen);
-
-const toggleMobileMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value;
-  if (isMobileMenuOpen.value) {
-    isSearchOpen.value = false;
-  }
-};
-
-const closeMobileMenu = () => {
-  isMobileMenuOpen.value = false;
-};
-
-const openSearch = () => {
-  console.log('Opening search...');
-  isSearchOpen.value = true;
-  isMobileMenuOpen.value = false;
-};
-
-const closeSearch = () => {
-  isSearchOpen.value = false;
-};
 
 const mainMenuItems = [
   {
@@ -215,4 +289,34 @@ const mainMenuItems = [
     ]
   }
 ];
+
+console.log('Main menu items:', mainMenuItems);
+
+const toggleMobileMenu = () => {
+  console.log('Toggling mobile menu');
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+  if (isMobileMenuOpen.value) {
+    isSearchOpen.value = false;
+  }
+};
+
+const closeMobileMenu = () => {
+  console.log('Closing mobile menu');
+  isMobileMenuOpen.value = false;
+};
+
+const openSearch = () => {
+  console.log('Opening search modal');
+  isSearchOpen.value = true;
+  isMobileMenuOpen.value = false;
+};
+
+const closeSearch = () => {
+  console.log('Closing search modal');
+  isSearchOpen.value = false;
+};
+
+onMounted(() => {
+  console.log('Header component mounted');
+});
 </script>

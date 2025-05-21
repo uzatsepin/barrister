@@ -1,5 +1,5 @@
 <template>
-  <section class="relative min-h-[90vh] flex items-center bg-primary-700 text-white overflow-hidden">
+  <section class="relative min-h-[90vh] py-16 flex items-center bg-primary-700 text-white overflow-hidden">
     <!-- Background with parallax effect -->
     <div 
       class="absolute inset-0 overflow-hidden"

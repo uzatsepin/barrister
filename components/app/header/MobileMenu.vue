@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 overflow-y-auto">
     <div v-for="menu in menuItems" :key="menu.key" class="space-y-2">
       <button 
         class="w-full text-left px-4 py-2 text-secondary-700 hover:text-primary-700 hover:bg-primary-50 rounded-md font-semibold flex items-center justify-between transition-colors duration-200"
@@ -16,7 +16,10 @@
         />
       </button>
 
-      <div v-show="openMenus.includes(menu.key)" class="pl-4 space-y-2">
+      <div 
+        v-show="openMenus.includes(menu.key)" 
+        class="pl-4 space-y-2 overflow-hidden transition-all duration-200"
+      >
         <div v-for="submenu in menu.children" :key="submenu.label" class="space-y-1">
           <div class="font-semibold text-primary-600 px-4 py-1 flex items-center">
             <Icon :name="submenu.icon" class="mr-2" size="16" />
