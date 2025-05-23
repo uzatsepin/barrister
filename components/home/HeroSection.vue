@@ -33,76 +33,114 @@
 
     <!-- Content -->
     <div class="container-custom relative z-20">
-      <div class="max-w-4xl">
-        <h1 
-          class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 
-                 motion-safe:animate-title-slide-up [text-wrap:balance]"
-          data-aos="fade-up"
-        >
-          {{ $t('home.hero.title') }}
-        </h1>
-        
-        <p 
-          class="text-xl md:text-2xl mb-8 text-gray-100 opacity-90 
-                 motion-safe:animate-content-slide-up [text-wrap:balance]"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          {{ $t('home.hero.subtitle') }}
-        </p>
-
-        <!-- Interactive Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 motion-safe:animate-cards-slide-up"
-             data-aos="fade-up"
-             data-aos-delay="400">
-          <NuxtLink 
-            v-for="(card, index) in serviceCards" 
-            :key="index"
-            :to="card.link"
-            class="group bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20 
-                   hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-glow"
-            @mousemove="handleCardHover"
-            @mouseleave="handleCardLeave"
-            :data-aos="'fade-up'"
-            :data-aos-delay="500 + (index * 100)"
-          >
-            <div class="relative overflow-hidden">
-              <Icon 
-                :name="card.icon" 
-                class="text-accent-400 mb-2 transform transition-transform duration-300 group-hover:scale-110" 
-                size="32" 
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column - Expert Info -->
+        <div class="order-2 lg:order-1">
+          <div class="flex flex-col lg:flex-row items-center gap-8 mb-12 motion-safe:animate-title-slide-up">
+            <div class="relative group">
+              <NuxtImg
+                format="webp"
+                width="192"
+                height="192" 
+                src="/images/angelika-seo.webp"
+                alt="Angelika Fruman"
+                class="w-48 h-48 rounded-2xl object-cover shadow-2xl transform group-hover:scale-105 transition-all duration-500"
               />
-              <div class="absolute inset-0 bg-gradient-to-r from-accent-400/0 to-accent-400/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-primary-900/50 to-transparent rounded-2xl"></div>
+              <!-- Experience Badge -->
+              <div class="absolute -right-4 -bottom-4 bg-white rounded-xl shadow-xl p-3 z-20 transform group-hover:translate-x-1 group-hover:translate-y-1 transition-all duration-500">
+                <div class="flex items-center gap-2">
+                  <Icon name="ph:clock-fill" class="text-primary-500" size="20" />
+                  <span class="font-semibold text-primary-900">15+ лет</span>
+                </div>
+              </div>
             </div>
-            <h3 class="text-lg font-semibold mb-1 group-hover:text-accent-400 transition-colors">{{ card.title }}</h3>
-            <p class="text-sm text-gray-200 opacity-80">{{ card.description }}</p>
-          </NuxtLink>
+            <div class="text-center lg:text-left">
+              <h2 class="text-3xl font-bold mb-2">Анжелика Фруман</h2>
+              <p class="text-xl text-accent-400 font-medium mb-2">CEO и Эксперт по визам</p>
+              <p class="text-gray-200 text-lg">Специалист по иммиграционному консалтингу</p>
+            </div>
+          </div>
+
+          <div class="space-y-6 mb-8">
+            <p 
+              class="text-xl md:text-2xl text-gray-100 opacity-90 
+                     motion-safe:animate-content-slide-up [text-wrap:balance]"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              Здравствуйте! Я — Анжелика Фруман, эксперт с более чем 15-летним опытом в оформлении виз и миграционной поддержке. Как основатель и CEO компании, я помогаю клиентам по всему миру успешно проходить визовые процессы. Моя миссия — сделать иммиграцию понятной, доступной и максимально эффективной.
+            </p>
+          </div>
+
+          <!-- TrustPilot Rating -->
+          <div class="flex items-center gap-6 mb-8 motion-safe:animate-content-slide-up p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+            <div class="flex items-center gap-3">
+              <Icon name="ph:star-fill" class="text-[#00b67a] w-8 h-8" />
+              <div>
+                <span class="text-2xl font-bold">4.6</span>
+                <span class="text-sm text-gray-300 ml-1">/ 5.0</span>
+              </div>
+            </div>
+            <div class="h-12 w-[1px] bg-white/20"></div>
+            <div>
+              <p class="font-medium">Проверенный эксперт</p>
+              <p class="text-sm text-gray-300">На основе 18 отзывов клиентов</p>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap gap-4 motion-safe:animate-buttons-slide-up">
+            <button 
+              class="btn bg-accent-500 hover:bg-accent-600 text-white group relative overflow-hidden"
+              @mousemove="handleMouseMove"
+              @mouseleave="handleMouseLeave"
+            >
+              <span class="relative z-10 flex items-center">
+                Записаться на консультацию
+                <Icon name="ph:calendar" class="ml-2 transform group-hover:scale-110 transition-transform" size="20" />
+              </span>
+              <div 
+                ref="buttonGlow" 
+                class="absolute inset-0 bg-white/20 blur-xl transition-transform duration-300 opacity-0 group-hover:opacity-100"
+              ></div>
+            </button>
+            <button 
+              class="btn bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 group"
+            >
+              <span class="flex items-center">
+                Связаться со мной
+                <Icon name="ph:phone" class="ml-2 transform group-hover:rotate-12 transition-transform" size="20" />
+              </span>
+            </button>
+          </div>
         </div>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-wrap gap-4 motion-safe:animate-buttons-slide-up">
-          <button 
-            class="btn bg-accent-500 hover:bg-accent-600 text-white group relative overflow-hidden"
-            @mousemove="handleMouseMove"
-            @mouseleave="handleMouseLeave"
-          >
-            <span class="relative z-10 flex items-center">
-              {{ $t('home.hero.cta') }}
-              <Icon name="ph:arrow-right" class="ml-2 transform group-hover:translate-x-1 transition-transform" size="20" />
-            </span>
+        <!-- Right Column - Service Cards -->
+        <div class="order-1 lg:order-2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 motion-safe:animate-cards-slide-up">
             <div 
-              ref="buttonGlow" 
-              class="absolute inset-0 bg-white/20 blur-xl transition-transform duration-300 opacity-0 group-hover:opacity-100"
-            ></div>
-          </button>
-          <button 
-            class="btn bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 group"
-          >
-            <span class="flex items-center">
-              {{ $t('common.contactUs') }}
-              <Icon name="ph:phone" class="ml-2 transform group-hover:rotate-12 transition-transform" size="20" />
-            </span>
-          </button>
+              v-for="(card, index) in serviceCards" 
+              :key="index"
+              class="group bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 
+                     hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-glow"
+              @mousemove="handleCardHover"
+              @mouseleave="handleCardLeave"
+              :data-aos="'fade-up'"
+              :data-aos-delay="500 + (index * 100)"
+            >
+              <div class="relative overflow-hidden">
+                <Icon 
+                  :name="card.icon" 
+                  class="text-accent-400 mb-4 transform transition-transform duration-300 group-hover:scale-110" 
+                  size="40" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-r from-accent-400/0 to-accent-400/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              </div>
+              <h3 class="text-xl font-semibold mb-2 group-hover:text-accent-400 transition-colors">{{ card.title }}</h3>
+              <p class="text-gray-200 opacity-80">{{ card.description }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -177,28 +215,28 @@ const handleCardLeave = (e) => {
 
 const serviceCards = [
   {
-    title: 'Учёба в США',
-    description: 'Программы обучения и студенческие визы',
-    icon: 'ph:student',
-    link: '/study'
+    title: 'EB-1 Visa',
+    description: 'Expert guidance for extraordinary ability visas',
+    icon: 'ph:star',
+    link: '/eb1'
   },
   {
-    title: 'Работа в США',
-    description: 'Рабочие визы и поиск работодателя',
-    icon: 'ph:briefcase',
-    link: '/work'
+    title: 'EB-2 NIW',
+    description: 'National Interest Waiver consultation',
+    icon: 'ph:flag',
+    link: '/eb2-niw'
   },
   {
-    title: 'Бизнес в США',
-    description: 'Открытие и покупка бизнеса',
+    title: 'Business Immigration',
+    description: 'L-1, E-2, and investor visas',
     icon: 'ph:buildings',
     link: '/business'
   },
   {
-    title: 'Гуманитарные программы',
-    description: 'Убежище и защита в США',
-    icon: 'ph:lifebuoy',
-    link: '/humanitarian'
+    title: 'Student Visas',
+    description: 'F-1 and M-1 visa assistance',
+    icon: 'ph:student',
+    link: '/study'
   }
 ];
 </script>
