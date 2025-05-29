@@ -35,8 +35,8 @@
     <div class="container-custom relative z-20">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column - Expert Info -->
-        <div class="order-2 lg:order-1">
-          <div class="flex flex-col lg:flex-row items-center gap-8 mb-12 motion-safe:animate-title-slide-up">
+        <div class="">
+          <div class="flex flex-col-reverse lg:flex-row items-center gap-8 mb-12 motion-safe:animate-title-slide-up">
             <div class="relative group">
               <NuxtImg
                 format="webp"
@@ -117,7 +117,7 @@
         </div>
 
         <!-- Right Column - Service Cards -->
-        <div class="order-1 lg:order-2">
+        <div class="">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 motion-safe:animate-cards-slide-up">
             <div 
               v-for="(card, index) in serviceCards" 
@@ -215,28 +215,28 @@ const handleCardLeave = (e) => {
 
 const serviceCards = [
   {
-    title: 'EB-1 Visa',
-    description: 'Expert guidance for extraordinary ability visas',
+    title: 'EB-1A Visa',
+    description: 'Грин-карта для людей с выдающимися достижениями — наука, искусство, спорт, бизнес',
     icon: 'ph:star',
-    link: '/eb1'
+    link: '/eb1a'
   },
   {
     title: 'EB-2 NIW',
-    description: 'National Interest Waiver consultation',
+    description: 'Грин-карта без работодателя — если ваша работа важна для интересов США',
     icon: 'ph:flag',
     link: '/eb2-niw'
   },
   {
-    title: 'Business Immigration',
-    description: 'L-1, E-2, and investor visas',
-    icon: 'ph:buildings',
-    link: '/business'
+    title: 'EB-3 Visa',
+    description: 'Грин-карта через работодателя — для квалифицированных специалистов и рабочих',
+    icon: 'ph:briefcase',
+    link: '/eb3'
   },
   {
-    title: 'Student Visas',
-    description: 'F-1 and M-1 visa assistance',
-    icon: 'ph:student',
-    link: '/study'
+    title: 'E-2 Visa',
+    description: 'Виза для малого инвестора — откройте бизнес в США и живите там',
+    icon: 'ph:currency-dollar',
+    link: '/e2'
   }
 ];
 </script>

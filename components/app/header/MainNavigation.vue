@@ -58,21 +58,6 @@
       </transition>
     </div>
     
-    <NuxtLink 
-      to="/blog" 
-      class="px-4 py-2 text-secondary-700 hover:text-primary-700 hover:bg-primary-50 rounded-md font-semibold transition-colors duration-200 flex items-center"
-    >
-      <Icon name="ph:newspaper" class="mr-2" size="20" />
-      {{ $t('header.blog') }}
-    </NuxtLink>
-    
-    <NuxtLink 
-      to="/contacts" 
-      class="px-4 py-2 text-secondary-700 hover:text-primary-700 hover:bg-primary-50 rounded-md font-semibold transition-colors duration-200 flex items-center"
-    >
-      <Icon name="ph:phone-call" class="mr-2" size="20" />
-      {{ $t('header.contacts') }}
-    </NuxtLink>
   </nav>
 </template>
 

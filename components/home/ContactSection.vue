@@ -39,37 +39,37 @@
             
             <ul class="space-y-6 relative">
               <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
+                <div class="w-12 h-12 min-w-12 min-h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
                   <Icon name="ph:map-pin" class="text-white" size="24" />
                 </div>
                 <div>
                   <div class="text-white opacity-80 text-sm mb-1">Наш офис:</div>
-                  <div class="font-medium">123 Business Street, New York, NY 10001</div>
+                  <div class="font-medium">6939 3030 NorthWest ExpressWay, STE, 200B Oklahoma city, OK 73112 USA</div>
                 </div>
               </li>
               
               <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
+                <div class="w-12 h-12 min-w-12 min-h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
                   <Icon name="ph:envelope" class="text-white" size="24" />
                 </div>
                 <div>
                   <div class="text-white opacity-80 text-sm mb-1">Email:</div>
-                  <a href="mailto:info@barristercorp.com" class="font-medium hover:underline">info@barristercorp.com</a>
+                  <a href="mailto:main@barristercorp.com" class="font-medium hover:underline">main@barristercorp.com</a>
                 </div>
               </li>
               
               <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
-                  <Icon name="ph:phone" class="text-white" size="24" />
+                <div class="w-12 h-12 min-w-12 min-h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
+                  <Icon name="ic:baseline-whatsapp" class="text-white" size="24" />
                 </div>
                 <div>
                   <div class="text-white opacity-80 text-sm mb-1">Телефон:</div>
-                  <a href="tel:+18001234567" class="font-medium hover:underline">+1 (800) 123-4567</a>
+                  <a href="https://api.whatsapp.com/send?phone=19362896191" class="font-medium hover:underline">+1 (936) 289‑6191</a>
                 </div>
               </li>
               
               <li class="flex items-center transform hover:translate-x-1 transition-transform" data-aos="fade-up" data-aos-delay="400">
-                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
+                <div class="w-12 h-12 min-w-12 min-h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 shadow-lg">
                   <Icon name="ph:clock" class="text-white" size="24" />
                 </div>
                 <div>
@@ -87,7 +87,7 @@
                   v-for="social in socialLinks" 
                   :key="social.name"
                   :href="social.url" 
-                  class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent-500 transition-colors"
+                  class="w-10 h-10 min-w-10 min-h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent-500 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -98,13 +98,13 @@
           </div>
           
           <!-- Map -->
-          <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300" data-aos="fade-up" data-aos-delay="600">
+          <!-- <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300" data-aos="fade-up" data-aos-delay="600">
             <img 
               src="https://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702,-74.011&key=YOUR_API_KEY" 
               alt="Map location" 
               class="w-full h-48 object-cover"
             />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -113,9 +113,7 @@
 
 <script setup>
 const socialLinks = [
-  { name: 'Facebook', icon: 'ph:facebook-logo', url: '#' },
-  { name: 'Instagram', icon: 'ph:instagram-logo', url: '#' },
-  { name: 'Twitter', icon: 'ph:twitter-logo', url: '#' },
-  { name: 'LinkedIn', icon: 'ph:linkedin-logo', url: '#' }
+  { name: 'Telegram', icon: 'ph:telegram-logo', url: 'https://t.me/barristercorp_us' },
+  { name: 'Instagram', icon: 'ph:instagram-logo', url: 'https://www.instagram.com/immigration_usa_angelika/' },
 ];
 </script> 

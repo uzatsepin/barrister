@@ -7,7 +7,7 @@
     </div>
 
     <div class="container-custom relative">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <!-- Image Column -->
         <div class="relative group" data-aos="fade-right">
           <!-- Main Image with Overlay -->
@@ -24,7 +24,7 @@
               <div class="flex items-center gap-3">
                 <Icon name="ph:certificate" class="text-primary-500 w-10 h-10" />
                 <div>
-                  <h3 class="font-semibold text-primary-900">Сертифицированный эксперт</h3>
+                  <h3 class="font-semibold text-primary-900">Эксперт по иммиграции в США</h3>
                   <p class="text-sm text-primary-600">Иммиграционное право и визовые процессы</p>
                 </div>
               </div>
@@ -65,8 +65,9 @@
           <div>
             <h4 class="text-primary-600 font-semibold mb-2">Обо мне</h4>
             <h2 class="text-3xl md:text-4xl font-bold text-secondary-800 mb-6">
-              Экспертиза, которая меняет жизни
+              Иммиграция в США — сложный процесс.
             </h2>
+            <p>Но он становится понятным и управляемым, если рядом есть тот, кто знает дорогу.</p>
           </div>
 
           <!-- Interactive Tabs -->
@@ -87,13 +88,40 @@
               </button>
             </div>
             
+            <!-- Fixed height container to prevent jumping -->
             <div class="prose prose-lg text-secondary-600">
-              <p class="mb-4" v-html="tabs[activeTab].content"></p>
+              <div class="mb-4" v-html="tabs[activeTab].content"></div>
+            </div>
+          </div>
+
+          <!-- Info Block -->
+          <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <Icon name="ph:info" class="w-6 h-6 text-amber-600 mt-1" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-amber-900 mb-3">Важная информация</h3>
+                <div class="space-y-2 text-amber-800">
+                  <p class="flex items-start gap-2">
+                    <span class="text-amber-600 mt-1">•</span>
+                    <span>Я не заменяю адвоката.</span>
+                  </p>
+                  <p class="flex items-start gap-2">
+                    <span class="text-amber-600 mt-1">•</span>
+                    <span>Я не даю юридические советы.</span>
+                  </p>
+                  <p class="flex items-start gap-2">
+                    <span class="text-amber-600 mt-1">•</span>
+                    <span>Я помогаю вам разобраться в системе, сделать ваш путь к США понятным и подготовленным — чтобы вы пришли к цели уверенно и без стресса.</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
           
           <!-- Expertise Areas -->
-          <div class="grid grid-cols-2 gap-6">
+          <!-- <div class="grid grid-cols-2 gap-6">
             <div 
               v-for="(area, index) in expertiseAreas" 
               :key="index"
@@ -116,7 +144,7 @@
               </div>
               <p class="text-secondary-600 text-sm">{{ area.description }}</p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -133,15 +161,94 @@ const activeAchievement = ref(null);
 const tabs = [
   {
     title: 'Опыт',
-    content: 'С более чем 15-летним опытом в сфере иммиграционного права и визовых процессов, я помогла тысячам клиентов осуществить их мечту о жизни и работе в США. Мой подход сочетает глубокую экспертизу с индивидуальным вниманием к каждому случаю.'
+    content: `
+      <div class="space-y-4">
+        <div class="mb-4">
+          <p class="text-lg leading-relaxed mb-4">
+            Меня зовут <strong class="text-primary-600">Анжелика Фруман</strong>, и уже более <strong>15 лет</strong> я работаю в сфере иммиграции в США. В течение этого времени я сотрудничала с различными американскими иммиграционными адвокатами в качестве паралигла и административного сотрудника.
+          </p>
+          <p class="text-lg leading-relaxed mb-4">
+            Моя роль заключалась в непосредственном взаимодействии с клиентами:
+          </p>
+          <ul class="list-disc list-inside space-y-2 ml-4 text-secondary-600">
+            <li>подготовке документов</li>
+            <li>заполнении форм</li>
+            <li>общении с иммиграционными ведомствами</li>
+            <li>поиске решений в нестандартных ситуациях</li>
+          </ul>
+          <p class="text-lg leading-relaxed mt-4">
+            Этот опыт позволил мне глубоко понять, как устроены юридические процессы изнутри, и выявить, что действительно важно для клиентов: <em class="text-primary-600 font-medium">простота, поддержка и ощущение, что о них заботятся</em>.
+          </p>
+        </div>
+      </div>
+    `
   },
   {
     title: 'Миссия',
-    content: 'Я основала эту компанию с четкой миссией: сделать иммиграционный процесс прозрачным, эффективным и успешным для каждого клиента. Независимо от того, ищете ли вы визу EB-1, планируете учиться в США или хотите открыть здесь свой бизнес, я и моя команда готовы поддержать вас на каждом этапе.'
+    content: `
+      <div class="space-y-4">
+        <div class="mb-4">
+          <p class="text-lg leading-relaxed mb-4">
+            Моя миссия — создать пространство, где каждый, кто мечтает о жизни в США, получает <strong class="text-primary-600">ясность, поддержку и реальный план действий</strong>. Я стремлюсь объединить всё необходимое в одном месте:
+          </p>
+          <ul class="list-disc list-inside space-y-2 ml-4 text-secondary-600 mb-4">
+            <li>от подбора визы и подготовки документов</li>
+            <li>до консультаций, образования</li>
+            <li>и пошагового сопровождения</li>
+          </ul>
+          <div class="bg-primary-50 border-l-4 border-primary-500 p-4 rounded-r-lg">
+            <p class="text-lg leading-relaxed">
+              Я верю, что иммиграция не должна быть хаотичной и пугающей. Она может быть <em class="text-primary-600 font-medium">понятной, законной и максимально эффективной</em>. Моя цель — чтобы ваш путь к иммиграции был осознанным и начался правильно.
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   },
   {
     title: 'Подход',
-    content: 'Мой подход основан на трех принципах: индивидуальное внимание к каждому случаю, прозрачность всех процессов и постоянная поддержка клиента. Я лично курирую каждый случай и всегда доступна для своих клиентов.'
+    content: `
+      <div class="space-y-6">
+        <div class="mb-6">
+          <p class="text-lg leading-relaxed mb-6">
+            Я понимаю, что каждый клиент уникален, со своими потребностями, целями и финансовыми возможностями. Поэтому я предлагаю <strong class="text-primary-600">различные форматы сопровождения</strong>, чтобы каждый мог выбрать наиболее подходящий для себя:
+          </p>
+          
+          <div class="grid gap-4">
+            <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <h4 class="font-semibold text-primary-600 mb-2">Чек-лист</h4>
+              <p class="text-secondary-600">если вы только начинаете и хотите понять, с чего начать.</p>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <h4 class="font-semibold text-primary-600 mb-2">Сделай сам</h4>
+              <p class="text-secondary-600">если вы готовы идти самостоятельно, но с чёткими инструкциями.</p>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <h4 class="font-semibold text-primary-600 mb-2">Сопровождение эксперта</h4>
+              <p class="text-secondary-600">если вам нужна поддержка на каждом этапе.</p>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <h4 class="font-semibold text-primary-600 mb-2">Бот-помощник</h4>
+              <p class="text-secondary-600">если вы предпочитаете автоматизированное пошаговое руководство 24/7.</p>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <h4 class="font-semibold text-primary-600 mb-2">Сопровождение иммиграционным адвокатом</h4>
+              <p class="text-secondary-600">если требуется полное юридическое представительство.</p>
+            </div>
+          </div>
+          
+          <div class="mt-6 bg-accent-50 border-l-4 border-accent-500 p-4 rounded-r-lg">
+            <p class="text-lg leading-relaxed">
+              Мой подход основан на <strong class="text-accent-600">честности, доступности и уважении к вашему выбору</strong>. Я стремлюсь быть рядом на каждом этапе вашего пути, обеспечивая поддержку и уверенность в каждом шаге.
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   }
 ];
 

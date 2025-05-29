@@ -10,15 +10,18 @@
     <!-- Main Content -->
     <div class="container-custom relative pt-20 pb-12">
       <!-- Main Footer Content -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-12 mb-16">
         <!-- Company Info -->
         <div class="lg:col-span-4" data-aos="fade-up">
           <div class="mb-8">
-            <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400 inline-block">
+            <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-300">
               BarristerCorp
             </h2>
             <p class="mt-4 text-gray-300 leading-relaxed">
-              {{ $t('home.about.description') }}
+              Barrister — это не «подача». Это путь.
+            </p>  
+            <p class="text-gray-300 leading-relaxed">
+              С планом. С поддержкой. С результатом.
             </p>
           </div>
 
@@ -30,17 +33,17 @@
               </div>
               <div class="flex-1">
                 <h4 class="text-sm font-medium text-gray-300">Адрес</h4>
-                <p class="text-white">123 Business Street, New York, NY 10001</p>
+                <p class="text-white">6939 3030 NorthWest ExpressWay, STE, 200B Oklahoma city, OK 73112 USA</p>
               </div>
             </div>
 
             <div class="flex items-center group">
               <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center mr-3 group-hover:bg-primary-500/20 transition-colors">
-                <Icon name="ph:phone" class="text-primary-400" size="20" />
+                <Icon name="ic:baseline-whatsapp" class="text-primary-400" size="20" />
               </div>
               <div class="flex-1">
                 <h4 class="text-sm font-medium text-gray-300">Телефон</h4>
-                <a href="tel:+18001234567" class="text-white hover:text-primary-400 transition-colors">+1 (800) 123-4567</a>
+                <a href="https://api.whatsapp.com/send?phone=19362896191" class="text-white hover:text-primary-400 transition-colors">+1 (936) 289‑6191</a>
               </div>
             </div>
 
@@ -50,7 +53,7 @@
               </div>
               <div class="flex-1">
                 <h4 class="text-sm font-medium text-gray-300">Email</h4>
-                <a href="mailto:info@barristercorp.com" class="text-white hover:text-primary-400 transition-colors">info@barristercorp.com</a>
+                <a href="mailto:main@barristercorp.com" class="text-white hover:text-primary-400 transition-colors">main@barristercorp.com</a>
               </div>
             </div>
           </div>
@@ -112,7 +115,7 @@
         </div>
 
         <!-- Newsletter -->
-        <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="400">
+        <!-- <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="400">
           <h3 class="text-lg font-semibold mb-6 flex items-center">
             <Icon name="ph:envelope" class="mr-2 text-primary-400" size="24" />
             Подписка
@@ -135,7 +138,7 @@
               <Icon name="ph:paper-plane-right" class="ml-2 transform group-hover:translate-x-1 transition-transform" size="18" />
             </button>
           </form>
-        </div>
+        </div> -->
       </div>
 
       <!-- Social Links -->
@@ -188,10 +191,8 @@ const subscribeNewsletter = () => {
 };
 
 const socialLinks = [
-  { name: 'Facebook', icon: 'ph:facebook-logo', url: '#' },
-  { name: 'Instagram', icon: 'ph:instagram-logo', url: '#' },
-  { name: 'Twitter', icon: 'ph:twitter-logo', url: '#' },
-  { name: 'LinkedIn', icon: 'ph:linkedin-logo', url: '#' }
+  { name: 'Telegram', icon: 'ph:telegram-logo', url: 'https://t.me/barristercorp_us' },
+  { name: 'Instagram', icon: 'ph:instagram-logo', url: 'https://www.instagram.com/immigration_usa_angelika/' },
 ];
 
 const studyLinks = [

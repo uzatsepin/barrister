@@ -24,7 +24,7 @@
               </div>
               <div>
                 <div class="font-semibold text-lg mb-1">Наш офис:</div>
-                <div class="text-gray-200">123 Business Street, New York, NY 10001</div>
+                <div class="text-gray-200">6939 3030 NorthWest ExpressWay, STE, 200B Oklahoma city, OK 73112 USA</div>
               </div>
             </div>
             
@@ -34,7 +34,7 @@
               </div>
               <div>
                 <div class="font-semibold text-lg mb-1">Email:</div>
-                <div class="text-gray-200">info@barristercorp.com</div>
+                <div class="text-gray-200">main@barristercorp.com</div>
               </div>
             </div>
             
@@ -44,7 +44,7 @@
               </div>
               <div>
                 <div class="font-semibold text-lg mb-1">Телефон:</div>
-                <div class="text-gray-200">+1 (800) 123-4567</div>
+                <div class="text-gray-200">+1 (936) 289‑6191</div>
               </div>
             </div>
             
@@ -66,17 +66,11 @@
           <div>
             <div class="font-semibold text-lg mb-3">Социальные сети:</div>
             <div class="flex space-x-4">
-              <a href="#" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
-                <Icon name="ph:facebook-logo" size="24" />
+              <a href="https://t.me/barristercorp_us" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
+                <Icon name="ph:telegram-logo" size="24" />
               </a>
-              <a href="#" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
+              <a href="https://www.instagram.com/immigration_usa_angelika/" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
                 <Icon name="ph:instagram-logo" size="24" />
-              </a>
-              <a href="#" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
-                <Icon name="ph:twitter-logo" size="24" />
-              </a>
-              <a href="#" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
-                <Icon name="ph:linkedin-logo" size="24" />
               </a>
             </div>
           </div>

@@ -3,6 +3,7 @@
     <HomeHeroSection />
     <HomeServicesSection />
     <HomeAboutSection />
+    <HomeAboutCompanySection />
     <HomeTestimonialsSection />
     <HomeBlogSection />
     <HomeContactSection />
