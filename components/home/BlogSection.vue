@@ -40,7 +40,7 @@
               </div>
             </div>
             <div class="p-6 md:p-8 flex flex-col justify-center">
-              <div class="mb-2 flex items-center">
+              <div class="mb-2 flex items-center flex-wrap gap-2">
                 <span
                   class="bg-primary-100 text-primary-600 px-2 py-1 rounded text-xs font-medium"
                 >

@@ -20,7 +20,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-primary-900/50 via-primary-900/20 to-transparent"></div>
             
             <!-- Expertise Badge -->
-            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 transform group-hover:translate-y-[-8px] transition-all duration-500">
+            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-2 md:p-4 transform group-hover:translate-y-[-8px] transition-all duration-500">
               <div class="flex items-center gap-3">
                 <Icon name="ph:certificate" class="text-primary-500 w-10 h-10" />
                 <div>
@@ -32,7 +32,7 @@
           </div>
 
           <!-- Interactive Achievement Cards -->
-          <div class="absolute -right-6 top-1/4 space-y-4">
+          <div class="hidden lg:blockabsolute -right-6 top-1/4 space-y-4">
             <div 
               v-for="(achievement, index) in achievements"
               :key="index"

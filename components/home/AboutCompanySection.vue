@@ -152,14 +152,14 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <NuxtLink 
             to="/consultation" 
-            class="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl"
+            class="inline-flex justify-center items-center gap-2 px-8 py-4 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl"
           >
             Получить консультацию
             <Icon name="ph:arrow-right" class="w-5 h-5" />
           </NuxtLink>
           <NuxtLink 
             to="/services" 
-            class="inline-flex items-center gap-2 px-8 py-4 bg-white border-2 border-primary-600 text-primary-600 rounded-full font-semibold hover:bg-primary-50 transition-colors"
+            class="inline-flex justify-center items-center gap-2 px-8 py-4 bg-white border-2 border-primary-600 text-primary-600 rounded-full font-semibold hover:bg-primary-50 transition-colors"
           >
             Узнать о услугах
             <Icon name="ph:list" class="w-5 h-5" />
