@@ -46,4 +46,84 @@
   .card {
     @apply bg-white rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl overflow-hidden;
   }
+
+  /* Стили для контента из Directus */
+  .directus-content {
+    @apply text-gray-700 text-lg leading-relaxed;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .directus-content h1 {
+    @apply text-4xl font-bold text-gray-900 mb-8 mt-12;
+  }
+
+  .directus-content h2 {
+    @apply text-3xl font-bold text-gray-900 mb-6 mt-10;
+  }
+
+  .directus-content h3 {
+    @apply text-2xl font-bold text-gray-900 mb-4 mt-8;
+  }
+
+  .directus-content h4 {
+    @apply text-xl font-semibold text-gray-900 mb-4 mt-6;
+  }
+
+  .directus-content h5 {
+    @apply text-lg font-semibold text-gray-900 mb-3 mt-5;
+  }
+
+  .directus-content h6 {
+    @apply text-base font-semibold text-gray-900 mb-3 mt-4;
+  }
+
+  .directus-content p {
+    @apply mb-6 text-lg leading-relaxed text-gray-700;
+  }
+
+  .directus-content ul {
+    @apply mb-6 pl-6 space-y-2;
+  }
+
+  .directus-content ol {
+    @apply mb-6 pl-6 space-y-2;
+  }
+
+  .directus-content li {
+    @apply mb-2 text-lg leading-relaxed text-gray-700;
+  }
+
+  .directus-content a {
+    @apply text-primary-600 hover:text-primary-700 underline font-medium;
+  }
+
+  .directus-content strong {
+    @apply font-semibold text-gray-900;
+  }
+
+  .directus-content em {
+    @apply italic;
+  }
+
+  .directus-content hr {
+    @apply my-8 border-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent;
+  }
+
+  .directus-content blockquote {
+    @apply border-l-4 border-primary-600 pl-6 italic text-gray-600 my-6 bg-gray-50 py-4 rounded-r-lg;
+  }
+
+  .directus-content img {
+    @apply rounded-lg shadow-md my-6 max-w-full h-auto;
+  }
+
+  /* Первый элемент без верхнего отступа */
+  .directus-content > *:first-child {
+    @apply mt-0;
+  }
+
+  /* Последний элемент без нижнего отступа */
+  .directus-content > *:last-child {
+    @apply mb-0;
+  }
 }

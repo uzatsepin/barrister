@@ -202,12 +202,12 @@ const mainMenuItems = [
           },
           {
             label: "Высшее образование",
-            to: "/study/courses/children",
+            to: "/study/courses/highdegree",
             icon: "ph:graduation-cap",
           },
           {
             label: "Студенческие визы",
-            to: "/study/courses/children",
+            to: "/study/courses/students",
             icon: "ph:identification-card",
           },
         ],

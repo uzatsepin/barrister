@@ -11,6 +11,31 @@ export default defineNuxtConfig({
     'nuxt-aos',
     '@nuxt/image'
   ],
+  
+  // Настройки для работы с внешними API
+  nitro: {
+    routeRules: {
+      '/api/**': { 
+        cors: true,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        }
+      }
+    }
+  },
+  
+  // Настройки SSR для внешних запросов
+  ssr: true,
+  
+  // Настройки runtimeConfig для API
+  runtimeConfig: {
+    public: {
+      directusUrl: 'https://api.barrister.guru'
+    }
+  },
+  
   app: {
     head: {
       title: 'BarristerCorp - Иммиграция и образование в США',
