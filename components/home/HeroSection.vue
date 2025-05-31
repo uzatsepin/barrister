@@ -6,10 +6,11 @@
       @mousemove="handleParallax"
     >
       <div class="absolute inset-0 bg-gradient-to-r from-primary-900/90 to-primary-700/90 z-10"></div>
-      <img 
+      <NuxtImg 
         ref="parallaxBg"
-        src="https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+        src="/images/main-bg.webp" 
         alt="США" 
+        format="webp"
         class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
       />
     </div>

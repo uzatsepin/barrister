@@ -19,7 +19,7 @@
 
         <!-- Desktop Menu -->
         <MainNavigation
-          :menu-items="mainMenuItems"
+          :menu-items="dynamicMenuItems"
           @menu-hover="(item) => console.log('Menu hover:', item)"
           @menu-click="(item) => console.log('Menu click:', item)"
         />
@@ -114,7 +114,7 @@
             </a>
           </div>
 
-          <MobileMenu :menu-items="mainMenuItems" @close="closeMobileMenu" />
+          <MobileMenu :menu-items="dynamicMenuItems" @close="closeMobileMenu" />
 
           <!-- Mobile Actions -->
           <div class="mt-6 space-y-4 pb-24">
@@ -147,7 +147,7 @@
 </template>
 
 <script setup>
-import { ref, provide, onMounted, watch } from "vue";
+import { ref, provide, onMounted, watch, computed } from "vue";
 import TopBar from "./header/TopBar.vue";
 import MainNavigation from "./header/MainNavigation.vue";
 import MobileMenu from "./header/MobileMenu.vue";
@@ -157,6 +157,9 @@ console.log("Header component initializing...");
 
 const isMobileMenuOpen = ref(false);
 const isSearchOpen = ref(false);
+
+// Используем composable для работы с меню
+const { menuItems, loading: menuLoading, loadMenu, hasMenuData } = useMenu()
 
 // Watch for mobile menu state to toggle body scroll
 watch(isMobileMenuOpen, (isOpen) => {
@@ -171,10 +174,75 @@ watch(isMobileMenuOpen, (isOpen) => {
 provide("isMobileMenuOpen", isMobileMenuOpen);
 provide("isSearchOpen", isSearchOpen);
 
-const mainMenuItems = [
+// Преобразуем формат меню из Directus в формат компонентов
+const dynamicMenuItems = computed(() => {
+  if (!hasMenuData.value) return fallbackMenuItems
+  
+  return menuItems.value.map(section => transformMenuSection(section))
+})
+
+// Функция для преобразования раздела меню
+const transformMenuSection = (section) => {
+  return {
+    key: section.slug,
+    label: section.title,
+    to: `/${section.slug}`,
+    icon: getSectionIcon(section.slug),
+    children: section.categories?.map(category => transformMenuCategory(category, section.slug)) || []
+  }
+}
+
+// Функция для преобразования категории меню
+const transformMenuCategory = (category, sectionSlug) => {
+  return {
+    label: category.title,
+    icon: getCategoryIcon(category.slug),
+    children: category.pages?.map(page => ({
+      label: page.title,
+      to: page.full_path,
+      icon: getPageIcon(page.type)
+    })) || []
+  }
+}
+
+// Функции для получения иконок (можно настроить по желанию)
+const getSectionIcon = (sectionSlug) => {
+  const icons = {
+    study: 'ph:student',
+    work: 'ph:briefcase', 
+    business: 'ph:building-office',
+    humanitarian: 'ph:shield-check',
+    estate: 'ph:house'
+  }
+  return icons[sectionSlug] || 'ph:circle'
+}
+
+const getCategoryIcon = (categorySlug) => {
+  const icons = {
+    'formats': 'ph:monitor',
+    'courses': 'ph:books',
+    'degree': 'ph:graduation-cap',
+    'temporary': 'ph:clock',
+    'permanent': 'ph:calendar',
+    'employer': 'ph:magnifying-glass',
+    'temp': 'ph:lightning',
+    'perm': 'ph:shield-check',
+    'services': 'ph:gear',
+    'humanitarian': 'ph:heart',
+    'estate': 'ph:house'
+  }
+  return icons[categorySlug] || 'ph:folder'
+}
+
+const getPageIcon = (pageType) => {
+  return pageType === 'page' ? 'ph:file-text' : 'ph:circle'
+}
+
+// Fallback меню на случай если Directus недоступен
+const fallbackMenuItems = [
   {
     key: "study",
-    label: "header.study",
+    label: "Учёба в США",
     to: "/study",
     icon: "ph:student",
     children: [
@@ -182,69 +250,23 @@ const mainMenuItems = [
         label: "Форматы обучения",
         icon: "ph:monitor",
         children: [
-          { label: "Онлайн", to: "/study/online", icon: "ph:desktop" },
-          { label: "Офлайн", to: "/study/offline", icon: "ph:buildings" },
+          { label: "Онлайн", to: "/study/formats/online", icon: "ph:desktop" },
+          { label: "Оффлайн", to: "/study/formats/offline", icon: "ph:buildings" },
         ],
       },
       {
         label: "Курсы",
         icon: "ph:books",
         children: [
-          {
-            label: "Языковые курсы",
-            to: "/study/courses/language",
-            icon: "ph:translate",
-          },
-          {
-            label: "Профессиональные курсы",
-            to: "/study/courses/professional",
-            icon: "ph:certificate",
-          },
-          {
-            label: "Высшее образование",
-            to: "/study/courses/highdegree",
-            icon: "ph:graduation-cap",
-          },
-          {
-            label: "Студенческие визы",
-            to: "/study/courses/students",
-            icon: "ph:identification-card",
-          },
-        ],
-      },
-      {
-        label: "Академическая степень",
-        icon: "ph:graduation-cap",
-        children: [
-          { label: "Bachelor (BA)", to: "/study/degree/bachelor" },
-          { label: "Master (MBA)", to: "/study/degree/master" },
-          { label: "PhD", to: "/study/degree/phd" },
-        ],
-      },
-      {
-        label: "study.visa",
-        icon: "ph:identification-card",
-        children: [
-          { label: "Чек-лист", to: "/study/visa/checklist", icon: "ph:check-square" },
-          { label: "Сделай сам", to: "/study/visa/self-service", icon: "ph:user-gear" },
-          {
-            label: "Сопровождение паралегала",
-            to: "/study/visa/paralegal",
-            icon: "ph:scales",
-          },
-          {
-            label: "Сопровождение паралегала и адвоката",
-            to: "/study/visa/attorney",
-            icon: "ph:gavel",
-          },
-          { label: "Бот", to: "/study/visa/chatbot", icon: "ph:robot" },
+          { label: "Языковые курсы", to: "/study/courses/language", icon: "ph:translate" },
+          { label: "Профессиональные курсы", to: "/study/courses/professional", icon: "ph:certificate" },
         ],
       },
     ],
   },
   {
-    key: "Работа в США",
-    label: "header.work",
+    key: "work",
+    label: "Работа в США",
     to: "/work",
     icon: "ph:briefcase",
     children: [
@@ -252,193 +274,15 @@ const mainMenuItems = [
         label: "Временная работа",
         icon: "ph:clock",
         children: [
-          { label: "O-1 — Выдающиеся способности", to: "/work/temporary/o1" },
-          { label: "H-1B — Для специалистов", to: "/work/temporary/h1b" },
-          { label: "R-1 — Религиозные работники", to: "/work/temporary/r1" },
-          { label: "J-1 — Обмен и стажировка", to: "/work/temporary/j1" },
-        ],
-      },
-      {
-        label: "Постоянная работа",
-        icon: "ph:house",
-        children: [
-          { label: "EB-1", to: "/work/permanent/eb1" },
-          { label: "EB-2", to: "/work/permanent/eb2" },
-          { label: "EB-3", to: "/work/permanent/eb3" },
-          { label: "EB-4", to: "/work/permanent/eb4" },
-        ],
-      },
-      {
-        label: "Поиск работы",
-        icon: "ph:plus-circle",
-        children: [
-          { label: "Квалифицированный труд", to: "/work/employer/qualified" },
-          { label: "Неквалифицированный труд", to: "/work/employer/unqualified" },
-        ],
-      },
-      {
-        label: "Дополнительные услуги",
-        icon: "ph:identification-card",
-        children: [
-          { label: "Чек-лист", to: "/study/visa/checklist", icon: "ph:check-square" },
-          { label: "Сделай сам", to: "/study/visa/self-service", icon: "ph:user-gear" },
-          {
-            label: "Сопровождение паралегала",
-            to: "/study/visa/paralegal",
-            icon: "ph:scales",
-          },
-          {
-            label: "Сопровождение паралегала и адвоката",
-            to: "/study/visa/attorney",
-            icon: "ph:gavel",
-          },
-          { label: "Бот", to: "/study/visa/chatbot", icon: "ph:robot" },
-        ],
-      },
-    ],
-  },
-  {
-    key: "Бизнес в США",
-    label: "header.business",
-    to: "/business",
-    icon: "ph:buildings",
-    children: [
-      {
-        label: "Временные визы",
-        icon: "ph:clock",
-        children: [
-          { label: "L-1", to: "/business/temp/l1" },
-          { label: "E-2", to: "/business/temp/e2" },
-        ],
-      },
-      {
-        label: "Постоянные визы",
-        icon: "ph:house",
-        children: [
-          { label: "EB-1 (через бизнес)", to: "/business/perm/eb1" },
-          { label: "EB-5 (инвестиционный)", to: "/business/perm/eb5" },
-        ],
-      },
-      {
-        label: "Дополнительный сервис",
-        icon: "ph:plus-circle",
-        children: [
-          {
-            label: "business.registration",
-            to: "/business/services/registration",
-            icon: "ph:file-text",
-          },
-          {
-            label: "business.bankAccount",
-            to: "/business/services/bank-account",
-            icon: "ph:bank",
-          },
-          {
-            label: "business.purchase",
-            to: "/business/services/purchase",
-            icon: "ph:handshake",
-          },
-        ],
-      },
-      {
-        label: "Дополнительные услуги",
-        icon: "ph:identification-card",
-        children: [
-          { label: "Чек-лист", to: "/study/visa/checklist", icon: "ph:check-square" },
-          { label: "Сделай сам", to: "/study/visa/self-service", icon: "ph:user-gear" },
-          {
-            label: "Сопровождение паралегала",
-            to: "/study/visa/paralegal",
-            icon: "ph:scales",
-          },
-          {
-            label: "Сопровождение паралегала и адвоката",
-            to: "/study/visa/attorney",
-            icon: "ph:gavel",
-          },
-          { label: "Бот", to: "/study/visa/chatbot", icon: "ph:robot" },
-        ],
-      },
-    ],
-  },
-  {
-    key: "humanitarian",
-    label: "Защита и статус",
-    to: "/humanitarian",
-    icon: "ph:lifebuoy",
-    children: [
-      {
-        label: "Защита и статус",
-        icon: "ph:heart",
-        children: [
-          { label: "humanitarian.asylum", to: "/humanitarian/asylum", icon: "ph:shield" },
-          {
-            label: "humanitarian.refugee",
-            to: "/humanitarian/refugee",
-            icon: "ph:users",
-          },
-          { label: "humanitarian.tps", to: "/humanitarian/tps", icon: "ph:flag" },
-        ],
-      },
-      {
-        label: "Дополнительные услуги",
-        icon: "ph:identification-card",
-        children: [
-          { label: "Чек-лист", to: "/study/visa/checklist", icon: "ph:check-square" },
-          { label: "Сделай сам", to: "/study/visa/self-service", icon: "ph:user-gear" },
-          {
-            label: "Сопровождение паралегала",
-            to: "/study/visa/paralegal",
-            icon: "ph:scales",
-          },
-          {
-            label: "Сопровождение паралегала и адвоката",
-            to: "/study/visa/attorney",
-            icon: "ph:gavel",
-          },
-          { label: "Бот", to: "/study/visa/chatbot", icon: "ph:robot" },
-        ],
-      },
-    ],
-  },
-  {
-    key: "estate",
-    label: "Недвижимость в США",
-    to: "/estate",
-    icon: "ph:house",
-    children: [
-      {
-        label: "Недвижимость в США",
-        icon: "ph:heart",
-        children: [
-          { label: "Для инвестиций", to: "/estate/investment", icon: "ph:bank" },
-          { label: "Для проживания", to: "/estate/life", icon: "ph:house" },
-        ],
-      },
-      {
-        label: "Дополнительные услуги",
-        icon: "ph:identification-card",
-        children: [
-          { label: "Чек-лист", to: "/study/visa/checklist", icon: "ph:check-square" },
-          { label: "Сделай сам", to: "/study/visa/self-service", icon: "ph:user-gear" },
-          {
-            label: "Сопровождение паралегала",
-            to: "/study/visa/paralegal",
-            icon: "ph:scales",
-          },
-          {
-            label: "Сопровождение паралегала и адвоката",
-            to: "/study/visa/attorney",
-            icon: "ph:gavel",
-          },
-          { label: "Бот", to: "/study/visa/chatbot", icon: "ph:robot" },
+          { label: "O-1 — Выдающиеся способности", to: "/work/temporary/o1", icon: "ph:star" },
+          { label: "H-1B — Для специалистов", to: "/work/temporary/h1b", icon: "ph:graduation-cap" },
         ],
       },
     ],
   },
 ];
 
-console.log("Main menu items:", mainMenuItems);
+console.log("Dynamic menu items computed:", dynamicMenuItems);
 
 const toggleMobileMenu = () => {
   console.log("Toggling mobile menu");
@@ -464,7 +308,15 @@ const closeSearch = () => {
   isSearchOpen.value = false;
 };
 
-onMounted(() => {
+onMounted(async () => {
   console.log("Header component mounted");
+  
+  // Загружаем меню при инициализации
+  try {
+    await loadMenu()
+    console.log("Menu loaded successfully:", menuItems.value)
+  } catch (error) {
+    console.error("Failed to load menu, using fallback:", error)
+  }
 });
 </script>

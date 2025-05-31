@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   
   const directusUrl = `${config.public.directusUrl}/${path}`
+  
   try {
     const response = await $fetch(directusUrl, {
       method: getMethod(event),
@@ -16,11 +17,16 @@ export default defineEventHandler(async (event) => {
     })
     
     return response
-  } catch (error) {
-    console.error('Directus proxy error:', error)
+  } catch (error: any) {
+    console.error('Directus proxy error:', {
+      status: error.status || error.statusCode,
+      message: error.message,
+      url: directusUrl
+    })
+    
     throw createError({
-      statusCode: 500,
-      statusMessage: 'Failed to fetch from Directus'
+      statusCode: error.status || error.statusCode || 500,
+      statusMessage: `Directus API error: ${error.message || 'Unknown error'}`
     })
   }
 }) 

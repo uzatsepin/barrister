@@ -49,81 +49,152 @@
 
   /* Стили для контента из Directus */
   .directus-content {
-    @apply text-gray-700 text-lg leading-relaxed;
-    font-family: 'DM Sans', sans-serif;
+    @apply text-gray-800 leading-relaxed;
   }
 
+  /* Заголовки */
   .directus-content h1 {
-    @apply text-4xl font-bold text-gray-900 mb-8 mt-12;
+    @apply text-3xl font-bold text-gray-900 mb-6 mt-8 first:mt-0;
   }
 
   .directus-content h2 {
-    @apply text-3xl font-bold text-gray-900 mb-6 mt-10;
+    @apply text-2xl font-bold text-gray-900 mb-4 mt-6 first:mt-0;
   }
 
   .directus-content h3 {
-    @apply text-2xl font-bold text-gray-900 mb-4 mt-8;
+    @apply text-xl font-semibold text-gray-900 mb-3 mt-5 first:mt-0;
   }
 
   .directus-content h4 {
-    @apply text-xl font-semibold text-gray-900 mb-4 mt-6;
+    @apply text-lg font-semibold text-gray-900 mb-2 mt-4 first:mt-0;
   }
 
   .directus-content h5 {
-    @apply text-lg font-semibold text-gray-900 mb-3 mt-5;
+    @apply text-base font-semibold text-gray-900 mb-2 mt-3 first:mt-0;
   }
 
   .directus-content h6 {
-    @apply text-base font-semibold text-gray-900 mb-3 mt-4;
+    @apply text-sm font-semibold text-gray-900 mb-2 mt-3 first:mt-0;
   }
 
+  /* Параграфы */
   .directus-content p {
-    @apply mb-6 text-lg leading-relaxed text-gray-700;
+    @apply mb-4 text-gray-700 leading-7;
   }
 
+  /* Списки */
   .directus-content ul {
-    @apply mb-6 pl-6 space-y-2;
+    @apply mb-4 pl-6 space-y-2;
   }
 
   .directus-content ol {
-    @apply mb-6 pl-6 space-y-2;
+    @apply mb-4 pl-6 space-y-2;
   }
 
   .directus-content li {
-    @apply mb-2 text-lg leading-relaxed text-gray-700;
+    @apply text-gray-700 leading-6;
   }
 
+  .directus-content ul > li {
+    @apply relative;
+  }
+
+  .directus-content ul > li::before {
+    content: "•";
+    @apply absolute -left-4 text-primary-600 font-bold;
+  }
+
+  .directus-content ol {
+    counter-reset: list-counter;
+  }
+
+  .directus-content ol > li {
+    counter-increment: list-counter;
+    @apply relative;
+  }
+
+  .directus-content ol > li::before {
+    content: counter(list-counter) ".";
+    @apply absolute -left-6 text-primary-600 font-semibold min-w-4;
+  }
+
+  /* Вложенные списки */
+  .directus-content ul ul,
+  .directus-content ol ol,
+  .directus-content ul ol,
+  .directus-content ol ul {
+    @apply mt-2 mb-0;
+  }
+
+  /* Разделители */
+  .directus-content hr {
+    @apply my-8 border-t border-gray-200;
+  }
+
+  /* Ссылки */
   .directus-content a {
-    @apply text-primary-600 hover:text-primary-700 underline font-medium;
+    @apply text-primary-600 hover:text-primary-700 underline font-medium transition-colors;
   }
 
+  /* Жирный и курсивный текст */
   .directus-content strong {
-    @apply font-semibold text-gray-900;
+    @apply font-bold text-gray-900;
   }
 
   .directus-content em {
     @apply italic;
   }
 
-  .directus-content hr {
-    @apply my-8 border-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent;
-  }
-
+  /* Цитаты */
   .directus-content blockquote {
-    @apply border-l-4 border-primary-600 pl-6 italic text-gray-600 my-6 bg-gray-50 py-4 rounded-r-lg;
+    @apply border-l-4 border-primary-200 pl-4 py-2 my-4 bg-gray-50 italic text-gray-700;
   }
 
+  /* Код */
+  .directus-content code {
+    @apply bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .directus-content pre {
+    @apply bg-gray-900 text-white p-4 rounded-lg overflow-x-auto my-4;
+  }
+
+  .directus-content pre code {
+    @apply bg-transparent text-white p-0;
+  }
+
+  /* Таблицы */
+  .directus-content table {
+    @apply w-full border-collapse border border-gray-300 my-6 bg-white rounded-lg overflow-hidden shadow-sm;
+  }
+
+  .directus-content thead {
+    @apply bg-gray-50;
+  }
+
+  .directus-content th {
+    @apply border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900 bg-gray-100;
+  }
+
+  .directus-content td {
+    @apply border border-gray-300 px-4 py-3 text-gray-700;
+  }
+
+  .directus-content tbody tr:nth-child(even) {
+    @apply bg-gray-50;
+  }
+
+  .directus-content tbody tr:hover {
+    @apply bg-blue-50;
+  }
+
+  /* Изображения */
   .directus-content img {
-    @apply rounded-lg shadow-md my-6 max-w-full h-auto;
+    @apply max-w-full h-auto rounded-lg shadow-sm my-4;
   }
 
-  /* Первый элемент без верхнего отступа */
-  .directus-content > *:first-child {
-    @apply mt-0;
-  }
-
-  /* Последний элемент без нижнего отступа */
-  .directus-content > *:last-child {
-    @apply mb-0;
+  /* Выделение */
+  .directus-content mark {
+    @apply bg-yellow-200 text-yellow-900 px-1 rounded;
   }
 }
