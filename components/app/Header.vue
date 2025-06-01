@@ -158,8 +158,8 @@ console.log("Header component initializing...");
 const isMobileMenuOpen = ref(false);
 const isSearchOpen = ref(false);
 
-// Используем composable для работы с меню
-const { menuItems, loading: menuLoading, loadMenu, hasMenuData } = useMenu()
+// Используем новый composable для работы с контентом
+const { menuStructure, isContentLoading, isAllContentLoaded } = useContent()
 
 // Watch for mobile menu state to toggle body scroll
 watch(isMobileMenuOpen, (isOpen) => {
@@ -174,71 +174,72 @@ watch(isMobileMenuOpen, (isOpen) => {
 provide("isMobileMenuOpen", isMobileMenuOpen);
 provide("isSearchOpen", isSearchOpen);
 
-// Преобразуем формат меню из Directus в формат компонентов
+// Преобразуем структуру меню в формат для навигации
 const dynamicMenuItems = computed(() => {
-  if (!hasMenuData.value) return fallbackMenuItems
-  
-  return menuItems.value.map(section => transformMenuSection(section))
-})
+  if (!isAllContentLoaded.value || menuStructure.value.length === 0) {
+    console.log("Using fallback menu items")
+    return fallbackMenuItems
+  }
 
-// Функция для преобразования раздела меню
-const transformMenuSection = (section) => {
-  return {
+  console.log("Building dynamic menu from content store:", menuStructure.value)
+  
+  return menuStructure.value.map(section => ({
     key: section.slug,
     label: section.title,
     to: `/${section.slug}`,
     icon: getSectionIcon(section.slug),
-    children: section.categories?.map(category => transformMenuCategory(category, section.slug)) || []
-  }
-}
+    children: section.categories.map(category => ({
+      label: category.title,
+      icon: getCategoryIcon(category.slug),
+      children: category.pages.map(page => ({
+        label: page.title,
+        to: page.full_path,
+        icon: getPageIcon(page.type)
+      }))
+    }))
+  }))
+})
 
-// Функция для преобразования категории меню
-const transformMenuCategory = (category, sectionSlug) => {
-  return {
-    label: category.title,
-    icon: getCategoryIcon(category.slug),
-    children: category.pages?.map(page => ({
-      label: page.title,
-      to: page.full_path,
-      icon: getPageIcon(page.type)
-    })) || []
-  }
-}
-
-// Функции для получения иконок (можно настроить по желанию)
-const getSectionIcon = (sectionSlug) => {
+// Иконки для разделов
+const getSectionIcon = (slug) => {
   const icons = {
     study: 'ph:student',
-    work: 'ph:briefcase', 
-    business: 'ph:building-office',
-    humanitarian: 'ph:shield-check',
+    work: 'ph:briefcase',
+    business: 'ph:buildings',
+    humanitarian: 'ph:heart',
     estate: 'ph:house'
   }
-  return icons[sectionSlug] || 'ph:circle'
+  return icons[slug] || 'ph:folder'
 }
 
-const getCategoryIcon = (categorySlug) => {
+// Иконки для категорий  
+const getCategoryIcon = (slug) => {
   const icons = {
-    'formats': 'ph:monitor',
-    'courses': 'ph:books',
-    'degree': 'ph:graduation-cap',
-    'temporary': 'ph:clock',
-    'permanent': 'ph:calendar',
-    'employer': 'ph:magnifying-glass',
-    'temp': 'ph:lightning',
-    'perm': 'ph:shield-check',
-    'services': 'ph:gear',
-    'humanitarian': 'ph:heart',
-    'estate': 'ph:house'
+    formats: 'ph:monitor',
+    courses: 'ph:books',
+    degree: 'ph:certificate',
+    temporary: 'ph:clock',
+    permanent: 'ph:user-check',
+    employer: 'ph:buildings',
+    temp: 'ph:briefcase',
+    perm: 'ph:handshake',
+    services: 'ph:gear'
   }
-  return icons[categorySlug] || 'ph:folder'
+  return icons[slug] || 'ph:folder'
 }
 
-const getPageIcon = (pageType) => {
-  return pageType === 'page' ? 'ph:file-text' : 'ph:circle'
+// Иконки для типов страниц
+const getPageIcon = (type) => {
+  const icons = {
+    visa: 'ph:passport',
+    program: 'ph:graduation-cap',
+    service: 'ph:gear',
+    info: 'ph:info',
+    guide: 'ph:book-open'
+  }
+  return icons[type] || 'ph:file-text'
 }
 
-// Fallback меню на случай если Directus недоступен
 const fallbackMenuItems = [
   {
     key: "study",
@@ -308,15 +309,8 @@ const closeSearch = () => {
   isSearchOpen.value = false;
 };
 
-onMounted(async () => {
+onMounted(() => {
   console.log("Header component mounted");
-  
-  // Загружаем меню при инициализации
-  try {
-    await loadMenu()
-    console.log("Menu loaded successfully:", menuItems.value)
-  } catch (error) {
-    console.error("Failed to load menu, using fallback:", error)
-  }
+  // Контент будет загружен через plugin, здесь не нужно делать запросы
 });
 </script>

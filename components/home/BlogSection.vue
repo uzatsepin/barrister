@@ -18,7 +18,7 @@
       />
 
       <!-- Loading State -->
-      <div v-if="blogStore.loading" class="space-y-8">
+      <div v-if="isBlogLoading" class="space-y-8">
         <!-- Featured Post Skeleton -->
         <div class="mb-12 max-w-5xl mx-auto">
           <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -146,12 +146,13 @@
 
 <script setup>
 import { onMounted, computed } from 'vue'
-import { useBlogStore } from '~/stores/blog'
+import { useContent } from '~/composables/useContent'
 
-const blogStore = useBlogStore()
+// Используем новый content composable
+const { latestBlogPosts, isBlogLoading, loadBlogData } = useContent()
 
 // Получаем последние посты для главной страницы
-const latestPosts = computed(() => blogStore.latestPosts)
+const latestPosts = computed(() => latestBlogPosts.value)
 
 // Форматирование даты
 const formatDate = (dateString) => {
@@ -168,12 +169,9 @@ const getImageUrl = (imageId) => {
   return `${config.public.directusUrl}/assets/${imageId}?width=800&height=600&fit=cover&format=webp`
 }
 
-// Загружаем данные при монтировании
+// Загружаем данные при монтировании  
 onMounted(async () => {
-  // Загружаем категории и последние 6 постов
-  await Promise.all([
-    blogStore.fetchCategories(),
-    blogStore.fetchPosts(6)
-  ])
+  // Загружаем blog данные если они еще не загружены
+  await loadBlogData()
 })
 </script>

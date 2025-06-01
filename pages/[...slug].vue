@@ -585,14 +585,24 @@ definePageMeta({
 
 const route = useRoute();
 const { t } = useI18n();
-const { fetchPageByPath } = useDirectus();
-const { getBreadcrumbs, loadMenu, hasMenuData, menuItems } = useMenu();
+
+// Используем новый content composable
+const { 
+  menuStructure, 
+  isContentLoading, 
+  isAllContentLoaded,
+  getBreadcrumbs, 
+  getPageByPath,
+  getSectionData,
+  getCategoryData,
+  loadContent
+} = useContent();
 
 // Refs for scrolling
 const contentSection = ref(null);
 const contactSection = ref(null);
 
-// Page data from Directus
+// Page data
 const pageData = ref(null);
 const loading = ref(true);
 const error = ref(null);
@@ -617,14 +627,14 @@ const isPageDetail = computed(() => urlParts.value.length === 3);
 // Определяем текущий раздел из URL
 const currentSection = computed(() => sectionSlug.value);
 
-// Данные из меню
+// Данные из content store
 const sectionData = computed(() => {
-  return menuItems.value.find(section => section.slug === sectionSlug.value);
+  return getSectionData(sectionSlug.value);
 });
 
 const categoryData = computed(() => {
-  if (!sectionData.value || !categorySlug.value) return null;
-  return sectionData.value.categories?.find(cat => cat.slug === categorySlug.value);
+  if (!categorySlug.value) return null;
+  return getCategoryData(sectionSlug.value, categorySlug.value);
 });
 
 // Категории для текущей секции
@@ -740,7 +750,7 @@ const getPageWordForm = (count) => {
 
 // Динамические хлебные крошки из меню
 const dynamicBreadcrumbs = computed(() => {
-  if (!hasMenuData.value) return [];
+  if (!isAllContentLoaded.value) return [];
   return getBreadcrumbs(route.path);
 });
 
@@ -850,12 +860,12 @@ const fetchPageData = async () => {
     loading.value = true;
     error.value = null;
 
-    // Убеждаемся что меню загружено
-    if (!hasMenuData.value) {
-      await loadMenu();
+    // Убеждаемся что контент загружен
+    if (!isAllContentLoaded.value) {
+      await loadContent();
     }
 
-    // Если это section или category overview, просто показываем данные из меню
+    // Если это section или category overview, просто показываем данные из store
     if (isSectonOverview.value || isCategoryOverview.value) {
       // Проверяем что section существует
       if (!sectionData.value) {
@@ -904,8 +914,8 @@ const fetchPageData = async () => {
       return;
     }
 
-    // Для отдельных страниц - fetch from Directus API
-    const data = await fetchPageByPath(
+    // Для отдельных страниц - получаем из store
+    const data = getPageByPath(
       sectionSlug.value,
       categorySlug.value,
       pageSlug.value
@@ -939,7 +949,7 @@ const fetchPageData = async () => {
       });
     } else {
       console.warn("Page not found:", route.path);
-      // Если страница не найдена в Directus - показываем 404
+      // Если страница не найдена - показываем 404
       throw createError({
         statusCode: 404,
         statusMessage: `Страница не найдена: ${route.path}`

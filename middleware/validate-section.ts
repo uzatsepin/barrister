@@ -1,6 +1,6 @@
-export default defineNuxtRouteMiddleware((to) => {
-  // Валидные разделы для динамических страниц
-  const validSections = ['study', 'work', 'business', 'humanitarian', 'estate']
+export default defineNuxtRouteMiddleware(async (to) => {
+  // Используем content store для валидации
+  const { getSectionBySlug, loadContent, isAllContentLoaded } = useContent()
   
   const pathSegments = to.path.split('/').filter(Boolean)
   
@@ -11,8 +11,22 @@ export default defineNuxtRouteMiddleware((to) => {
   
   const firstSegment = pathSegments[0]
   
-  // Если первый сегмент не валидный раздел - показываем 404
-  if (!validSections.includes(firstSegment)) {
+  // Специальные пути, которые не нужно валидировать
+  const specialPaths = ['blog', 'contacts', 'api']
+  if (specialPaths.includes(firstSegment)) {
+    return
+  }
+  
+  // Убеждаемся что контент загружен
+  if (!isAllContentLoaded.value) {
+    await loadContent()
+  }
+  
+  // Проверяем существует ли секция в content store
+  const section = getSectionBySlug(firstSegment)
+  
+  // Если секция не найдена - показываем 404
+  if (!section) {
     throw createError({
       statusCode: 404,
       statusMessage: 'Page Not Found'

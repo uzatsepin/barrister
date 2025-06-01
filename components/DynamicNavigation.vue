@@ -1,7 +1,7 @@
 <template>
   <nav class="space-y-1">
     <!-- Loading state -->
-    <div v-if="loading" class="space-y-2">
+    <div v-if="isContentLoading" class="space-y-2">
       <div v-for="i in 5" :key="i" class="h-10 bg-gray-200 rounded animate-pulse"></div>
     </div>
     
@@ -53,12 +53,12 @@ const props = defineProps({
   }
 })
 
-// Используем composable для работы с меню
-const { loading, loadMenu, getMenuBySection, hasMenuData } = useMenu()
+// Используем новый content composable
+const { isContentLoading, loadContent, getMenuBySection, isAllContentLoaded } = useContent()
 
 // Получаем категории для конкретного раздела
 const sectionCategories = computed(() => {
-  if (!hasMenuData.value) return []
+  if (!isAllContentLoaded.value) return []
   return getMenuBySection(props.section)
 })
 
@@ -68,9 +68,9 @@ const isActive = (pagePath) => {
 }
 
 onMounted(async () => {
-  // Загружаем меню если еще не загружено
-  if (!hasMenuData.value) {
-    await loadMenu()
+  // Загружаем контент если еще не загружен
+  if (!isAllContentLoaded.value) {
+    await loadContent()
   }
 })
 </script> 

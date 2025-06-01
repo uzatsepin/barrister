@@ -1,7 +1,7 @@
 <template>
   <nav class="space-y-1">
     <!-- Loading state -->
-    <div v-if="loading" class="space-y-2">
+    <div v-if="isContentLoading" class="space-y-2">
       <div v-for="i in 5" :key="i" class="h-10 bg-gray-200 rounded animate-pulse"></div>
     </div>
     
@@ -32,8 +32,8 @@ const props = defineProps({
   }
 })
 
-// Используем composable для работы с меню
-const { menuItems, loading, loadMenu, getMenuBySection } = useMenu()
+// Используем новый composable для работы с контентом
+const { menuStructure, isContentLoading, loadContent, getMenuBySection } = useContent()
 
 // Получаем только пункты меню раздела "study"
 const studyMenuItems = computed(() => {
@@ -41,9 +41,9 @@ const studyMenuItems = computed(() => {
 })
 
 onMounted(async () => {
-  // Загружаем меню если еще не загружено
-  if (menuItems.value.length === 0) {
-    await loadMenu()
+  // Загружаем контент если еще не загружен
+  if (menuStructure.value.length === 0) {
+    await loadContent()
   }
 })
 </script> 

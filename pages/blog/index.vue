@@ -233,7 +233,7 @@ useHead({
 
 // Загружаем данные при монтировании
 onMounted(async () => {
-  // Загружаем категории и все посты
+  // Загружаем данные через blog store (который теперь использует content store)
   await Promise.all([
     blogStore.fetchCategories(),
     blogStore.fetchPosts() // Без лимита - все посты

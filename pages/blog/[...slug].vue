@@ -530,13 +530,6 @@ onMounted(async () => {
   if (blogStore.currentPost) {
     await blogStore.fetchPosts()
   }
-
-  // Добавляем слушатель прокрутки для прогресса чтения
-  window.addEventListener('scroll', updateReadingProgress)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', updateReadingProgress)
 })
 </script>
 
