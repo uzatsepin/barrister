@@ -1,241 +1,259 @@
 <template>
-  <div class="section bg-gray-50">
-    <div class="container-custom">
-      <UiSectionHeading 
-        :title="$t('blog.title')"
-        subtitle="Актуальные новости и полезная информация об иммиграции, визах и образовании в США"
-      />
+  <div>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-secondary-700 via-secondary-600 to-secondary-800 text-white overflow-hidden">
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="w-full h-full bg-gradient-to-br from-secondary-700 to-secondary-900"></div>
+      </div>
       
-      <!-- Categories and Search -->
-      <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-        <div class="flex space-x-2 mb-4 md:mb-0 overflow-x-auto pb-2 w-full md:w-auto">
+      <div class="container-custom relative z-10 py-20 md:py-28">
+        <div class="max-w-4xl">
+          <!-- Breadcrumbs -->
+          <nav class="mb-6 animate-fade-in">
+            <ol class="flex items-center space-x-2 text-sm">
+              <li>
+                <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
+                  Главная
+                </NuxtLink>
+              </li>
+              <li class="flex items-center">
+                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
+                <span class="text-white font-medium">Блог</span>
+              </li>
+            </ol>
+          </nav>
+          
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
+            Блог и полезные статьи
+          </h1>
+          
+          <p class="text-xl text-gray-200 mb-8">
+            Актуальная информация о визах, образовании и иммиграции в США
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section bg-gray-50">
+      <div class="container-custom">
+        <!-- Categories and Search -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+          <!-- Categories -->
+          <div class="flex space-x-2 mb-4 md:mb-0 overflow-x-auto pb-2 w-full md:w-auto">
+            <button 
+              @click="blogStore.setCategory('all')"
+              :class="[
+                'px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
+                blogStore.selectedCategory === 'all' 
+                  ? 'bg-primary-600 text-white shadow-lg' 
+                  : 'bg-white text-secondary-700 hover:bg-gray-100 shadow-sm'
+              ]"
+            >
+              Все статьи
+            </button>
+            <button 
+              v-for="category in blogStore.categories" 
+              :key="category.id"
+              @click="blogStore.setCategory(category.id.toString())"
+              :class="[
+                'px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
+                blogStore.selectedCategory === category.id.toString() 
+                  ? 'bg-primary-600 text-white shadow-lg' 
+                  : 'bg-white text-secondary-700 hover:bg-gray-100 shadow-sm'
+              ]"
+            >
+              {{ category.name }}
+            </button>
+          </div>
+          
+          <!-- Search -->
+          <div class="relative w-full md:w-80">
+            <input 
+              type="text"
+              :value="blogStore.searchQuery"
+              @input="blogStore.setSearchQuery($event.target.value)"
+              placeholder="Поиск статей..."
+              class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent shadow-sm"
+            />
+            <Icon name="ph:magnifying-glass" class="absolute left-4 top-3.5 text-gray-400" size="20" />
+          </div>
+        </div>
+        
+        <!-- Loading State -->
+        <div v-if="blogStore.loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div v-for="i in 9" :key="i" class="bg-white rounded-xl overflow-hidden shadow-lg">
+            <div class="h-48 bg-gray-200 animate-pulse"></div>
+            <div class="p-6 space-y-4">
+              <div class="h-6 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+              <div class="space-y-2">
+                <div class="h-4 bg-gray-200 rounded animate-pulse"></div>
+                <div class="h-4 bg-gray-200 rounded w-2/3 animate-pulse"></div>
+              </div>
+              <div class="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Blog Posts Grid -->
+        <div v-else-if="blogStore.paginatedPosts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <BlogCard 
+            v-for="post in blogStore.paginatedPosts"
+            :key="post.id"
+            :title="post.title"
+            :summary="post.summary"
+            :imageUrl="getImageUrl(post.image)"
+            :date="post.published_at"
+            :category="post.category_name"
+            :link="`/blog/${post.slug}`"
+          />
+        </div>
+        
+        <!-- Empty State -->
+        <div v-else class="text-center py-16">
+          <Icon name="ph:article" class="mx-auto text-gray-400 mb-6" size="80" />
+          <h3 class="text-2xl font-semibold text-gray-600 mb-3">Статьи не найдены</h3>
+          <p class="text-gray-500 mb-6">
+            {{ blogStore.searchQuery 
+              ? `По запросу "${blogStore.searchQuery}" ничего не найдено`
+              : 'В этой категории пока нет статей'
+            }}
+          </p>
           <button 
-            v-for="category in categories" 
-            :key="category.id"
-            @click="selectCategory(category.id)"
-            :class="[
-              'px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap',
-              selectedCategory === category.id 
-                ? 'bg-primary-600 text-white' 
-                : 'bg-white text-secondary-700 hover:bg-gray-100'
-            ]"
+            v-if="blogStore.searchQuery || blogStore.selectedCategory !== 'all'"
+            @click="blogStore.clearFilters()"
+            class="btn btn-primary"
           >
-            {{ category.name }}
+            Сбросить фильтры
           </button>
         </div>
         
-        <div class="relative w-full md:w-64">
-          <input 
-            type="text"
-            v-model="searchQuery"
-            placeholder="Поиск статей..."
-            class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-600"
-          />
-          <Icon name="ph:magnifying-glass" class="absolute left-3 top-2.5 text-gray-400" size="20" />
+        <!-- Pagination -->
+        <div v-if="blogStore.totalPages > 1" class="flex justify-center mt-12">
+          <div class="flex items-center space-x-2">
+            <!-- Previous Button -->
+            <button 
+              @click="blogStore.setPage(blogStore.currentPage - 1)" 
+              :disabled="blogStore.currentPage === 1"
+              :class="[
+                'px-3 py-2 rounded-lg font-medium transition-colors',
+                blogStore.currentPage === 1 
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                  : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-sm'
+              ]"
+            >
+              <Icon name="ph:caret-left" size="20" />
+            </button>
+            
+            <!-- Page Numbers -->
+            <button 
+              v-for="page in visiblePages" 
+              :key="page" 
+              @click="blogStore.setPage(page)"
+              :class="[
+                'px-4 py-2 rounded-lg font-medium transition-colors',
+                blogStore.currentPage === page 
+                  ? 'bg-primary-600 text-white shadow-lg' 
+                  : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-sm'
+              ]"
+            >
+              {{ page }}
+            </button>
+            
+            <!-- Next Button -->
+            <button 
+              @click="blogStore.setPage(blogStore.currentPage + 1)" 
+              :disabled="blogStore.currentPage === blogStore.totalPages"
+              :class="[
+                'px-3 py-2 rounded-lg font-medium transition-colors',
+                blogStore.currentPage === blogStore.totalPages 
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                  : 'bg-white text-secondary-700 hover:bg-primary-50 hover:text-primary-600 shadow-sm'
+              ]"
+            >
+              <Icon name="ph:caret-right" size="20" />
+            </button>
+          </div>
         </div>
       </div>
-      
-      <!-- Blog Posts Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <BlogCard 
-          v-for="post in filteredPosts"
-          :key="post.id"
-          :title="post.title"
-          :summary="post.summary"
-          :imageUrl="post.imageUrl"
-          :date="post.date"
-          :category="post.category"
-          :readTime="post.readTime"
-          :link="post.link"
-        />
-      </div>
-      
-      <!-- Pagination -->
-      <div class="flex justify-center mt-12">
-        <div class="flex space-x-1">
-          <button 
-            @click="changePage(currentPage - 1)" 
-            :disabled="currentPage === 1"
-            :class="[
-              'px-3 py-1 rounded',
-              currentPage === 1 
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                : 'bg-white text-secondary-700 hover:bg-gray-100'
-            ]"
-          >
-            <Icon name="ph:caret-left" />
-          </button>
-          
-          <button 
-            v-for="page in totalPages" 
-            :key="page" 
-            @click="changePage(page)"
-            :class="[
-              'px-3 py-1 rounded',
-              currentPage === page 
-                ? 'bg-primary-600 text-white' 
-                : 'bg-white text-secondary-700 hover:bg-gray-100'
-            ]"
-          >
-            {{ page }}
-          </button>
-          
-          <button 
-            @click="changePage(currentPage + 1)" 
-            :disabled="currentPage === totalPages"
-            :class="[
-              'px-3 py-1 rounded',
-              currentPage === totalPages 
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                : 'bg-white text-secondary-700 hover:bg-gray-100'
-            ]"
-          >
-            <Icon name="ph:caret-right" />
-          </button>
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { onMounted, computed } from 'vue'
+import { useBlogStore } from '~/stores/blog'
 
-// Mock data for blog posts
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Изменения в правилах получения студенческой визы F-1 в 2025 году',
-    summary: 'Ознакомьтесь с новыми правилами и требованиями для получения студенческой визы, которые вступили в силу в 2025 году.',
-    imageUrl: 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    date: '2025-04-15',
-    category: 'Визы',
-    categoryId: 'visas',
-    readTime: 7,
-    link: '/blog/f1-visa-changes-2025'
-  },
-  {
-    id: 2,
-    title: 'ТОП-10 университетов США для международных студентов',
-    summary: 'Рейтинг лучших университетов США, которые предлагают отличные программы и условия для иностранных студентов.',
-    imageUrl: 'https://images.pexels.com/photos/159490/yale-university-landscape-universities-schools-159490.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    date: '2025-03-10',
-    category: 'Образование',
-    categoryId: 'education',
-    readTime: 10,
-    link: '/blog/top-us-universities-2025'
-  },
-  {
-    id: 3,
-    title: 'Как открыть свой бизнес в США: пошаговая инструкция',
-    summary: 'Подробное руководство по открытию бизнеса в США для иностранных предпринимателей: от выбора штата до получения визы.',
-    imageUrl: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    date: '2025-02-05',
-    category: 'Бизнес',
-    categoryId: 'business',
-    readTime: 12,
-    link: '/blog/start-business-usa-guide'
-  },
-  {
-    id: 4,
-    title: 'Программа TPS: что это такое и кто может на нее претендовать',
-    summary: 'Подробный разбор программы временной защиты иностранцев (TPS) и список стран, граждане которых могут на нее претендовать.',
-    imageUrl: 'https://images.pexels.com/photos/5699516/pexels-photo-5699516.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    date: '2025-01-20',
-    category: 'Гуманитарные программы',
-    categoryId: 'humanitarian',
-    readTime: 8,
-    link: '/blog/tps-program-guide'
-  },
-  {
-    id: 5,
-    title: 'Виза H-1B в 2025 году: новые правила и лотерея',
-    summary: 'Все, что нужно знать о получении рабочей визы H-1B в 2025 году: правила регистрации, шансы на выигрыш в лотерее и требования.',
-    imageUrl: 'https://images.pexels.com/photos/8297452/pexels-photo-8297452.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    date: '2024-12-15',
-    category: 'Работа',
-    categoryId: 'work',
-    readTime: 9,
-    link: '/blog/h1b-visa-2025'
-  },
-  {
-    id: 6,
-    title: 'Как получить визу инвестора E-2: требования и процесс',
-    summary: 'Руководство по получению визы E-2 для предпринимателей, планирующих инвестировать в американский бизнес.',
-    imageUrl: 'https://images.pexels.com/photos/7821547/pexels-photo-7821547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    date: '2024-11-28',
-    category: 'Бизнес',
-    categoryId: 'business',
-    readTime: 11,
-    link: '/blog/e2-visa-guide'
-  },
-];
+const blogStore = useBlogStore()
 
-const categories = [
-  { id: 'all', name: 'Все статьи' },
-  { id: 'visas', name: 'Визы' },
-  { id: 'education', name: 'Образование' },
-  { id: 'work', name: 'Работа' },
-  { id: 'business', name: 'Бизнес' },
-  { id: 'humanitarian', name: 'Гуманитарные программы' }
-];
-
-const searchQuery = ref('');
-const selectedCategory = ref('all');
-const currentPage = ref(1);
-const postsPerPage = 6;
-
-const filteredPosts = computed(() => {
-  let result = [...blogPosts];
+// Видимые страницы для пагинации (показываем максимум 5 страниц)
+const visiblePages = computed(() => {
+  const total = blogStore.totalPages
+  const current = blogStore.currentPage
+  const delta = 2
   
-  // Filter by category
-  if (selectedCategory.value !== 'all') {
-    result = result.filter(post => post.categoryId === selectedCategory.value);
+  let start = Math.max(1, current - delta)
+  let end = Math.min(total, current + delta)
+  
+  // Если в начале, показываем больше страниц в конце
+  if (current <= delta) {
+    end = Math.min(total, 2 * delta + 1)
   }
   
-  // Filter by search query
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase();
-    result = result.filter(post => 
-      post.title.toLowerCase().includes(query) || 
-      post.summary.toLowerCase().includes(query)
-    );
+  // Если в конце, показываем больше страниц в начале
+  if (current >= total - delta) {
+    start = Math.max(1, total - 2 * delta)
   }
   
-  // Pagination
-  const startIndex = (currentPage.value - 1) * postsPerPage;
-  const endIndex = startIndex + postsPerPage;
-  return result.slice(startIndex, endIndex);
-});
+  const pages = []
+  for (let i = start; i <= end; i++) {
+    pages.push(i)
+  }
+  
+  return pages
+})
 
-const totalPages = computed(() => {
-  let result = [...blogPosts];
-  
-  // Filter by category for page count
-  if (selectedCategory.value !== 'all') {
-    result = result.filter(post => post.categoryId === selectedCategory.value);
-  }
-  
-  // Filter by search query for page count
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase();
-    result = result.filter(post => 
-      post.title.toLowerCase().includes(query) || 
-      post.summary.toLowerCase().includes(query)
-    );
-  }
-  
-  return Math.ceil(result.length / postsPerPage);
-});
+// Получение URL изображения из Directus
+const getImageUrl = (imageId) => {
+  const config = useRuntimeConfig()
+  return `${config.public.directusUrl}/assets/${imageId}?width=600&height=400&fit=cover&format=webp`
+}
 
-const selectCategory = (categoryId) => {
-  selectedCategory.value = categoryId;
-  currentPage.value = 1; // Reset to first page when changing category
-};
+// SEO
+useHead({
+  title: 'Блог | BarristerCorp',
+  meta: [
+    {
+      name: 'description',
+      content: 'Актуальные статьи о визах, образовании и иммиграции в США от экспертов BarristerCorp'
+    }
+  ]
+})
 
-const changePage = (page) => {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page;
-  }
-};
+// Загружаем данные при монтировании
+onMounted(async () => {
+  // Загружаем категории и все посты
+  await Promise.all([
+    blogStore.fetchCategories(),
+    blogStore.fetchPosts() // Без лимита - все посты
+  ])
+})
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

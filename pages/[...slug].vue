@@ -1,7 +1,192 @@
 <template>
   <div>
-    <!-- Hero Section -->
+    <!-- Hero Section для Section Overview -->
     <section
+      v-if="isSectonOverview"
+      class="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 text-white overflow-hidden"
+    >
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-700/90 to-primary-900/90 z-10"></div>
+      </div>
+      
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0 overflow-hidden opacity-20">
+        <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-accent-400 to-primary-300 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-primary-300 to-accent-400 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+      
+      <div class="container-custom relative z-20 py-20 md:py-28">
+        <div class="max-w-5xl mx-auto text-center">
+          <!-- Breadcrumbs -->
+          <nav class="mb-8">
+            <ol class="flex items-center justify-center space-x-2 text-sm">
+              <li>
+                <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
+                  Главная
+                </NuxtLink>
+              </li>
+              <li class="flex items-center">
+                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
+                <span class="text-white font-medium">{{ sectionData?.title || 'Секция' }}</span>
+              </li>
+            </ol>
+          </nav>
+
+          <!-- Section Content -->
+          <div v-if="sectionData">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              {{ sectionData.title }}
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl mx-auto">
+              {{ getSectionDescription(sectionData.slug) }}
+            </p>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">{{ sectionCategories.length }}</div>
+                <div class="text-sm text-gray-200">{{ sectionCategories.length === 1 ? 'Категория' : 'Категорий' }}</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">{{ sectionPages.length }}</div>
+                <div class="text-sm text-gray-200">{{ getPageWordForm(sectionPages.length) }}</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">15+</div>
+                <div class="text-sm text-gray-200">Лет опыта</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">5000+</div>
+                <div class="text-sm text-gray-200">Успешных дел</div>
+              </div>
+            </div>
+
+            <!-- Quick CTA -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
+              <h3 class="text-xl font-semibold mb-3">Получите персональную консультацию</h3>
+              <p class="text-gray-200 text-sm mb-4">Обсудите ваши планы с экспертом BarristerCorp</p>
+              <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  @click="scrollToContact"
+                  class="bg-white text-primary-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center"
+                >
+                  <Icon name="ph:calendar-check" class="mr-2" size="20" />
+                  Записаться на консультацию
+                </button>
+                <a
+                  href="tel:+19362896191"
+                  class="border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-primary-800 transition-colors flex items-center justify-center"
+                >
+                  <Icon name="ph:phone" class="mr-2" size="20" />
+                  Позвонить сейчас
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero Section для Category Overview -->
+    <section
+      v-else-if="isCategoryOverview"
+      class="relative bg-gradient-to-br from-secondary-700 via-secondary-600 to-secondary-800 text-white overflow-hidden"
+    >
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-secondary-700/90 to-secondary-900/90 z-10"></div>
+      </div>
+      
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0 overflow-hidden opacity-20">
+        <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-accent-400 to-secondary-300 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-secondary-300 to-accent-400 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+      
+      <div class="container-custom relative z-20 py-20 md:py-28">
+        <div class="max-w-5xl mx-auto text-center">
+          <!-- Breadcrumbs -->
+          <nav class="mb-8">
+            <ol class="flex items-center justify-center space-x-2 text-sm">
+              <li>
+                <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
+                  Главная
+                </NuxtLink>
+              </li>
+              <li class="flex items-center">
+                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
+                <NuxtLink :to="`/${sectionData?.slug}`" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
+                  {{ sectionData?.title || 'Секция' }}
+                </NuxtLink>
+              </li>
+              <li class="flex items-center">
+                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
+                <span class="text-white font-medium">{{ categoryData?.title || 'Категория' }}</span>
+              </li>
+            </ol>
+          </nav>
+
+          <!-- Category Content -->
+          <div v-if="categoryData">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              {{ categoryData.title }}
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl mx-auto">
+              {{ getCategoryDescription(categoryData.slug) }}
+            </p>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">{{ categoryPages.length }}</div>
+                <div class="text-sm text-gray-200">{{ getPageWordForm(categoryPages.length) }}</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">{{ sectionData?.title || 'Раздел' }}</div>
+                <div class="text-sm text-gray-200">Основной раздел</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">15+</div>
+                <div class="text-sm text-gray-200">Лет опыта</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <div class="text-3xl font-bold mb-1">5000+</div>
+                <div class="text-sm text-gray-200">Успешных дел</div>
+              </div>
+            </div>
+
+            <!-- Quick CTA -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
+              <h3 class="text-xl font-semibold mb-3">Нужна персональная консультация?</h3>
+              <p class="text-gray-200 text-sm mb-4">Обсудите ваши планы с экспертом BarristerCorp</p>
+              <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  @click="scrollToContact"
+                  class="bg-white text-secondary-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center"
+                >
+                  <Icon name="ph:calendar-check" class="mr-2" size="20" />
+                  Записаться на консультацию
+                </button>
+                <a
+                  href="tel:+19362896191"
+                  class="border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-secondary-800 transition-colors flex items-center justify-center"
+                >
+                  <Icon name="ph:phone" class="mr-2" size="20" />
+                  Позвонить сейчас
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero Section для отдельных страниц (оригинальная) -->
+    <section
+      v-else
       class="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 text-white overflow-hidden"
     >
       <div class="absolute inset-0">
@@ -86,8 +271,161 @@
       </div>
     </section>
 
-    <!-- Main Content -->
-    <section ref="contentSection" class="section bg-white">
+    <!-- Categories Section для Section Overview -->
+    <section v-if="isSectonOverview && sectionCategories.length > 0" class="section bg-gray-50">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">Доступные категории</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Выберите подходящую категорию для получения подробной информации
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div
+            v-for="category in sectionCategories"
+            :key="category.id"
+            class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
+          >
+            <div class="p-8">
+              <div class="flex items-center mb-4">
+                <div class="bg-primary-100 w-12 h-12 rounded-xl flex items-center justify-center mr-4">
+                  <Icon :name="getCategoryIcon(category.slug)" class="text-primary-600" size="24" />
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-600 transition-colors">
+                  {{ category.title }}
+                </h3>
+              </div>
+              
+              <p class="text-gray-600 mb-6 leading-relaxed">
+                {{ getCategoryDescription(category.slug) }}
+              </p>
+
+              <!-- Pages in Category -->
+              <div class="space-y-2 mb-6">
+                <div class="text-sm font-semibold text-gray-500 mb-3">
+                  {{ getCategoryPages(category.id).length }} {{ getPageWordForm(getCategoryPages(category.id).length) }}:
+                </div>
+                <div class="space-y-1">
+                  <NuxtLink
+                    v-for="page in getCategoryPages(category.id).slice(0, 3)"
+                    :key="page.id"
+                    :to="`/${sectionData.slug}/${category.slug}/${page.slug}`"
+                    class="block text-sm text-gray-600 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-colors"
+                  >
+                    {{ page.title }}
+                  </NuxtLink>
+                  <div v-if="getCategoryPages(category.id).length > 3" class="text-sm text-gray-500 px-3 py-1">
+                    +{{ getCategoryPages(category.id).length - 3 }} еще...
+                  </div>
+                </div>
+              </div>
+
+              <NuxtLink
+                :to="`/${sectionData.slug}/${category.slug}`"
+                class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 flex items-center justify-center group"
+              >
+                Подробнее
+                <Icon name="ph:arrow-right" class="ml-2 group-hover:translate-x-1 transition-transform" size="20" />
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Pages Quick Access -->
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-3">Все страницы раздела</h3>
+            <p class="text-gray-600">Быстрый доступ ко всем материалам</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <NuxtLink
+              v-for="page in sectionPages"
+              :key="page.id"
+              :to="`/${sectionData.slug}/${page.category_slug}/${page.slug}`"
+              class="group flex items-center p-4 rounded-xl border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-all duration-200"
+            >
+              <div class="bg-gray-100 group-hover:bg-primary-100 w-10 h-10 rounded-lg flex items-center justify-center mr-3 transition-colors">
+                <Icon name="ph:file-text" class="text-gray-600 group-hover:text-primary-600" size="18" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-medium text-gray-800 group-hover:text-primary-600 transition-colors truncate">
+                  {{ page.title }}
+                </div>
+                <div class="text-sm text-gray-500 truncate">
+                  {{ getCategoryByPageId(page.category)?.title }}
+                </div>
+              </div>
+              <Icon name="ph:arrow-right" class="text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all flex-shrink-0" size="16" />
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pages Section для Category Overview -->
+    <section v-if="isCategoryOverview && categoryPages.length > 0" class="section bg-gray-50">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">Доступные материалы</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Подробная информация по каждому аспекту категории "{{ categoryData.title }}"
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <NuxtLink
+            v-for="page in categoryPages"
+            :key="page.id"
+            :to="`/${sectionData.slug}/${categoryData.slug}/${page.slug}`"
+            class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
+          >
+            <div class="p-8">
+              <div class="flex items-center mb-4">
+                <div class="bg-secondary-100 w-12 h-12 rounded-xl flex items-center justify-center mr-4">
+                  <Icon :name="getPageIcon(page.type)" class="text-secondary-600" size="24" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-gray-800 group-hover:text-secondary-600 transition-colors leading-tight">
+                    {{ page.title }}
+                  </h3>
+                  <div class="text-sm text-gray-500 mt-1">
+                    {{ getPageTypeName(page.type) }}
+                  </div>
+                </div>
+              </div>
+              
+              <p v-if="page.seo?.meta_description" class="text-gray-600 mb-6 leading-relaxed">
+                {{ page.seo.meta_description }}
+              </p>
+              <p v-else class="text-gray-600 mb-6 leading-relaxed">
+                Подробная информация по теме "{{ page.title }}"
+              </p>
+
+              <div class="flex items-center justify-between text-sm text-gray-500">
+                <span>Подробнее</span>
+                <Icon name="ph:arrow-right" class="group-hover:translate-x-1 transition-transform" size="16" />
+              </div>
+            </div>
+          </NuxtLink>
+        </div>
+
+        <!-- Back to Section -->
+        <div class="text-center mt-16">
+          <NuxtLink
+            :to="`/${sectionData?.slug}`"
+            class="inline-flex items-center text-secondary-600 hover:text-secondary-700 font-medium text-lg"
+          >
+            <Icon name="ph:arrow-left" class="mr-2" size="20" />
+            Вернуться к разделу "{{ sectionData?.title }}"
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content для отдельных страниц (оригинальный) -->
+    <section v-if="!isSectonOverview && !isCategoryOverview" ref="contentSection" class="section bg-white">
       <div class="container-custom">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <!-- Sidebar Navigation -->
@@ -199,77 +537,35 @@
                 </div>
               </div>
             </article>
-
-            <!-- Interactive Elements -->
-            <div class="mt-12 space-y-8">
-              <!-- Statistics -->
-              <div
-                class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl p-8 text-white"
-              >
-                <h3 class="text-2xl font-bold mb-6 text-center">Наши результаты</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div class="text-center">
-                    <div class="text-4xl font-bold mb-2">500+</div>
-                    <div class="text-primary-100">Успешных кейсов</div>
-                  </div>
-                  <div class="text-center">
-                    <div class="text-4xl font-bold mb-2">95%</div>
-                    <div class="text-primary-100">Процент успеха</div>
-                  </div>
-                  <div class="text-center">
-                    <div class="text-4xl font-bold mb-2">15+</div>
-                    <div class="text-primary-100">Лет опыта</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Process Steps -->
-              <div class="bg-gray-50 rounded-xl p-8">
-                <h3 class="text-2xl font-bold text-secondary-800 mb-8 text-center">
-                  Как мы работаем?
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                  <div
-                    v-for="(step, index) in processSteps"
-                    :key="index"
-                    class="text-center"
-                  >
-                    <div
-                      class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl"
-                    >
-                      {{ index + 1 }}
-                    </div>
-                    <h4 class="font-semibold text-secondary-800 mb-2">
-                      {{ step.title }}
-                    </h4>
-                    <p class="text-secondary-600 text-sm">{{ step.description }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section
-      ref="contactSection"
-      class="section bg-gradient-to-br from-gray-50 to-gray-100"
-    >
-      <div class="container-custom">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-secondary-800 mb-4">
-              {{ $t("contact.title") }}
-            </h2>
-            <p class="text-xl text-secondary-600">
-              {{ $t("contact.subtitle") }}
-            </p>
-          </div>
-
-          <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <ContactForm />
+    <section ref="contactSection" class="bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+      <div class="container-custom py-16">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Готовы начать путь к достижению цели?
+          </h2>
+          <p class="text-xl text-primary-100 mb-8">
+            Наши эксперты помогут вам выбрать оптимальный путь и подготовить все необходимые документы
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              class="bg-white text-primary-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors text-lg"
+            >
+              <Icon name="ph:calendar-check" class="mr-2" size="24" />
+              Бесплатная консультация
+            </button>
+            <a
+              href="tel:+19362896191"
+              class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-primary-600 transition-colors text-lg"
+            >
+              <Icon name="ph:phone" class="mr-2" size="24" />
+              +1 (936) 289-6191
+            </a>
           </div>
         </div>
       </div>
@@ -282,10 +578,15 @@ import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 
+// Применяем middleware только к этой странице
+definePageMeta({
+  middleware: 'validate-section'
+})
+
 const route = useRoute();
 const { t } = useI18n();
 const { fetchPageByPath } = useDirectus();
-const { getBreadcrumbs, loadMenu, hasMenuData } = useMenu();
+const { getBreadcrumbs, loadMenu, hasMenuData, menuItems } = useMenu();
 
 // Refs for scrolling
 const contentSection = ref(null);
@@ -305,11 +606,137 @@ const urlParts = computed(() => {
 });
 
 const sectionSlug = computed(() => urlParts.value[0] || "study");
-const categorySlug = computed(() => urlParts.value[1] || "formats");
-const pageSlug = computed(() => urlParts.value[2] || "online");
+const categorySlug = computed(() => urlParts.value[1] || null);
+const pageSlug = computed(() => urlParts.value[2] || null);
+
+// Определяем тип страницы
+const isSectonOverview = computed(() => urlParts.value.length === 1);
+const isCategoryOverview = computed(() => urlParts.value.length === 2);
+const isPageDetail = computed(() => urlParts.value.length === 3);
 
 // Определяем текущий раздел из URL
 const currentSection = computed(() => sectionSlug.value);
+
+// Данные из меню
+const sectionData = computed(() => {
+  return menuItems.value.find(section => section.slug === sectionSlug.value);
+});
+
+const categoryData = computed(() => {
+  if (!sectionData.value || !categorySlug.value) return null;
+  return sectionData.value.categories?.find(cat => cat.slug === categorySlug.value);
+});
+
+// Категории для текущей секции
+const sectionCategories = computed(() => {
+  return sectionData.value?.categories || [];
+});
+
+// Страницы для текущей секции
+const sectionPages = computed(() => {
+  if (!sectionData.value) return [];
+  return sectionData.value.categories.flatMap(category => 
+    category.pages.map(page => ({
+      ...page,
+      category_slug: category.slug
+    }))
+  );
+});
+
+// Страницы для текущей категории
+const categoryPages = computed(() => {
+  return categoryData.value?.pages || [];
+});
+
+// Получить страницы для конкретной категории
+const getCategoryPages = (categoryId) => {
+  const category = sectionCategories.value.find(cat => cat.id === categoryId);
+  return category?.pages || [];
+};
+
+// Получить категорию по ID страницы
+const getCategoryByPageId = (categoryId) => {
+  return sectionCategories.value.find(cat => cat.id === categoryId);
+};
+
+// Описания секций
+const getSectionDescription = (slug) => {
+  const descriptions = {
+    study: 'Образование в США — ваш путь к успешной карьере и новым возможностям',
+    work: 'Трудоустройство в США — реализуйте свой профессиональный потенциал',
+    business: 'Бизнес в США — создайте и развивайте свое дело в стране возможностей',
+    humanitarian: 'Защита и статус — помощь в получении убежища и защиты в США',
+    estate: 'Недвижимость в США — инвестируйте в американскую мечту'
+  };
+  return descriptions[slug] || 'Получите профессиональную помощь в достижении ваших целей';
+};
+
+// Описания категорий
+const getCategoryDescription = (slug) => {
+  const descriptions = {
+    formats: 'Изучите различные форматы обучения в американских учебных заведениях и выберите подходящий вариант',
+    courses: 'Языковые и профессиональные курсы для развития навыков и подготовки к поступлению',
+    degree: 'Программы высшего образования и получения степеней в престижных университетах США',
+    temporary: 'Временные рабочие визы для краткосрочного трудоустройства и стажировок',
+    permanent: 'Постоянные рабочие визы и иммиграционные программы для долгосрочного проживания',
+    employer: 'Визы для работодателей, инвесторов и предпринимателей',
+    temp: 'Временные бизнес-визы и программы для развития бизнеса',
+    perm: 'Постоянные инвестиционные визы для серьезных вложений',
+    services: 'Дополнительные услуги и всесторонняя поддержка на всех этапах'
+  };
+  return descriptions[slug] || 'Подробная информация и профессиональная помощь по данной категории';
+};
+
+// Иконки для категорий
+const getCategoryIcon = (slug) => {
+  const icons = {
+    formats: 'ph:graduation-cap',
+    courses: 'ph:book-open',
+    degree: 'ph:certificate',
+    temporary: 'ph:clock',
+    permanent: 'ph:user-check',
+    employer: 'ph:buildings',
+    temp: 'ph:briefcase',
+    perm: 'ph:handshake',
+    services: 'ph:gear'
+  };
+  return icons[slug] || 'ph:folder';
+};
+
+// Иконки для типов страниц
+const getPageIcon = (type) => {
+  const icons = {
+    visa: 'ph:passport',
+    program: 'ph:graduation-cap',
+    service: 'ph:gear',
+    info: 'ph:info',
+    guide: 'ph:book-open'
+  };
+  return icons[type] || 'ph:file-text';
+};
+
+// Названия типов страниц
+const getPageTypeName = (type) => {
+  const names = {
+    visa: 'Виза',
+    program: 'Программа',
+    service: 'Услуга',
+    info: 'Информация',
+    guide: 'Руководство'
+  };
+  return names[type] || 'Материал';
+};
+
+// Склонение слова "страница"
+const getPageWordForm = (count) => {
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return 'страница';
+  } else if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+    return 'страницы';
+  } else {
+    return 'страниц';
+  }
+};
 
 // Динамические хлебные крошки из меню
 const dynamicBreadcrumbs = computed(() => {
@@ -398,9 +825,11 @@ const generateTitle = () => {
 
   // Fallback на основе URL
   return pageSlug.value
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    ? pageSlug.value
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    : sectionData.value?.title || 'Страница';
 };
 
 const getDefaultDescription = () => {
@@ -421,12 +850,61 @@ const fetchPageData = async () => {
     loading.value = true;
     error.value = null;
 
-    // Убеждаемся что меню загружено для хлебных крошек
+    // Убеждаемся что меню загружено
     if (!hasMenuData.value) {
       await loadMenu();
     }
 
-    // Fetch from Directus API using new 3-table structure
+    // Если это section или category overview, просто показываем данные из меню
+    if (isSectonOverview.value || isCategoryOverview.value) {
+      // Проверяем что section существует
+      if (!sectionData.value) {
+        throw createError({
+          statusCode: 404,
+          statusMessage: `Секция не найдена: ${route.path}`
+        });
+      }
+
+      // Для category overview проверяем что category существует
+      if (isCategoryOverview.value && !categoryData.value) {
+        throw createError({
+          statusCode: 404,
+          statusMessage: `Категория не найдена: ${route.path}`
+        });
+      }
+
+      // SEO для overview страниц
+      const title = isCategoryOverview.value 
+        ? `${categoryData.value.title} - ${sectionData.value.title} | BarristerCorp`
+        : `${sectionData.value.title} | BarristerCorp`;
+      
+      const description = isCategoryOverview.value
+        ? getCategoryDescription(categoryData.value.slug)
+        : getSectionDescription(sectionData.value.slug);
+
+      useHead({
+        title,
+        meta: [
+          {
+            name: "description",
+            content: description,
+          },
+          {
+            property: "og:title",
+            content: title,
+          },
+          {
+            property: "og:description",
+            content: description,
+          },
+        ],
+      });
+
+      loading.value = false;
+      return;
+    }
+
+    // Для отдельных страниц - fetch from Directus API
     const data = await fetchPageByPath(
       sectionSlug.value,
       categorySlug.value,
@@ -461,7 +939,18 @@ const fetchPageData = async () => {
       });
     } else {
       console.warn("Page not found:", route.path);
-      // Устанавливаем базовое SEO для страниц которых нет в Directus
+      // Если страница не найдена в Directus - показываем 404
+      throw createError({
+        statusCode: 404,
+        statusMessage: `Страница не найдена: ${route.path}`
+      });
+    }
+  } catch (err) {
+    console.error("Error fetching page data:", err);
+    error.value = err;
+
+    // Если это не ошибка 404, то показываем fallback SEO
+    if (err.statusCode !== 404) {
       useHead({
         title: `${generateTitle()} | BarristerCorp`,
         meta: [
@@ -471,21 +960,10 @@ const fetchPageData = async () => {
           },
         ],
       });
+    } else {
+      // Для 404 пробрасываем ошибку дальше
+      throw err;
     }
-  } catch (err) {
-    console.error("Error fetching page data:", err);
-    error.value = err;
-
-    // Fallback SEO
-    useHead({
-      title: `${generateTitle()} | BarristerCorp`,
-      meta: [
-        {
-          name: "description",
-          content: getDefaultDescription(),
-        },
-      ],
-    });
   } finally {
     loading.value = false;
   }

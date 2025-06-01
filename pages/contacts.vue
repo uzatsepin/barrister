@@ -1,99 +1,79 @@
 <template>
-  <div class="section bg-gray-50">
-    <div class="container-custom">
-      <UiSectionHeading 
-        :title="$t('contact.title')"
-        :subtitle="$t('contact.description')"
-      />
+  <div>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 text-white overflow-hidden">
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="w-full h-full bg-gradient-to-br from-primary-700 to-primary-900"></div>
+      </div>
       
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Contact Form -->
-        <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-8">
-          <h3 class="text-2xl font-bold text-secondary-800 mb-6">{{ $t('contact.schedule') }}</h3>
-          <ContactForm @submit-success="handleFormSuccess" />
+      <div class="container-custom relative z-10 py-20 md:py-28">
+        <div class="max-w-4xl">
+          <!-- Breadcrumbs -->
+          <nav class="mb-6 animate-fade-in">
+            <ol class="flex items-center space-x-2 text-sm">
+              <li>
+                <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
+                  Главная
+                </NuxtLink>
+              </li>
+              <li class="flex items-center">
+                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
+                <span class="text-white font-medium">Контакты</span>
+              </li>
+            </ol>
+          </nav>
+          
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
+            Контакты
+          </h1>
+          
+          <p class="text-xl text-gray-200 mb-8">
+            Свяжитесь с нами для получения консультации
+          </p>
         </div>
-        
-        <!-- Contact Information -->
-        <div class="bg-primary-700 text-white rounded-lg shadow-md p-8">
-          <h3 class="text-2xl font-bold mb-6">Контактная информация</h3>
-          
-          <div class="space-y-6 mb-8">
-            <div class="flex items-start">
-              <div class="bg-primary-600 p-3 rounded-full mr-4 mt-1">
-                <Icon name="ph:map-pin" size="24" />
-              </div>
-              <div>
-                <div class="font-semibold text-lg mb-1">Наш офис:</div>
-                <div class="text-gray-200">6939 3030 NorthWest ExpressWay, STE, 200B Oklahoma city, OK 73112 USA</div>
-              </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="bg-primary-600 p-3 rounded-full mr-4 mt-1">
-                <Icon name="ph:envelope" size="24" />
-              </div>
-              <div>
-                <div class="font-semibold text-lg mb-1">Email:</div>
-                <div class="text-gray-200">main@barristercorp.com</div>
-              </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="bg-primary-600 p-3 rounded-full mr-4 mt-1">
-                <Icon name="ph:phone" size="24" />
-              </div>
-              <div>
-                <div class="font-semibold text-lg mb-1">Телефон:</div>
-                <div class="text-gray-200">+1 (936) 289‑6191</div>
-              </div>
-            </div>
-            
-            <div class="flex items-start">
-              <div class="bg-primary-600 p-3 rounded-full mr-4 mt-1">
-                <Icon name="ph:clock" size="24" />
-              </div>
-              <div>
-                <div class="font-semibold text-lg mb-1">Часы работы:</div>
-                <div class="text-gray-200">
-                  <div>Понедельник - Пятница: 9:00 - 18:00</div>
-                  <div>Суббота: 10:00 - 15:00</div>
-                  <div>Воскресенье: Выходной</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div>
-            <div class="font-semibold text-lg mb-3">Социальные сети:</div>
-            <div class="flex space-x-4">
-              <a href="https://t.me/barristercorp_us" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
-                <Icon name="ph:telegram-logo" size="24" />
-              </a>
-              <a href="https://www.instagram.com/immigration_usa_angelika/" class="bg-primary-600 p-3 rounded-full hover:bg-primary-500 transition-colors">
-                <Icon name="ph:instagram-logo" size="24" />
-              </a>
-            </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section bg-white">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <ContactForm />
           </div>
         </div>
       </div>
-      
-      <!-- Map Section -->
-      <div class="mt-12">
-        <div class="rounded-lg overflow-hidden shadow-md h-96 bg-gray-200">
-          <img 
-            src="https://images.pexels.com/photos/4386429/pexels-photo-4386429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-            alt="Map" 
-            class="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script setup>
-const handleFormSuccess = () => {
-  // Handle form submission success
-  console.log('Form submitted successfully');
-};
+// SEO
+useHead({
+  title: 'Контакты | BarristerCorp',
+  meta: [
+    {
+      name: 'description',
+      content: 'Свяжитесь с экспертами BarristerCorp для получения консультации по визам, обучению и иммиграции в США'
+    }
+  ]
+})
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
