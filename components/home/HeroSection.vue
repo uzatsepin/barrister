@@ -79,21 +79,23 @@
             <div class="flex items-center gap-3">
               <Icon name="ph:star-fill" class="text-[#00b67a] w-8 h-8" />
               <div>
-                <span class="text-2xl font-bold">4.6</span>
+                <span class="text-2xl font-bold">4.8</span>
                 <span class="text-sm text-gray-300 ml-1">/ 5.0</span>
               </div>
             </div>
             <div class="h-12 w-[1px] bg-white/20"></div>
             <div>
               <p class="font-medium">Проверенный эксперт</p>
-              <p class="text-sm text-gray-300">На основе 18 отзывов клиентов</p>
+              <p class="text-sm text-gray-300">На основе более чем 100 отзывов клиентов</p>
             </div>
           </div>
 
           <!-- CTA Buttons -->
           <div class="flex flex-wrap gap-4 motion-safe:animate-buttons-slide-up">
             <button 
+              type="button"
               class="btn bg-accent-500 hover:bg-accent-600 text-white group relative overflow-hidden"
+              @click="handleConsultationClick"
               @mousemove="handleMouseMove"
               @mouseleave="handleMouseLeave"
             >
@@ -107,11 +109,13 @@
               ></div>
             </button>
             <button 
+              type="button"
               class="btn bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 group"
+              @click="scrollToTestimonials"
             >
               <span class="flex items-center">
-                Связаться со мной
-                <Icon name="ph:phone" class="ml-2 transform group-hover:rotate-12 transition-transform" size="20" />
+                Почитать отзывы
+                <Icon name="ph:star" class="ml-2 transform group-hover:rotate-12 transition-transform" size="20" />
               </span>
             </button>
           </div>
@@ -157,10 +161,36 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 
 const buttonGlow = ref(null);
 const parallaxBg = ref(null);
+
+// Используем контактный модал
+const { openModal: openContactModal } = useContact();
+
+// Обработчик клика на кнопку консультации
+const handleConsultationClick = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  
+  // Добавляем небольшую задержку для предотвращения конфликтов
+  nextTick(() => {
+    openContactModal();
+  });
+};
+
+// Функция для плавного скролла к отзывам
+const scrollToTestimonials = () => {
+  const testimonialsSection = document.getElementById('testimonials');
+  if (testimonialsSection) {
+    testimonialsSection.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+};
 
 // Generate random floating particles
 const particles = Array.from({ length: 20 }, () => ({

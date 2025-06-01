@@ -69,7 +69,7 @@
               <p class="text-gray-200 text-sm mb-4">Обсудите ваши планы с экспертом BarristerCorp</p>
               <div class="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
-                  @click="scrollToContact"
+                  @click="openContactModal"
                   class="bg-white text-primary-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center"
                 >
                   <Icon name="ph:calendar-check" class="mr-2" size="20" />
@@ -164,7 +164,7 @@
               <p class="text-gray-200 text-sm mb-4">Обсудите ваши планы с экспертом BarristerCorp</p>
               <div class="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
-                  @click="scrollToContact"
+                  @click="openContactModal"
                   class="bg-white text-secondary-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center"
                 >
                   <Icon name="ph:calendar-check" class="mr-2" size="20" />
@@ -248,7 +248,7 @@
           <!-- CTA Buttons -->
           <div class="flex flex-col sm:flex-row gap-4 animate-slide-up delay-200">
             <button
-              @click="scrollToContact"
+              @click="openContactModal"
               class="btn bg-white text-primary-700 hover:bg-gray-100 font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
             >
               <Icon name="ph:chat-circle" class="mr-2" size="20" />
@@ -470,7 +470,7 @@
                     {{ $t("common.freeConsultation") }}
                   </p>
                   <button
-                    @click="scrollToContact"
+                    @click="openContactModal"
                     class="btn btn-primary w-full text-sm font-semibold transform hover:scale-105 transition-all duration-200"
                   >
                     {{ $t("common.contactUs") }}
@@ -554,6 +554,7 @@
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <button
+              @click="openContactModal"
               class="bg-white text-primary-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors text-lg"
             >
               <Icon name="ph:calendar-check" class="mr-2" size="24" />
@@ -597,6 +598,9 @@ const {
   getCategoryData,
   loadContent
 } = useContent();
+
+// Используем контактный модал
+const { openModal: openContactModal } = useContact();
 
 // Refs for scrolling
 const contentSection = ref(null);
@@ -848,7 +852,7 @@ const getDefaultDescription = () => {
 };
 
 const scrollToContact = () => {
-  contactSection.value?.scrollIntoView({ behavior: "smooth" });
+  openContactModal();
 };
 
 const scrollToContent = () => {

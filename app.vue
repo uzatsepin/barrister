@@ -4,6 +4,9 @@
       name: 'page',
       mode: 'out-in'
     }" />
+    
+    <!-- Global Contact Modal -->
+    <ContactModal />
   </NuxtLayout>
 </template>
 

@@ -153,15 +153,11 @@ import MainNavigation from "./header/MainNavigation.vue";
 import MobileMenu from "./header/MobileMenu.vue";
 import SearchModal from "./header/SearchModal.vue";
 
-console.log("Header component initializing...");
-
 const isMobileMenuOpen = ref(false);
 const isSearchOpen = ref(false);
 
-// Используем новый composable для работы с контентом
 const { menuStructure, isContentLoading, isAllContentLoaded } = useContent()
 
-// Watch for mobile menu state to toggle body scroll
 watch(isMobileMenuOpen, (isOpen) => {
   if (isOpen) {
     document.body.style.overflow = "hidden";
@@ -170,18 +166,14 @@ watch(isMobileMenuOpen, (isOpen) => {
   }
 });
 
-// Provide these values to child components
 provide("isMobileMenuOpen", isMobileMenuOpen);
 provide("isSearchOpen", isSearchOpen);
 
-// Преобразуем структуру меню в формат для навигации
 const dynamicMenuItems = computed(() => {
   if (!isAllContentLoaded.value || menuStructure.value.length === 0) {
-    console.log("Using fallback menu items")
     return fallbackMenuItems
   }
 
-  console.log("Building dynamic menu from content store:", menuStructure.value)
   
   return menuStructure.value.map(section => ({
     key: section.slug,
@@ -200,7 +192,6 @@ const dynamicMenuItems = computed(() => {
   }))
 })
 
-// Иконки для разделов
 const getSectionIcon = (slug) => {
   const icons = {
     study: 'ph:student',
@@ -212,7 +203,6 @@ const getSectionIcon = (slug) => {
   return icons[slug] || 'ph:folder'
 }
 
-// Иконки для категорий  
 const getCategoryIcon = (slug) => {
   const icons = {
     formats: 'ph:monitor',
@@ -228,7 +218,6 @@ const getCategoryIcon = (slug) => {
   return icons[slug] || 'ph:folder'
 }
 
-// Иконки для типов страниц
 const getPageIcon = (type) => {
   const icons = {
     visa: 'ph:passport',
@@ -283,10 +272,8 @@ const fallbackMenuItems = [
   },
 ];
 
-console.log("Dynamic menu items computed:", dynamicMenuItems);
 
 const toggleMobileMenu = () => {
-  console.log("Toggling mobile menu");
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
   if (isMobileMenuOpen.value) {
     isSearchOpen.value = false;
@@ -294,23 +281,15 @@ const toggleMobileMenu = () => {
 };
 
 const closeMobileMenu = () => {
-  console.log("Closing mobile menu");
   isMobileMenuOpen.value = false;
 };
 
 const openSearch = () => {
-  console.log("Opening search modal");
   isSearchOpen.value = true;
   isMobileMenuOpen.value = false;
 };
 
 const closeSearch = () => {
-  console.log("Closing search modal");
   isSearchOpen.value = false;
 };
-
-onMounted(() => {
-  console.log("Header component mounted");
-  // Контент будет загружен через plugin, здесь не нужно делать запросы
-});
 </script>
