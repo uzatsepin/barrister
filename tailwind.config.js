@@ -36,16 +36,16 @@ export default {
           900: '#111827',
         },
         accent: {
-          50: '#FFFBEB',
-          100: '#FEF3C7',
-          200: '#FDE68A', // Light gold/sand
-          300: '#FCD34D',
-          400: '#FBBF24',
-          500: '#F59E0B', // Main gold/sand accent
-          600: '#D97706', // Darker gold/sand
-          700: '#B45309',
-          800: '#92400E',
-          900: '#78350F',
+          50: '#EBF8FF', // Very light blue
+          100: '#BEE3F8', // Light blue
+          200: '#90CDF4', // Medium light blue
+          300: '#63B3ED', // Medium blue
+          400: '#4299E1', // Medium-dark blue
+          500: '#3182CE', // Main accent blue
+          600: '#2B77CB', // Darker blue
+          700: '#2C5AA0', // Much darker blue
+          800: '#2A4A7C', // Very dark blue
+          900: '#1A365D', // Darkest blue
         },
       },
       fontFamily: {

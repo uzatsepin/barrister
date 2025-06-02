@@ -193,6 +193,7 @@ const subscribeNewsletter = () => {
 const socialLinks = [
   { name: 'Telegram', icon: 'ph:telegram-logo', url: 'https://t.me/barristercorp_us' },
   { name: 'Instagram', icon: 'ph:instagram-logo', url: 'https://www.instagram.com/immigration_usa_angelika/' },
+  { name: 'YouTube', icon: 'ph:youtube-logo', url: 'https://www.youtube.com/@AngelikaFruman' },
 ];
 
 const studyLinks = [
