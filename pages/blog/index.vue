@@ -2,9 +2,17 @@
   <div>
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-br from-secondary-700 via-secondary-600 to-secondary-800 text-white overflow-hidden">
-      <div class="absolute inset-0">
-        <div class="absolute inset-0 bg-black/20"></div>
-        <div class="w-full h-full bg-gradient-to-br from-secondary-700 to-secondary-900"></div>
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-700/90 z-10"
+        ></div>
+        <NuxtImg
+          ref="parallaxBg"
+          src="/images/blog-bg.webp"
+          alt="США"
+          format="webp"
+          class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
+        />
       </div>
       
       <div class="container-custom relative z-10 py-20 md:py-28">

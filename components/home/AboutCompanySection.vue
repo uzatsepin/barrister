@@ -1,5 +1,5 @@
 <template>
-  <section class="py-24 bg-white relative overflow-hidden">
+  <section class="py-24 bg-white relative overflow-hidden" id="about-company">
     <!-- Background decoration -->
     <div class="absolute inset-0 overflow-hidden opacity-5">
       <div class="absolute -left-1/4 top-1/4 w-1/2 h-1/2 bg-primary-200 rounded-full blur-3xl"></div>

@@ -11,9 +11,17 @@
       </div>
       
       <!-- Animated Background Elements -->
-      <div class="absolute inset-0 overflow-hidden opacity-20">
-        <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-accent-400 to-primary-300 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-primary-300 to-accent-400 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-700/90 z-10"
+        ></div>
+        <NuxtImg
+          ref="parallaxBg"
+          src="/images/blog-bg.webp"
+          alt="США"
+          format="webp"
+          class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
+        />
       </div>
       
       <div class="container-custom relative z-20 py-20 md:py-28">
@@ -100,9 +108,17 @@
       </div>
       
       <!-- Animated Background Elements -->
-      <div class="absolute inset-0 overflow-hidden opacity-20">
-        <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-accent-400 to-secondary-300 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-secondary-300 to-accent-400 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-700/90 z-10"
+        ></div>
+        <NuxtImg
+          ref="parallaxBg"
+          src="/images/blog-bg.webp"
+          alt="США"
+          format="webp"
+          class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
+        />
       </div>
       
       <div class="container-custom relative z-20 py-20 md:py-28">
