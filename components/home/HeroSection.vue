@@ -37,6 +37,11 @@
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column - Expert Info -->
         <div class="">
+          <!-- Main Page Title -->
+          <h1 class="text-4xl md:text-5xl font-bold mb-8 leading-tight motion-safe:animate-title-slide-up text-center lg:text-left">
+            Иммиграция в США
+          </h1>
+          
           <div class="flex flex-col-reverse lg:flex-row items-center gap-8 mb-12 motion-safe:animate-title-slide-up">
             <div class="relative group">
               <NuxtImg
@@ -65,7 +70,7 @@
 
           <div class="space-y-6 mb-8">
             <p 
-              class="text-xl md:text-2xl text-gray-100 opacity-90 
+              class="text-xl md:text-xl text-gray-100 opacity-90 
                      motion-safe:animate-content-slide-up [text-wrap:balance]"
               data-aos="fade-up"
               data-aos-delay="200"

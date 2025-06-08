@@ -459,61 +459,138 @@ const copyLink = async () => {
   }
 }
 
-// Подписка на рассылку
-const subscribeToNewsletter = async () => {
-  if (!emailSubscription.value) return
-  
-  subscribing.value = true
-  
-  // Имитация отправки (можно заменить на реальный API)
-  setTimeout(() => {
-    subscribing.value = false
-    emailSubscription.value = ''
-    alert('Спасибо за подписку! Вы будете получать актуальную информацию об иммиграции.')
-  }, 1000)
-}
-
 // SEO
 watchEffect(() => {
   if (blogStore.currentPost) {
     const post = blogStore.currentPost
     const seoTitle = post.seo?.title || post.title
     const seoDescription = post.seo?.meta_description || post.summary
+    const ogImageUrl = post.seo?.og_image 
+      ? `${useRuntimeConfig().public.directusUrl}/assets/${post.seo.og_image}`
+      : getImageUrl(post.image)
     
+    // SEO Meta Tags
+    useSeoMeta({
+      title: `${seoTitle} | BarristerCorp`,
+      description: seoDescription,
+      keywords: `${seoTitle}, иммиграция США, виза в США, ${getCategoryName(post.category)}, BarristerCorp`,
+      author: 'BarristerCorp',
+      robots: 'index, follow',
+      
+      // Article specific
+      articlePublishedTime: post.published_at,
+      articleModifiedTime: post.updated_at || post.published_at,
+      articleAuthor: 'BarristerCorp',
+      articleSection: getCategoryName(post.category),
+      
+      // Open Graph
+      ogTitle: seoTitle,
+      ogDescription: seoDescription,
+      ogImage: ogImageUrl,
+      ogImageWidth: 1200,
+      ogImageHeight: 630,
+      ogType: 'article',
+      ogUrl: currentUrl.value,
+      ogSiteName: 'BarristerCorp',
+      
+      // Twitter Card
+      twitterCard: 'summary_large_image',
+      twitterTitle: seoTitle,
+      twitterDescription: seoDescription,
+      twitterImage: ogImageUrl
+    })
+    
+    // Additional head config with structured data
     useHead({
       title: `${seoTitle} | BarristerCorp`,
-      meta: [
+      link: [
         {
-          name: 'description',
-          content: seoDescription
+          rel: 'canonical',
+          href: currentUrl.value
+        }
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: seoTitle,
+            description: seoDescription,
+            image: {
+              '@type': 'ImageObject',
+              url: ogImageUrl,
+              width: 1200,
+              height: 630
+            },
+            author: {
+              '@type': 'Organization',
+              name: 'BarristerCorp',
+              url: 'https://barristercorp.com'
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'BarristerCorp',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://barristercorp.com/images/logo.png',
+                width: 300,
+                height: 100
+              }
+            },
+            datePublished: post.published_at,
+            dateModified: post.updated_at || post.published_at,
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': currentUrl.value
+            },
+            articleSection: getCategoryName(post.category),
+            keywords: `иммиграция США, виза в США, ${getCategoryName(post.category)}`,
+            wordCount: post.content ? post.content.replace(/<[^>]*>/g, '').split(/\s+/).length : 0,
+            readingTime: `PT${readingTime.value}M`,
+            inLanguage: 'ru'
+          })
         },
         {
-          property: 'og:title',
-          content: seoTitle
-        },
-        {
-          property: 'og:description',
-          content: seoDescription
-        },
-        {
-          property: 'og:image',
-          content: post.seo?.og_image 
-            ? `${useRuntimeConfig().public.directusUrl}/assets/${post.seo.og_image}`
-            : getImageUrl(post.image)
-        },
-        {
-          property: 'og:url',
-          content: currentUrl.value
-        },
-        {
-          property: 'article:published_time',
-          content: post.published_at
-        },
-        {
-          property: 'article:author',
-          content: 'BarristerCorp'
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Главная',
+                item: 'https://barristercorp.com'
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Блог',
+                item: 'https://barristercorp.com/blog'
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: seoTitle,
+                item: currentUrl.value
+              }
+            ]
+          })
         }
       ]
+    })
+
+    // OG Image for blog post
+    defineOgImage({
+      component: 'BlogPost',
+      props: {
+        title: seoTitle,
+        category: getCategoryName(post.category),
+        date: formatDate(post.published_at),
+        readingTime: readingTime.value,
+        image: post.image ? getImageUrl(post.image) : null
+      }
     })
   }
 })

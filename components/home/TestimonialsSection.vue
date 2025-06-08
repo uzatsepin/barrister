@@ -441,7 +441,6 @@ const formatDate = (dateString) => {
   }
 }
 
-// Очистка при размонтировании компонента
 onBeforeUnmount(() => {
   if (selectedVideo.value) {
     document.body.style.overflow = 'auto'

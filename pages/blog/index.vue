@@ -229,14 +229,70 @@ const getImageUrl = (imageId) => {
 }
 
 // SEO
+useSeoMeta({
+  title: 'Блог о визах и иммиграции в США | BarristerCorp',
+  description: 'Экспертные статьи о визах, образовании и иммиграции в США. Советы, новости законодательства, кейсы клиентов от профессионалов BarristerCorp с 15+ летним опытом.',
+  keywords: 'блог иммиграция США, статьи о визах, образование США блог, иммиграционное право, новости виз США, BarristerCorp блог',
+  robots: 'index, follow',
+  
+  // Open Graph
+  ogTitle: 'Блог о визах и иммиграции в США | BarristerCorp', 
+  ogDescription: 'Экспертные статьи о визах, образовании и иммиграции в США от профессионалов с 15+ летним опытом.',
+  ogImage: '/images/og-blog.jpg',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogType: 'website',
+  ogUrl: 'https://barristercorp.com/blog',
+  
+  // Twitter Card
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Блог о визах и иммиграции в США',
+  twitterDescription: 'Экспертные статьи о визах, образовании и иммиграции в США.',
+  twitterImage: '/images/og-blog.jpg'
+})
+
 useHead({
-  title: 'Блог | BarristerCorp',
-  meta: [
+  title: 'Блог о визах и иммиграции в США | BarristerCorp',
+  link: [
     {
-      name: 'description',
-      content: 'Актуальные статьи о визах, образовании и иммиграции в США от экспертов BarristerCorp'
+      rel: 'canonical',
+      href: 'https://barristercorp.com/blog'
+    }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        name: 'Блог BarristerCorp',
+        description: 'Экспертные статьи о визах, образовании и иммиграции в США',
+        url: 'https://barristercorp.com/blog',
+        publisher: {
+          '@type': 'Organization',
+          name: 'BarristerCorp',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://barristercorp.com/images/logo.png'
+          }
+        },
+        author: {
+          '@type': 'Organization',
+          name: 'BarristerCorp'
+        }
+      })
     }
   ]
+})
+
+// OG Image for blog listing
+defineOgImage({
+  component: 'BlogListing',
+  props: {
+    title: 'Блог о визах и иммиграции в США',
+    description: 'Экспертные статьи от BarristerCorp',
+    postsCount: computed(() => blogStore.posts.length)
+  }
 })
 
 // Загружаем данные при монтировании

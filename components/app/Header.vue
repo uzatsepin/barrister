@@ -175,21 +175,59 @@ const dynamicMenuItems = computed(() => {
   }
 
   
-  return menuStructure.value.map(section => ({
+  return menuStructure.value
+    .sort((a, b) => {
+      // Сортируем секции по order, затем по алфавиту
+      const orderA = a.order || 0
+      const orderB = b.order || 0
+      
+      if (orderA !== orderB) {
+        return orderA - orderB
+      }
+      
+      return a.title.localeCompare(b.title)
+    })
+    .map(section => ({
     key: section.slug,
     label: section.title,
     to: `/${section.slug}`,
     icon: getSectionIcon(section.slug),
-    children: section.categories.map(category => ({
-      label: category.title,
-      icon: getCategoryIcon(category.slug),
-      children: category.pages.map(page => ({
-        label: page.title,
-        to: page.full_path,
-        icon: getPageIcon(page.type)
+    children: section.categories
+      .filter(category => category.pages && category.pages.length > 0) // Показываем только категории с страницами
+      .sort((a, b) => {
+        // Сортируем категории по order, затем по алфавиту
+        const orderA = a.order || 0
+        const orderB = b.order || 0
+        
+        if (orderA !== orderB) {
+          return orderA - orderB
+        }
+        
+        return a.title.localeCompare(b.title)
+      })
+      .map(category => ({
+        label: category.title,
+        icon: getCategoryIcon(category.slug),
+        children: category.pages
+          .sort((a, b) => {
+            // Сначала сортируем по order (по возрастанию)
+            const orderA = a.order || 0
+            const orderB = b.order || 0
+            
+            if (orderA !== orderB) {
+              return orderA - orderB
+            }
+            
+            // Если order одинаковый, сортируем по алфавиту
+            return a.title.localeCompare(b.title)
+          })
+          .map(page => ({
+            label: page.title,
+            to: page.full_path,
+            icon: getPageIcon(page.type)
+          }))
       }))
-    }))
-  }))
+  })).filter(section => section.children.length > 0) // Также убираем секции без категорий
 })
 
 const getSectionIcon = (slug) => {

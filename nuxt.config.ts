@@ -1,9 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   modules: [
+    '@nuxtjs/seo',
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/i18n',
@@ -11,7 +12,7 @@ export default defineNuxtConfig({
     'nuxt-aos',
     '@nuxt/image'
   ],
-  
+
   // Настройки для работы с внешними API
   nitro: {
     routeRules: {
@@ -29,10 +30,12 @@ export default defineNuxtConfig({
   // Настройки SSR для внешних запросов
   ssr: true,
   
-  // Настройки runtimeConfig для API
+  // Настройки runtimeConfig
   runtimeConfig: {
     public: {
-      directusUrl: 'https://api.barrister.guru'
+      directusUrl: 'https://api.barrister.guru',
+      siteUrl: 'https://barristercorp.com',
+      siteName: 'BarristerCorp'
     }
   },
   

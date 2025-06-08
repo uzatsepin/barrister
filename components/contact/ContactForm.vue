@@ -6,10 +6,28 @@
         <Icon name="ph:calendar-check" size="32" />
       </div>
       <h2 class="text-3xl font-bold text-gray-900 mb-3">
-        Бесплатная консультация
+        Персональная консультация
       </h2>
-      <p class="text-gray-600 text-lg">
+      <p class="text-gray-600 text-lg mb-6">
         Заполните форму и мы свяжемся с вами в удобное время
+      </p>
+      
+      <!-- Pricing Info -->
+      <div class="inline-flex items-center justify-center bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl px-6 py-4 mb-2">
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center text-green-700">
+            <Icon name="ph:currency-dollar" size="24" class="mr-2" />
+            <span class="text-2xl font-bold">150</span>
+          </div>
+          <div class="w-px h-8 bg-green-300"></div>
+          <div class="flex items-center text-green-600">
+            <Icon name="ph:clock" size="20" class="mr-2" />
+            <span class="font-semibold">45-60 минут</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-sm text-gray-500">
+        💡 Индивидуальный подход к вашей ситуации
       </p>
     </div>
 

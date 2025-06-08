@@ -44,6 +44,8 @@ export interface DirectusPage {
   date_created?: string
   user_updated?: string | null
   date_updated?: string | null
+  order?: number,
+  isVisa?: boolean
 }
 
 export interface MenuSection extends DirectusSection {
@@ -390,10 +392,10 @@ export const useContentStore = defineStore('content', {
               filter: {
                 is_published: { _eq: true }
               },
-              sort: ['title'],
+              sort: ['order', 'title'],
               fields: [
                 'id', 'title', 'slug', 'content', 'section', 'category', 
-                'is_published', 'type', 'seo'
+                'is_published', 'type', 'seo', 'order', 'isVisa'
               ]
             }
           }),

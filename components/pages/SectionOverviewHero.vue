@@ -1,0 +1,123 @@
+<template>
+  <section
+    class="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 text-white overflow-hidden"
+  >
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-primary-700/90 to-primary-900/90 z-10"></div>
+    </div>
+    
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-700/90 z-10"
+      ></div>
+      <NuxtImg
+        ref="parallaxBg"
+        src="/images/blog-bg.webp"
+        alt="США"
+        format="webp"
+        class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
+      />
+    </div>
+    
+    <div class="container-custom relative z-20 py-20 md:py-28">
+      <div class="max-w-5xl mx-auto text-center">
+        <!-- Breadcrumbs -->
+        <nav class="mb-8">
+          <ol class="flex items-center justify-center space-x-2 text-sm">
+            <li>
+              <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
+                Главная
+              </NuxtLink>
+            </li>
+            <li class="flex items-center">
+              <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
+              <span class="text-white font-medium">{{ sectionData?.title || 'Секция' }}</span>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- Section Content -->
+        <div v-if="sectionData">
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            {{ sectionData.title }}
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl mx-auto">
+            {{ sectionDescription }}
+          </p>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+              <div class="text-3xl font-bold mb-1">{{ sectionCategories.length }}</div>
+              <div class="text-sm text-gray-200">{{ sectionCategories.length === 1 ? 'Категория' : 'Категорий' }}</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+              <div class="text-3xl font-bold mb-1">{{ sectionPages.length }}</div>
+              <div class="text-sm text-gray-200">{{ pageWordForm }}</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+              <div class="text-3xl font-bold mb-1">15+</div>
+              <div class="text-sm text-gray-200">Лет опыта</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+              <div class="text-3xl font-bold mb-1">5000+</div>
+              <div class="text-sm text-gray-200">Успешных дел</div>
+            </div>
+          </div>
+
+          <!-- Quick CTA -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
+            <h3 class="text-xl font-semibold mb-3">Получите персональную консультацию</h3>
+            <p class="text-gray-200 text-sm mb-4">Обсудите ваши планы с экспертом BarristerCorp</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                @click="$emit('openContact')"
+                class="bg-white text-primary-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center"
+              >
+                <Icon name="ph:calendar-check" class="mr-2" size="20" />
+                Записаться на консультацию
+              </button>
+              <a
+                href="tel:+19362896191"
+                class="border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-primary-800 transition-colors flex items-center justify-center"
+              >
+                <Icon name="ph:phone" class="mr-2" size="20" />
+                Позвонить сейчас
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+defineProps({
+  sectionData: {
+    type: Object,
+    required: true
+  },
+  sectionCategories: {
+    type: Array,
+    default: () => []
+  },
+  sectionPages: {
+    type: Array,
+    default: () => []
+  },
+  sectionDescription: {
+    type: String,
+    required: true
+  },
+  pageWordForm: {
+    type: String,
+    required: true
+  }
+});
+
+defineEmits(['openContact']);
+</script> 

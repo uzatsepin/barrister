@@ -8,7 +8,7 @@
       @mouseleave="handleMouseLeave"
     >
       <button 
-        class="px-4 py-2 text-secondary-700 hover:text-primary-700 hover:bg-primary-50 rounded-md font-semibold flex items-center transition-colors duration-200"
+        class="px-4 py-2 text-secondary-700 text-sm hover:text-primary-700 hover:bg-primary-50 rounded-md font-semibold flex items-center transition-colors duration-200"
         @click="handleMenuClick(menu.key)"
         :class="{ 'text-primary-700 bg-primary-50': activeMenu === menu.key }"
       >

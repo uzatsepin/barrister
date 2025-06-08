@@ -126,10 +126,10 @@
           </div>
           <div class="group">
             <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-              <Icon name="ph:globe" class="w-10 h-10 text-white" />
+              <Icon name="ph:calendar" class="w-10 h-10 text-white" />
             </div>
             <div class="text-3xl font-bold text-white mb-2" ref="countriesCount">15+</div>
-            <p class="text-primary-100">Стран присутствия</p>
+            <p class="text-primary-100">Лет на рынке</p>
           </div>
           <div class="group">
             <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">

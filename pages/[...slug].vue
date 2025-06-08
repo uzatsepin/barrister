@@ -1,592 +1,82 @@
 <template>
   <div>
     <!-- Hero Section для Section Overview -->
-    <section
+    <SectionOverviewHero
       v-if="isSectonOverview"
-      class="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 text-white overflow-hidden"
-    >
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-primary-700/90 to-primary-900/90 z-10"></div>
-      </div>
-      
-      <!-- Animated Background Elements -->
-      <div class="absolute inset-0 overflow-hidden">
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-700/90 z-10"
-        ></div>
-        <NuxtImg
-          ref="parallaxBg"
-          src="/images/blog-bg.webp"
-          alt="США"
-          format="webp"
-          class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
-        />
-      </div>
-      
-      <div class="container-custom relative z-20 py-20 md:py-28">
-        <div class="max-w-5xl mx-auto text-center">
-          <!-- Breadcrumbs -->
-          <nav class="mb-8">
-            <ol class="flex items-center justify-center space-x-2 text-sm">
-              <li>
-                <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
-                  Главная
-                </NuxtLink>
-              </li>
-              <li class="flex items-center">
-                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
-                <span class="text-white font-medium">{{ sectionData?.title || 'Секция' }}</span>
-              </li>
-            </ol>
-          </nav>
-
-          <!-- Section Content -->
-          <div v-if="sectionData">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              {{ sectionData.title }}
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl mx-auto">
-              {{ getSectionDescription(sectionData.slug) }}
-            </p>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">{{ sectionCategories.length }}</div>
-                <div class="text-sm text-gray-200">{{ sectionCategories.length === 1 ? 'Категория' : 'Категорий' }}</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">{{ sectionPages.length }}</div>
-                <div class="text-sm text-gray-200">{{ getPageWordForm(sectionPages.length) }}</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">15+</div>
-                <div class="text-sm text-gray-200">Лет опыта</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">5000+</div>
-                <div class="text-sm text-gray-200">Успешных дел</div>
-              </div>
-            </div>
-
-            <!-- Quick CTA -->
-            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
-              <h3 class="text-xl font-semibold mb-3">Получите персональную консультацию</h3>
-              <p class="text-gray-200 text-sm mb-4">Обсудите ваши планы с экспертом BarristerCorp</p>
-              <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                <button
-                  @click="openContactModal"
-                  class="bg-white text-primary-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center"
-                >
-                  <Icon name="ph:calendar-check" class="mr-2" size="20" />
-                  Записаться на консультацию
-                </button>
-                <a
-                  href="tel:+19362896191"
-                  class="border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-primary-800 transition-colors flex items-center justify-center"
-                >
-                  <Icon name="ph:phone" class="mr-2" size="20" />
-                  Позвонить сейчас
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      :section-data="sectionData"
+      :section-categories="sectionCategories"
+      :section-pages="sectionPages"
+      :section-description="getSectionDescription(sectionData.slug)"
+      :page-word-form="getPageWordForm(sectionPages.length)"
+      @open-contact="openContactModal"
+    />
 
     <!-- Hero Section для Category Overview -->
-    <section
+    <CategoryOverviewHero
       v-else-if="isCategoryOverview"
-      class="relative bg-gradient-to-br from-secondary-700 via-secondary-600 to-secondary-800 text-white overflow-hidden"
-    >
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-secondary-700/90 to-secondary-900/90 z-10"></div>
-      </div>
-      
-      <!-- Animated Background Elements -->
-      <div class="absolute inset-0 overflow-hidden">
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-700/90 z-10"
-        ></div>
-        <NuxtImg
-          ref="parallaxBg"
-          src="/images/blog-bg.webp"
-          alt="США"
-          format="webp"
-          class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
-        />
-      </div>
-      
-      <div class="container-custom relative z-20 py-20 md:py-28">
-        <div class="max-w-5xl mx-auto text-center">
-          <!-- Breadcrumbs -->
-          <nav class="mb-8">
-            <ol class="flex items-center justify-center space-x-2 text-sm">
-              <li>
-                <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
-                  Главная
-                </NuxtLink>
-              </li>
-              <li class="flex items-center">
-                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
-                <NuxtLink :to="`/${sectionData?.slug}`" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
-                  {{ sectionData?.title || 'Секция' }}
-                </NuxtLink>
-              </li>
-              <li class="flex items-center">
-                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
-                <span class="text-white font-medium">{{ categoryData?.title || 'Категория' }}</span>
-              </li>
-            </ol>
-          </nav>
+      :section-data="sectionData"
+      :category-data="categoryData"
+      :category-pages="categoryPages"
+      :category-description="getCategoryDescription(categoryData.slug)"
+      :page-word-form="getPageWordForm(categoryPages.length)"
+      @open-contact="openContactModal"
+    />
 
-          <!-- Category Content -->
-          <div v-if="categoryData">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              {{ categoryData.title }}
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl mx-auto">
-              {{ getCategoryDescription(categoryData.slug) }}
-            </p>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">{{ categoryPages.length }}</div>
-                <div class="text-sm text-gray-200">{{ getPageWordForm(categoryPages.length) }}</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">{{ sectionData?.title || 'Раздел' }}</div>
-                <div class="text-sm text-gray-200">Основной раздел</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">15+</div>
-                <div class="text-sm text-gray-200">Лет опыта</div>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <div class="text-3xl font-bold mb-1">5000+</div>
-                <div class="text-sm text-gray-200">Успешных дел</div>
-              </div>
-            </div>
-
-            <!-- Quick CTA -->
-            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
-              <h3 class="text-xl font-semibold mb-3">Нужна персональная консультация?</h3>
-              <p class="text-gray-200 text-sm mb-4">Обсудите ваши планы с экспертом BarristerCorp</p>
-              <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                <button
-                  @click="openContactModal"
-                  class="bg-white text-secondary-800 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center"
-                >
-                  <Icon name="ph:calendar-check" class="mr-2" size="20" />
-                  Записаться на консультацию
-                </button>
-                <a
-                  href="tel:+19362896191"
-                  class="border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-secondary-800 transition-colors flex items-center justify-center"
-                >
-                  <Icon name="ph:phone" class="mr-2" size="20" />
-                  Позвонить сейчас
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hero Section для отдельных страниц (оригинальная) -->
-    <section
+    <!-- Hero Section для отдельных страниц -->
+    <PageDetailHero
       v-else
-      class="relative bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 text-white overflow-hidden"
-    >
-      <div class="absolute inset-0">
-        <div class="absolute inset-0 bg-black/20"></div>
-        <div
-          class="w-full h-full bg-gradient-to-br from-primary-700 to-primary-900"
-        ></div>
-      </div>
-
-      <div class="absolute inset-0 overflow-hidden">
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-primary-900/90 to-primary-700/90 z-10"
-        ></div>
-        <NuxtImg
-          ref="parallaxBg"
-          src="/images/pages-bg.webp"
-          alt="США"
-          format="webp"
-          class="w-full h-full object-cover scale-110 transform motion-safe:animate-subtle-zoom"
-        />
-      </div>
-
-      <div class="container-custom relative z-10 py-20 md:py-28">
-        <div class="max-w-4xl">
-          <!-- Breadcrumbs -->
-          <nav class="mb-6 animate-fade-in">
-            <ol class="flex items-center space-x-2 text-sm">
-              <li>
-                <NuxtLink to="/" class="text-gray-200 hover:text-white transition-colors underline decoration-dotted underline-offset-2">
-                  {{ $t("common.home") }}
-                </NuxtLink>
-              </li>
-              <li
-                v-for="(breadcrumb, index) in dynamicBreadcrumbs"
-                :key="index"
-                class="flex items-center"
-              >
-                <Icon name="ph:caret-right" class="mx-2 text-gray-300" size="16" />
-                <!-- Все промежуточные элементы и последний элемент как обычный текст -->
-                <span 
-                  :class="index === dynamicBreadcrumbs.length - 1 ? 'text-white font-medium' : 'text-gray-300'"
-                >
-                  {{ breadcrumb.label }}
-                </span>
-              </li>
-            </ol>
-          </nav>
-
-          <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
-            <span v-if="!loading">{{
-              pageData?.name || pageData?.title || generateTitle()
-            }}</span>
-            <div v-else class="animate-pulse">
-              <div class="h-12 md:h-16 bg-white/20 rounded w-3/4 mb-2"></div>
-              <div class="h-12 md:h-16 bg-white/20 rounded w-1/2"></div>
-            </div>
-          </h1>
-
-          <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 animate-slide-up delay-200">
-            <button
-              @click="openContactModal"
-              class="btn bg-white text-primary-700 hover:bg-gray-100 font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-            >
-              <Icon name="ph:chat-circle" class="mr-2" size="20" />
-              {{ $t("common.getConsultation") }}
-            </button>
-            <button
-              @click="scrollToContent"
-              class="btn border-2 border-white text-white hover:bg-white hover:text-primary-700 font-semibold px-8 py-3 rounded-lg transition-all duration-300"
-            >
-              <Icon name="ph:arrow-down" class="mr-2" size="20" />
-              {{ $t("common.learnMore") }}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <Icon name="ph:caret-down" class="text-white/60" size="24" />
-      </div>
-    </section>
+      :title="pageData?.name || pageData?.title || generateTitle()"
+      :dynamic-breadcrumbs="dynamicBreadcrumbs"
+      :loading="loading"
+      @open-contact="openContactModal"
+      @scroll-to-content="scrollToContent"
+    />
 
     <!-- Categories Section для Section Overview -->
-    <section v-if="isSectonOverview && sectionCategories.length > 0" class="section bg-gray-50">
-      <div class="container-custom">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">Доступные категории</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Выберите подходящую категорию для получения подробной информации
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          <div
-            v-for="category in sectionCategories"
-            :key="category.id"
-            class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
-          >
-            <div class="p-8">
-              <div class="flex items-center mb-4">
-                <div class="bg-primary-100 w-12 h-12 rounded-xl flex items-center justify-center mr-4">
-                  <Icon :name="getCategoryIcon(category.slug)" class="text-primary-600" size="24" />
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-600 transition-colors">
-                  {{ category.title }}
-                </h3>
-              </div>
-              
-              <p class="text-gray-600 mb-6 leading-relaxed">
-                {{ getCategoryDescription(category.slug) }}
-              </p>
-
-              <!-- Pages in Category -->
-              <div class="space-y-2 mb-6">
-                <div class="text-sm font-semibold text-gray-500 mb-3">
-                  {{ getCategoryPages(category.id).length }} {{ getPageWordForm(getCategoryPages(category.id).length) }}:
-                </div>
-                <div class="space-y-1">
-                  <NuxtLink
-                    v-for="page in getCategoryPages(category.id).slice(0, 3)"
-                    :key="page.id"
-                    :to="`/${sectionData.slug}/${category.slug}/${page.slug}`"
-                    class="block text-sm text-gray-600 hover:text-primary-600 hover:bg-primary-50 px-3 py-2 rounded-lg transition-colors"
-                  >
-                    {{ page.title }}
-                  </NuxtLink>
-                  <div v-if="getCategoryPages(category.id).length > 3" class="text-sm text-gray-500 px-3 py-1">
-                    +{{ getCategoryPages(category.id).length - 3 }} еще...
-                  </div>
-                </div>
-              </div>
-
-              <NuxtLink
-                :to="`/${sectionData.slug}/${category.slug}`"
-                class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 flex items-center justify-center group"
-              >
-                Подробнее
-                <Icon name="ph:arrow-right" class="ml-2 group-hover:translate-x-1 transition-transform" size="20" />
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-
-        <!-- All Pages Quick Access -->
-        <div class="bg-white rounded-2xl shadow-lg p-8">
-          <div class="text-center mb-8">
-            <h3 class="text-2xl font-bold text-gray-800 mb-3">Все страницы раздела</h3>
-            <p class="text-gray-600">Быстрый доступ ко всем материалам</p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <NuxtLink
-              v-for="page in sectionPages"
-              :key="page.id"
-              :to="`/${sectionData.slug}/${page.category_slug}/${page.slug}`"
-              class="group flex items-center p-4 rounded-xl border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-all duration-200"
-            >
-              <div class="bg-gray-100 group-hover:bg-primary-100 w-10 h-10 rounded-lg flex items-center justify-center mr-3 transition-colors">
-                <Icon name="ph:file-text" class="text-gray-600 group-hover:text-primary-600" size="18" />
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="font-medium text-gray-800 group-hover:text-primary-600 transition-colors truncate">
-                  {{ page.title }}
-                </div>
-                <div class="text-sm text-gray-500 truncate">
-                  {{ getCategoryByPageId(page.category)?.title }}
-                </div>
-              </div>
-              <Icon name="ph:arrow-right" class="text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all flex-shrink-0" size="16" />
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
+    <SectionCategories
+      v-if="isSectonOverview && sectionCategories.length > 0"
+      :section-data="sectionData"
+      :section-categories="sectionCategories"
+      :section-pages="sectionPages"
+      :get-category-icon="getCategoryIcon"
+      :get-category-description="getCategoryDescription"
+      :get-category-pages="getCategoryPages"
+      :get-page-word-form="getPageWordForm"
+      :get-category-by-page-id="getCategoryByPageId"
+    />
 
     <!-- Pages Section для Category Overview -->
-    <section v-if="isCategoryOverview && categoryPages.length > 0" class="section bg-gray-50">
-      <div class="container-custom">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">Доступные материалы</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Подробная информация по каждому аспекту категории "{{ categoryData.title }}"
-          </p>
-        </div>
+    <CategoryPages
+      v-if="isCategoryOverview && categoryPages.length > 0"
+      :section-data="sectionData"
+      :category-data="categoryData"
+      :category-pages="categoryPages"
+      :get-page-icon="getPageIcon"
+      :get-page-type-name="getPageTypeName"
+    />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <NuxtLink
-            v-for="page in categoryPages"
-            :key="page.id"
-            :to="`/${sectionData.slug}/${categoryData.slug}/${page.slug}`"
-            class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
-          >
-            <div class="p-8">
-              <div class="flex items-center mb-4">
-                <div class="bg-secondary-100 w-12 h-12 rounded-xl flex items-center justify-center mr-4">
-                  <Icon :name="getPageIcon(page.type)" class="text-secondary-600" size="24" />
-                </div>
-                <div class="flex-1">
-                  <h3 class="text-xl font-bold text-gray-800 group-hover:text-secondary-600 transition-colors leading-tight">
-                    {{ page.title }}
-                  </h3>
-                  <div class="text-sm text-gray-500 mt-1">
-                    {{ getPageTypeName(page.type) }}
-                  </div>
-                </div>
-              </div>
-              
-              <p v-if="page.seo?.meta_description" class="text-gray-600 mb-6 leading-relaxed">
-                {{ page.seo.meta_description }}
-              </p>
-              <p v-else class="text-gray-600 mb-6 leading-relaxed">
-                Подробная информация по теме "{{ page.title }}"
-              </p>
+    <!-- Main Content для отдельных страниц -->
+    <PageContent
+      v-if="!isSectonOverview && !isCategoryOverview"
+      ref="pageContentRef"
+      :page-data="pageData"
+      :loading="loading"
+      :current-path="$route.path"
+      :current-section="currentSection"
+      :title="generateTitle()"
+      :default-description="getDefaultDescription()"
+      :default-features="defaultFeatures"
+      @open-contact="openContactModal"
+    />
 
-              <div class="flex items-center justify-between text-sm text-gray-500">
-                <span>Подробнее</span>
-                <Icon name="ph:arrow-right" class="group-hover:translate-x-1 transition-transform" size="16" />
-              </div>
-            </div>
-          </NuxtLink>
-        </div>
-
-        <!-- Back to Section -->
-        <div class="text-center mt-16">
-          <NuxtLink
-            :to="`/${sectionData?.slug}`"
-            class="inline-flex items-center text-secondary-600 hover:text-secondary-700 font-medium text-lg"
-          >
-            <Icon name="ph:arrow-left" class="mr-2" size="20" />
-            Вернуться к разделу "{{ sectionData?.title }}"
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
-
-    <!-- Main Content для отдельных страниц (оригинальный) -->
-    <section v-if="!isSectonOverview && !isCategoryOverview" ref="contentSection" class="section bg-white">
-      <div class="container-custom">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <!-- Sidebar Navigation -->
-          <div class="lg:col-span-1">
-            <div
-              class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200"
-            >
-              <h3 class="text-xl font-bold text-secondary-800 mb-6 flex items-center">
-                <Icon name="ph:list" class="mr-2 text-primary-600" size="24" />
-                {{ $t("common.navigation") }}
-              </h3>
-
-              <div v-if="loading" class="animate-pulse space-y-3">
-                <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                <div class="h-5 bg-gray-200 rounded w-full"></div>
-                <div class="h-5 bg-gray-200 rounded w-5/6"></div>
-                <div class="h-5 bg-gray-200 rounded w-4/6"></div>
-                <div class="h-5 bg-gray-200 rounded w-full"></div>
-                <div class="h-5 bg-gray-200 rounded w-3/5"></div>
-              </div>
-
-              <DynamicNavigation
-                v-else
-                :current-path="$route.path"
-                :section="currentSection"
-              />
-
-              <!-- Quick Contact Card -->
-              <div
-                class="mt-8 bg-gradient-to-br from-primary-50 to-primary-100 p-6 rounded-xl border border-primary-200 shadow-sm"
-              >
-                <div class="text-center">
-                  <div
-                    class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4"
-                  >
-                    <Icon name="ph:headset" class="text-white" size="24" />
-                  </div>
-                  <h4 class="font-bold text-primary-700 mb-2">
-                    {{ $t("common.needHelp") }}
-                  </h4>
-                  <p class="text-secondary-600 text-sm mb-4">
-                    {{ $t("common.freeConsultation") }}
-                  </p>
-                  <button
-                    @click="openContactModal"
-                    class="btn btn-primary w-full text-sm font-semibold transform hover:scale-105 transition-all duration-200"
-                  >
-                    {{ $t("common.contactUs") }}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Main Content Area -->
-          <div class="lg:col-span-3">
-            <!-- Loading State -->
-            <div v-if="loading" class="space-y-8">
-              <UiContentLoader />
-            </div>
-
-            <!-- Actual Content -->
-            <article v-else class="prose prose-lg max-w-none">
-              <div
-                v-if="pageData?.content"
-                v-html="pageData.content"
-                class="directus-content bg-white p-8 rounded-xl shadow-sm border border-gray-100"
-              ></div>
-
-              <!-- Default content if no Directus data -->
-              <div v-else class="space-y-8">
-                <div
-                  class="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl border border-blue-200"
-                >
-                  <h2
-                    class="text-3xl font-bold text-secondary-800 mb-4 flex items-center"
-                  >
-                    <Icon
-                      name="ph:graduation-cap"
-                      class="mr-3 text-primary-600"
-                      size="32"
-                    />
-                    {{ generateTitle() }}
-                  </h2>
-                  <p class="text-secondary-600 text-lg leading-relaxed">
-                    {{ getDefaultDescription() }}
-                  </p>
-                </div>
-
-                <!-- Features Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div
-                    v-for="feature in defaultFeatures"
-                    :key="feature.title"
-                    class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-300"
-                  >
-                    <div class="flex items-center mb-4">
-                      <div
-                        class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4"
-                      >
-                        <Icon :name="feature.icon" class="text-primary-600" size="24" />
-                      </div>
-                      <h3 class="text-xl font-semibold text-secondary-800">
-                        {{ feature.title }}
-                      </h3>
-                    </div>
-                    <p class="text-secondary-600">{{ feature.description }}</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Service Formats Section для отдельных страниц -->
+    <ServiceFormats v-if="!isSectonOverview && !isCategoryOverview && pageData?.isVisa" />
 
     <!-- Contact Section -->
-    <section ref="contactSection" class="bg-gradient-to-r from-primary-600 to-primary-800 text-white">
-      <div class="container-custom py-16">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">
-            Готовы начать путь к достижению цели?
-          </h2>
-          <p class="text-xl text-primary-100 mb-8">
-            Наши эксперты помогут вам выбрать оптимальный путь и подготовить все необходимые документы
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              @click="openContactModal"
-              class="bg-white text-primary-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors text-lg"
-            >
-              <Icon name="ph:calendar-check" class="mr-2" size="24" />
-              Бесплатная консультация
-            </button>
-            <a
-              href="tel:+19362896191"
-              class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-primary-600 transition-colors text-lg"
-            >
-              <Icon name="ph:phone" class="mr-2" size="24" />
-              +1 (936) 289-6191
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ContactSection 
+      ref="contactSectionRef"
+      @open-contact="openContactModal"
+    />
   </div>
 </template>
 
@@ -594,6 +84,16 @@
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
+
+// Импорт компонентов страниц
+import SectionOverviewHero from "@/components/pages/SectionOverviewHero.vue";
+import CategoryOverviewHero from "@/components/pages/CategoryOverviewHero.vue";
+import PageDetailHero from "@/components/pages/PageDetailHero.vue";
+import SectionCategories from "@/components/pages/SectionCategories.vue";
+import CategoryPages from "@/components/pages/CategoryPages.vue";
+import PageContent from "@/components/pages/PageContent.vue";
+import ServiceFormats from "@/components/pages/ServiceFormats.vue";
+import ContactSection from "@/components/pages/ContactSection.vue";
 
 // Применяем middleware только к этой странице
 definePageMeta({
@@ -619,8 +119,8 @@ const {
 const { openModal: openContactModal } = useContact();
 
 // Refs for scrolling
-const contentSection = ref(null);
-const contactSection = ref(null);
+const pageContentRef = ref(null);
+const contactSectionRef = ref(null);
 
 // Page data
 const pageData = ref(null);
@@ -814,41 +314,6 @@ const defaultFeatures = computed(() => {
   ];
 });
 
-const processSteps = computed(() => {
-  const section = currentSection.value;
-  const baseKey =
-    section === "study"
-      ? "study"
-      : section === "work"
-      ? "work"
-      : section === "business"
-      ? "business"
-      : section === "humanitarian"
-      ? "humanitarian"
-      : section === "estate"
-      ? "estate"
-      : "common";
-
-  return [
-    {
-      title: "Консультация",
-      description: "Определяем ваши цели и подбираем подходящие программы",
-    },
-    {
-      title: "Подготовка",
-      description: "Готовим все необходимые документы и переводы",
-    },
-    {
-      title: "Подача",
-      description: "Подаем документы в выбранные учебные заведения",
-    },
-    {
-      title: "Виза",
-      description: "Помогаем получить студенческую визу и готовимся к отъезду",
-    },
-  ];
-});
-
 // Methods
 const generateTitle = () => {
   if (pageData.value?.title) return pageData.value.title;
@@ -867,12 +332,8 @@ const getDefaultDescription = () => {
   return t(`${section}.defaultDescription`) || t("common.defaultDescription");
 };
 
-const scrollToContact = () => {
-  openContactModal();
-};
-
 const scrollToContent = () => {
-  contentSection.value?.scrollIntoView({ behavior: "smooth" });
+  pageContentRef.value?.contentSection?.scrollIntoView({ behavior: "smooth" });
 };
 
 const fetchPageData = async () => {
@@ -912,22 +373,98 @@ const fetchPageData = async () => {
         ? getCategoryDescription(categoryData.value.slug)
         : getSectionDescription(sectionData.value.slug);
 
+      const keywords = isCategoryOverview.value
+        ? `${categoryData.value.title}, ${sectionData.value.title}, иммиграция США, BarristerCorp`
+        : `${sectionData.value.title}, иммиграция США, виза в США, BarristerCorp`;
+
+      // SEO Meta Tags
+      useSeoMeta({
+        title,
+        description,
+        keywords,
+        author: 'BarristerCorp',
+        robots: 'index, follow',
+        
+        // Open Graph
+        ogTitle: title,
+        ogDescription: description,
+        ogImage: '/images/og-section.jpg',
+        ogImageWidth: 1200,
+        ogImageHeight: 630,
+        ogType: 'website',
+        ogUrl: `https://barristercorp.com${route.path}`,
+        ogSiteName: 'BarristerCorp',
+        
+        // Twitter Card
+        twitterCard: 'summary_large_image',
+        twitterTitle: title,
+        twitterDescription: description,
+        twitterImage: '/images/og-section.jpg'
+      });
+
+      // Additional head config with structured data
       useHead({
         title,
-        meta: [
+        link: [
           {
-            name: "description",
-            content: description,
-          },
-          {
-            property: "og:title",
-            content: title,
-          },
-          {
-            property: "og:description",
-            content: description,
-          },
+            rel: 'canonical',
+            href: `https://barristercorp.com${route.path}`
+          }
         ],
+        script: [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': isCategoryOverview.value ? 'CollectionPage' : 'WebPage',
+              name: title,
+              description: description,
+              url: `https://barristercorp.com${route.path}`,
+              publisher: {
+                '@type': 'Organization',
+                name: 'BarristerCorp',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://barristercorp.com/images/logo.png'
+                }
+              },
+              breadcrumb: {
+                '@type': 'BreadcrumbList',
+                itemListElement: dynamicBreadcrumbs.value.map((breadcrumb, index) => ({
+                  '@type': 'ListItem',
+                  position: index + 1,
+                  name: breadcrumb.label,
+                  item: breadcrumb.url ? `https://barristercorp.com${breadcrumb.url}` : undefined
+                }))
+              },
+              mainEntity: {
+                '@type': 'Service',
+                name: isCategoryOverview.value ? categoryData.value.title : sectionData.value.title,
+                description: description,
+                provider: {
+                  '@type': 'Organization',
+                  name: 'BarristerCorp'
+                },
+                areaServed: {
+                  '@type': 'Country',
+                  name: 'United States'
+                }
+              }
+            })
+          }
+        ]
+      });
+
+      // OG Image for section/category pages
+      defineOgImage({
+        component: 'Section',
+        props: {
+          title: isCategoryOverview.value ? categoryData.value.title : sectionData.value.title,
+          description: description,
+          type: isCategoryOverview.value ? 'Категория' : 'Раздел',
+          icon: isCategoryOverview.value ? getCategoryIcon(categoryData.value.slug) : getCategoryIcon(sectionData.value.slug),
+          pagesCount: isCategoryOverview.value ? categoryPages.value.length : sectionPages.value.length
+        }
       });
 
       loading.value = false;
@@ -944,28 +481,119 @@ const fetchPageData = async () => {
     if (data) {
       pageData.value = data;
 
-      // SEO Meta
+      const pageTitle = data.seo?.title || `${data.title || generateTitle()} | BarristerCorp`;
+      const pageDescription = data.seo?.meta_description || getDefaultDescription();
+      const pageKeywords = data.seo?.keywords || `${data.title || generateTitle()}, ${sectionData.value?.title}, иммиграция США, виза в США, BarristerCorp`;
+
+      // SEO Meta Tags
+      useSeoMeta({
+        title: pageTitle,
+        description: pageDescription,
+        keywords: pageKeywords,
+        author: 'BarristerCorp',
+        robots: 'index, follow',
+        
+        // Article specific meta for pages
+        articleAuthor: 'BarristerCorp',
+        articleSection: sectionData.value?.title,
+        articleTag: [data.title || generateTitle(), sectionData.value?.title, 'иммиграция'],
+        
+        // Open Graph
+        ogTitle: pageTitle,
+        ogDescription: pageDescription,
+        ogImage: data.image || '/images/default-og.jpg',
+        ogImageWidth: 1200,
+        ogImageHeight: 630,
+        ogType: 'article',
+        ogUrl: `https://barristercorp.com${route.path}`,
+        ogSiteName: 'BarristerCorp',
+        
+        // Twitter Card
+        twitterCard: 'summary_large_image',
+        twitterTitle: pageTitle,
+        twitterDescription: pageDescription,
+        twitterImage: data.image || '/images/default-og.jpg'
+      });
+
+      // Additional head config with structured data
       useHead({
-        title: data.seo?.title || `${data.title || generateTitle()} | BarristerCorp`,
-        meta: [
+        title: pageTitle,
+        link: [
           {
-            name: "description",
-            content: data.seo?.meta_description || getDefaultDescription(),
-          },
-          {
-            property: "og:title",
-            content:
-              data.seo?.title || `${data.title || generateTitle()} | BarristerCorp`,
-          },
-          {
-            property: "og:description",
-            content: data.seo?.meta_description || getDefaultDescription(),
-          },
-          {
-            property: "og:image",
-            content: "/images/default-og.jpg",
-          },
+            rel: 'canonical',
+            href: `https://barristercorp.com${route.path}`
+          }
         ],
+        script: [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: data.title || generateTitle(),
+              description: pageDescription,
+              image: data.image || '/images/default-og.jpg',
+              url: `https://barristercorp.com${route.path}`,
+              datePublished: data.created_at || new Date().toISOString(),
+              dateModified: data.updated_at || data.created_at || new Date().toISOString(),
+              author: {
+                '@type': 'Organization',
+                name: 'BarristerCorp',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://barristercorp.com/images/logo.png'
+                }
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: 'BarristerCorp',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://barristercorp.com/images/logo.png'
+                }
+              },
+              mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': `https://barristercorp.com${route.path}`
+              },
+              breadcrumb: {
+                '@type': 'BreadcrumbList',
+                itemListElement: dynamicBreadcrumbs.value.map((breadcrumb, index) => ({
+                  '@type': 'ListItem',
+                  position: index + 1,
+                  name: breadcrumb.label,
+                  item: breadcrumb.url ? `https://barristercorp.com${breadcrumb.url}` : undefined
+                }))
+              },
+              about: {
+                '@type': 'Service',
+                name: data.title || generateTitle(),
+                description: pageDescription,
+                provider: {
+                  '@type': 'Organization',
+                  name: 'BarristerCorp'
+                },
+                areaServed: {
+                  '@type': 'Country',
+                  name: 'United States'
+                }
+              }
+            })
+          }
+        ]
+      });
+
+      // OG Image for individual pages
+      defineOgImage({
+        component: 'PageDetail',
+        props: {
+          title: data.title || generateTitle(),
+          description: pageDescription,
+          section: sectionData.value?.title,
+          category: categoryData.value?.title,
+          type: data.isVisa ? 'Виза' : 'Информация',
+          image: data.image
+        }
       });
     } else {
       console.warn("Page not found:", route.path);
@@ -981,14 +609,25 @@ const fetchPageData = async () => {
 
     // Если это не ошибка 404, то показываем fallback SEO
     if (err.statusCode !== 404) {
+      const fallbackTitle = `${generateTitle()} | BarristerCorp`;
+      const fallbackDescription = getDefaultDescription();
+
+      useSeoMeta({
+        title: fallbackTitle,
+        description: fallbackDescription,
+        robots: 'noindex, nofollow',
+        ogTitle: fallbackTitle,
+        ogDescription: fallbackDescription
+      });
+
       useHead({
-        title: `${generateTitle()} | BarristerCorp`,
-        meta: [
+        title: fallbackTitle,
+        link: [
           {
-            name: "description",
-            content: getDefaultDescription(),
-          },
-        ],
+            rel: 'canonical',
+            href: `https://barristercorp.com${route.path}`
+          }
+        ]
       });
     } else {
       // Для 404 пробрасываем ошибку дальше
@@ -1005,38 +644,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out;
-}
 
-.animate-slide-up {
-  animation: slideUp 0.8s ease-out;
-}
-
-.delay-200 {
-  animation-delay: 0.2s;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
