@@ -90,6 +90,16 @@
                     <div class="text-sm text-gray-600">+1 (936) 289-6191</div>
                   </div>
                 </a>
+                <a
+                  href="https://wa.me/19362896191"
+                  class="flex items-center p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
+                >
+                  <Icon name="ph:whatsapp-logo" class="text-blue-600 mr-3" size="20" />
+                  <div>
+                    <div class="font-semibold text-gray-800">Написать в WhatsApp</div>
+                    <div class="text-sm text-gray-600">+1 (936) 289-6191</div>
+                  </div>
+                </a>
                 
                 <button
                   @click="$emit('openContact')"
@@ -97,8 +107,8 @@
                 >
                   <Icon name="ph:chat-circle" class="text-primary-600 mr-3" size="20" />
                   <div>
-                    <div class="font-semibold text-gray-800">Написать</div>
-                    <div class="text-sm text-gray-600">Бесплатная консультация</div>
+                    <div class="font-semibold text-gray-800">Запрос на звонок</div>
+                    <!-- <div class="text-sm text-gray-600">Бесплатная консультация</div> -->
                   </div>
                 </button>
               </div>

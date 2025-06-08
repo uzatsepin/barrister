@@ -6,8 +6,8 @@
     </div>
     
     <!-- Navigation items -->
-    <div v-else-if="sectionCategories.length > 0">
-      <div v-for="category in sectionCategories" :key="category.id" class="mb-4">
+    <div v-else-if="filteredCategories.length > 0">
+      <div v-for="category in filteredCategories" :key="category.id" class="mb-4">
         <!-- Category header -->
         <div class="px-3 py-2 text-sm font-semibold text-gray-700 border-b border-gray-200">
           {{ category.title }}
@@ -60,6 +60,13 @@ const { isContentLoading, loadContent, getMenuBySection, isAllContentLoaded } = 
 const sectionCategories = computed(() => {
   if (!isAllContentLoaded.value) return []
   return getMenuBySection(props.section)
+})
+
+// Фильтруем категории только с pages
+const filteredCategories = computed(() => {
+  return sectionCategories.value.filter(category => 
+    category.pages && category.pages.length > 0
+  )
 })
 
 // Проверяем активность пункта меню

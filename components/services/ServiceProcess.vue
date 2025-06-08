@@ -13,9 +13,9 @@
         <!-- Process Steps -->
         <div class="relative">
           <!-- Process Line -->
-          <div
+          <!-- <div
             class="absolute left-8 top-16 bottom-16 w-0.5 bg-gradient-to-b from-primary-400 to-primary-600 hidden md:block"
-          ></div>
+          ></div> -->
 
           <div class="space-y-12">
             <div
@@ -32,9 +32,9 @@
                 </div>
                 <div
                   v-if="index < serviceData.process.length - 1"
-                  class="absolute -bottom-12 left-1/2 transform -translate-x-1/2 hidden md:block"
+                  class="absolute -bottom-16 left-1/2 transform -translate-x-1/2 hidden md:block"
                 >
-                  <Icon name="ph:arrow-down" class="text-primary-400" size="24" />
+                  <Icon name="ph:arrow-down" class="text-primary-600" size="32" />
                 </div>
               </div>
 

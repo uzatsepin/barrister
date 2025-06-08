@@ -249,7 +249,7 @@ const servicesData = {
     keyFeatures: [
       { icon: "ph:file-doc", title: "Шаблоны документов" },
       { icon: "ph:book-open", title: "Подробные инструкции" },
-      { icon: "ph:example", title: "Примеры заполнения" },
+      { icon: "ph:newspaper", title: "Примеры заполнения" },
     ],
     included: [
       {
@@ -273,7 +273,7 @@ const servicesData = {
         description: "Примеры переводов документов на английский язык",
       },
       {
-        icon: "ph:checklist",
+        icon: "ph:list-checks",
         title: "Контрольные списки",
         description: "Чек-листы для проверки готовности документов",
       },

@@ -18,10 +18,10 @@
         <!-- Service Cards Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           <!-- 1. Чек-лист -->
-          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-green-200 hover:-translate-y-2">
-            <div class="p-8 relative">
+          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-green-200 hover:-translate-y-2 h-full">
+            <div class="p-8 relative h-full flex flex-col">
               <!-- Badge -->
-              <div class="inline-flex items-center bg-gradient-to-r from-green-100 to-green-200 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+              <div class="inline-flex w-fit items-center bg-gradient-to-r from-green-100 to-green-200 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
                 <Icon name="ph:list-checks" class="mr-2" size="16" />
                 Для начинающих
               </div>
@@ -50,17 +50,17 @@
                 </p>
               </div>
 
-              <NuxtLink to="/services/checklist" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform group-hover:scale-105">
+              <NuxtLink to="/services/checklist" class="w-full text-center bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform group-hover:scale-105 mt-auto">
                 👉 Запросить чек-лист
               </NuxtLink>
             </div>
           </div>
 
           <!-- 2. Сделай сам -->
-          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-2">
-            <div class="p-8 relative">
+          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-blue-200 hover:-translate-y-2 h-full">
+            <div class="p-8 relative h-full flex flex-col">
               <!-- Badge -->
-              <div class="inline-flex items-center bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+              <div class="inline-flex w-fit items-center bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
                 <Icon name="ph:wrench" class="mr-2" size="16" />
                 Самостоятельно
               </div>
@@ -89,17 +89,17 @@
                 </p>
               </div>
 
-              <NuxtLink to="/services/diy" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform group-hover:scale-105">
+              <NuxtLink to="/services/diy" class="w-full text-center bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform group-hover:scale-105 mt-auto">
                 👉 Получить гид и шаблоны
               </NuxtLink>
             </div>
           </div>
 
           <!-- 3. С экспертом -->
-          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-purple-200 hover:-translate-y-2">
-            <div class="p-8 relative">
+          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-purple-200 hover:-translate-y-2 h-full">
+            <div class="p-8 relative h-full flex flex-col">
               <!-- Badge -->
-              <div class="inline-flex items-center bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+              <div class="inline-flex w-fit items-center bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
                 <Icon name="ph:user-gear" class="mr-2" size="16" />
                 Сопровождение
               </div>
@@ -128,14 +128,14 @@
                 </p>
               </div>
 
-              <NuxtLink to="/services/expert" class="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-300 transform group-hover:scale-105">
+              <NuxtLink to="/services/expert" class="w-full text-center bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-300 transform group-hover:scale-105 mt-auto">
                 👉 Записаться на консультацию
               </NuxtLink>
             </div>
           </div>
 
           <!-- 4. Полное сопровождение -->
-          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-amber-200 hover:-translate-y-2 relative">
+          <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-amber-200 hover:-translate-y-2 relative h-full">
             <!-- Recommended Badge -->
             <div class="absolute top-3 left-1/2 transform -translate-x-1/2 z-10">
               <div class="bg-gradient-to-r from-amber-400 to-amber-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
@@ -143,9 +143,9 @@
               </div>
             </div>
             
-            <div class="p-8 relative pt-12">
+            <div class="p-8 relative pt-12 h-full flex flex-col">
               <!-- Badge -->
-              <div class="inline-flex items-center bg-gradient-to-r from-amber-100 to-amber-200 text-amber-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+              <div class="inline-flex w-fit items-center bg-gradient-to-r from-amber-100 to-amber-200 text-amber-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
                 <Icon name="ph:crown" class="mr-2" size="16" />
                 Максимум
               </div>
@@ -174,7 +174,7 @@
                 </p>
               </div>
 
-              <NuxtLink to="/services/full" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-all duration-300 transform group-hover:scale-105 shadow-lg">
+              <NuxtLink to="/services/full" class="w-full text-center bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-all duration-300 transform group-hover:scale-105 shadow-lg mt-auto">
                 👉 Начать серьёзную работу
               </NuxtLink>
             </div>
