@@ -129,7 +129,8 @@
         <!-- Right Column - Service Cards -->
         <div class="">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 motion-safe:animate-cards-slide-up">
-            <div 
+            <NuxtLink
+              :to="card.link"
               v-for="(card, index) in serviceCards" 
               :key="index"
               class="group bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 
@@ -145,11 +146,11 @@
                   class="text-accent-400 mb-4 transform transition-transform duration-300 group-hover:scale-110" 
                   size="40" 
                 />
-                <div class="absolute inset-0 bg-gradient-to-r from-accent-400/0 to-accent-400/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <!-- <div class="absolute inset-0 bg-gradient-to-r from-accent-400/0 to-accent-400/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div> -->
               </div>
-              <h3 class="text-xl font-semibold mb-2 group-hover:text-accent-400 transition-colors">{{ card.title }}</h3>
+              <h3 class="text-xl font-semibold mb-2 group-hover:text-accent-200 transition-colors">{{ card.title }}</h3>
               <p class="text-gray-200 opacity-80">{{ card.description }}</p>
-            </div>
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -254,25 +255,25 @@ const serviceCards = [
     title: 'EB-1A Visa',
     description: 'Грин-карта для людей с выдающимися достижениями — наука, искусство, спорт, бизнес',
     icon: 'ph:star',
-    link: '/eb1a'
+    link: '/work/permanent/eb-1'
   },
   {
     title: 'EB-2 NIW',
     description: 'Грин-карта без работодателя — если ваша работа важна для интересов США',
     icon: 'ph:flag',
-    link: '/eb2-niw'
+    link: '/work/permanent/eb-2'
   },
   {
     title: 'EB-3 Visa',
     description: 'Грин-карта через работодателя — для квалифицированных специалистов и рабочих',
     icon: 'ph:briefcase',
-    link: '/eb3'
+    link: '/work/permanent/eb-3'
   },
   {
     title: 'E-2 Visa',
     description: 'Виза для малого инвестора — откройте бизнес в США и живите там',
     icon: 'ph:currency-dollar',
-    link: '/e2'
+    link: '/business/temp/e-2'
   }
 ];
 </script>

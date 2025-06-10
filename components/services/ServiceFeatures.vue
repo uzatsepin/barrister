@@ -2,12 +2,12 @@
   <section
     class="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
   >
-    <!-- Background Elements -->
+    <!-- Simplified Background Elements -->
     <div
-      class="absolute top-0 left-0 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-purple-600/10 rounded-full blur-3xl"
+      class="absolute top-0 left-0 w-72 h-72 bg-gradient-to-r from-blue-400/5 to-purple-600/5 rounded-full"
     ></div>
     <div
-      class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-r from-green-400/10 to-blue-600/10 rounded-full blur-3xl"
+      class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-r from-green-400/5 to-blue-600/5 rounded-full"
     ></div>
 
     <div class="container-custom relative z-10">
@@ -37,42 +37,26 @@
           <div
             v-for="item in serviceData.included"
             :key="item.title"
-            class="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-200 hover:-translate-y-2 relative overflow-hidden"
+            class="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-green-200 hover:-translate-y-1 relative"
           >
-            <!-- Hover Gradient -->
-            <div
-              class="absolute inset-0 bg-gradient-to-br from-green-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            ></div>
-
             <div class="relative z-10">
-              <!-- Icon with Animation -->
+              <!-- Simplified Icon -->
               <div
-                class="bg-gradient-to-r from-green-100 to-green-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300"
+                class="bg-gradient-to-r from-green-100 to-green-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-200"
               >
-                <Icon
-                  :name="item.icon"
-                  class="text-green-600 group-hover:text-green-700"
-                  size="28"
-                />
+                <Icon :name="item.icon" class="text-green-600" size="28" />
               </div>
 
               <h3
-                class="text-xl font-bold text-gray-800 mb-4 group-hover:text-green-700 transition-colors duration-300"
+                class="text-xl font-bold text-gray-800 mb-4 group-hover:text-green-700 transition-colors duration-200"
               >
                 {{ item.title }}
               </h3>
               <p
-                class="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300"
+                class="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-200"
               >
                 {{ item.description }}
               </p>
-
-              <!-- Progress Bar Animation -->
-              <div class="mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  class="h-full bg-gradient-to-r from-green-500 to-blue-500 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000"
-                ></div>
-              </div>
             </div>
           </div>
         </div>
@@ -81,7 +65,7 @@
         <div
           class="bg-gradient-to-r from-green-500 to-blue-600 rounded-3xl p-8 md:p-12 text-white text-center relative overflow-hidden"
         >
-          <!-- Background Pattern -->
+          <!-- Simplified Background Pattern -->
           <div class="absolute inset-0 opacity-10">
             <div
               class="absolute top-0 left-0 w-32 h-32 border border-white rounded-full"

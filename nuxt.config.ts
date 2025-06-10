@@ -11,8 +11,8 @@ export default defineNuxtConfig({
     'nuxt-icon',
     'nuxt-aos',
     '@nuxt/image'
-  ],
-
+    ],
+  
   // Настройки для работы с внешними API
   nitro: {
     routeRules: {
@@ -30,6 +30,15 @@ export default defineNuxtConfig({
   // Настройки SSR для внешних запросов
   ssr: true,
   
+  // SEO configuration - disable automatic title templating
+  seo: {
+    automaticDefaults: false
+  },
+  
+  site: {
+    url: 'https://barristercorp.com'
+  },
+  
   // Настройки runtimeConfig
   runtimeConfig: {
     public: {
@@ -41,7 +50,7 @@ export default defineNuxtConfig({
   
   app: {
     head: {
-      title: 'BarristerCorp - Иммиграция и образование в США',
+      title: 'BarristerCorp',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

@@ -193,10 +193,10 @@
             </p>
             <NuxtLink
               to="/contacts"
-              class="bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold py-4 px-8 rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              class="bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold py-4 px-6 rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105 shadow-lg flex w-fit items-center justify-center mx-auto gap-2"
             >
-              <Icon name="ph:chat-circle" class="mr-2" size="20" />
-              Получить персональную рекомендацию
+              <Icon name="ph:chat-circle" class="mr-2 min-h-6 min-w-6" size="20" />
+              <span class="whitespace-normal text-center">Получить персональную рекомендацию</span>
             </NuxtLink>
           </div>
         </div>

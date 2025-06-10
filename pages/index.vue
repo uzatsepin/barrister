@@ -13,7 +13,7 @@
 <script setup>
 // SEO Configuration for Homepage
 useSeoMeta({
-  title: 'Иммиграционные услуги в США | BarristerCorp - Профессиональная помощь в получении виз',
+  title: 'Иммиграционные услуги в США | BarristerCorp',
   description: 'BarristerCorp - ведущая компания по иммиграционным услугам в США. Помогаем с получением виз, образованием, трудоустройством, бизнес-иммиграцией и покупкой недвижимости. 15+ лет опыта, 5000+ успешных дел.',
   keywords: 'иммиграция США, виза в США, образование в США, работа в США, бизнес в США, недвижимость в США, иммиграционный адвокат, BarristerCorp',
   author: 'BarristerCorp',
@@ -51,9 +51,8 @@ useSeoMeta({
   }
 })
 
-// Structured Data (JSON-LD)  
+// Additional head configuration (without duplicate title)
 useHead({
-  title: 'Иммиграционные услуги в США | BarristerCorp',
   htmlAttrs: {
     lang: 'ru'
   },

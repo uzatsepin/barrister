@@ -64,29 +64,26 @@ const scrollToDetails = () => {
 // Animate counters on mount
 const animateCounters = () => {
   const targets = { clients: 500, success: 95, years: 15 };
-  const duration = 2000;
-  const steps = 60;
-  const stepTime = duration / steps;
-
-  let currentStep = 0;
+  
+  // Simplified counter animation - less intensive
+  let progress = 0;
   const timer = setInterval(() => {
-    currentStep++;
-    const progress = currentStep / steps;
-
+    progress += 0.05;
+    
     animatedClients.value = Math.floor(targets.clients * progress);
     animatedSuccess.value = Math.floor(targets.success * progress);
     animatedYears.value = Math.floor(targets.years * progress);
 
-    if (currentStep >= steps) {
+    if (progress >= 1) {
       clearInterval(timer);
       animatedClients.value = targets.clients;
       animatedSuccess.value = targets.success;
       animatedYears.value = targets.years;
     }
-  }, stepTime);
+  }, 100); // Reduced frequency
 };
 
-// Update countdown timer
+// Simplified countdown timer
 const updateCountdown = () => {
   const now = new Date();
   const endOfDay = new Date();
@@ -95,18 +92,18 @@ const updateCountdown = () => {
   const diff = endOfDay - now;
   const hours = Math.floor(diff / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
   countdown.value = `${hours.toString().padStart(2, "0")}:${minutes
     .toString()
-    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    .padStart(2, "0")}`;
 };
 
-// Start animations and timers
+// Start animations and timers with better performance
 onMounted(() => {
   setTimeout(animateCounters, 500);
   updateCountdown();
-  setInterval(updateCountdown, 1000);
+  // Reduced frequency for countdown
+  setInterval(updateCountdown, 60000); // Update every minute instead of every second
 });
 
 // Service slug from URL
@@ -613,7 +610,7 @@ useSeoMeta({
   // Open Graph
   ogTitle: serviceTitle,
   ogDescription: serviceDescription,
-  ogImage: `/images/services/${serviceSlug.value}-og.jpg`,
+  ogImage: `/images/default-og.jpg`,
   ogImageWidth: 1200,
   ogImageHeight: 630,
   ogType: 'product',
@@ -628,12 +625,11 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
   twitterTitle: serviceTitle,
   twitterDescription: serviceDescription,
-  twitterImage: `/images/services/${serviceSlug.value}-og.jpg`
+  twitterImage: `/images/default-og.jpg`
 });
 
-// Additional head config with structured data
+// Simplified structured data
 useHead({
-  title: serviceTitle,
   link: [
     {
       rel: 'canonical',
@@ -648,109 +644,14 @@ useHead({
         '@type': 'Product',
         name: serviceData.value.title,
         description: serviceDescription,
-        image: `/images/services/${serviceSlug.value}-og.jpg`,
-        url: `https://barristercorp.com${route.path}`,
-        brand: {
-          '@type': 'Organization',
-          name: 'BarristerCorp'
-        },
         offers: {
           '@type': 'Offer',
           price: serviceData.value.price,
           priceCurrency: 'USD',
-          availability: 'https://schema.org/InStock',
-          validFrom: new Date().toISOString(),
           seller: {
             '@type': 'Organization',
-            name: 'BarristerCorp',
-            url: 'https://barristercorp.com'
+            name: 'BarristerCorp'
           }
-        },
-        provider: {
-          '@type': 'Organization',
-          name: 'BarristerCorp',
-          logo: {
-            '@type': 'ImageObject',
-            url: 'https://barristercorp.com/images/logo.png'
-          },
-          contactPoint: {
-            '@type': 'ContactPoint',
-            contactType: 'customer service',
-            availableLanguage: ['Russian', 'English']
-          }
-        },
-        category: 'Immigration Services',
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '4.8',
-          bestRating: '5',
-          worstRating: '1',
-          ratingCount: '150'
-        },
-        review: [
-          {
-            '@type': 'Review',
-            reviewRating: {
-              '@type': 'Rating',
-              ratingValue: '5',
-              bestRating: '5'
-            },
-            author: {
-              '@type': 'Person',
-              name: 'Анна Петрова'
-            },
-            reviewBody: 'Отличная помощь в подготовке документов. Все прошло быстро и качественно.'
-          }
-        ]
-      })
-    },
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Главная',
-            item: 'https://barristercorp.com'
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Услуги',
-            item: 'https://barristercorp.com/services'
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: serviceData.value.title,
-            item: `https://barristercorp.com${route.path}`
-          }
-        ]
-      })
-    },
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Service',
-        name: serviceData.value.title,
-        description: serviceDescription,
-        provider: {
-          '@type': 'Organization',
-          name: 'BarristerCorp'
-        },
-        areaServed: {
-          '@type': 'Country',
-          name: 'United States'
-        },
-        serviceType: 'Immigration Services',
-        offers: {
-          '@type': 'Offer',
-          price: serviceData.value.price,
-          priceCurrency: 'USD'
         }
       })
     }
