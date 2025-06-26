@@ -1,15 +1,15 @@
 <template>
   <section ref="contentSection" class="section bg-white">
     <div class="container-custom">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8">
         <!-- Sidebar Navigation -->
         <div class="lg:col-span-1">
           <div
             class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-lg border border-gray-200 sticky top-24"
-            :class="{ 'p-6': true, 'pb-4': !isMobileNavOpen && isMobile }"
+            :class="{ 'p-2 lg:p-6': true, 'pb-2': !isMobileNavOpen && isMobile }"
           >
             <!-- Mobile Toggle Header -->
-            <div class="lg:hidden flex items-center justify-between p-2 pb-4">
+            <div class="lg:hidden flex items-center justify-between p-2">
               <h3 class="text-lg font-bold text-secondary-800 flex items-center">
                 <Icon name="ph:list" class="mr-2 text-primary-600" size="20" />
                 {{ $t("common.navigation") }}
@@ -97,7 +97,7 @@
             <div
               v-if="pageData?.content"
               v-html="pageData.content"
-              class="directus-content bg-white p-8 rounded-xl shadow-sm border border-gray-100"
+              class="directus-content bg-white p-4 pt-8 lg:pt-0 lg:p-8 rounded-xl shadow-sm border border-gray-100"
             ></div>
 
             <!-- Default content if no Directus data -->

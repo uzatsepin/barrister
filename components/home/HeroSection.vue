@@ -46,13 +46,13 @@
             <div class="relative group">
               <NuxtImg
                 format="webp"
-                width="192"
-                height="192" 
+                width="320"
+                height="320" 
                 src="/images/angelika-seo.webp"
                 alt="Angelika Fruman"
-                class="w-48 h-48 rounded-2xl object-cover shadow-2xl transform group-hover:scale-105 transition-all duration-500"
+                class="w-80 h-80 rounded-2xl object-cover shadow-2xl transform group-hover:scale-105 transition-all duration-500"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-primary-900/50 to-transparent rounded-2xl"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-primary-900/10 to-transparent rounded-2xl"></div>
               <!-- Experience Badge -->
               <div class="absolute -right-4 -bottom-4 bg-white rounded-xl shadow-xl p-3 z-20 transform group-hover:translate-x-1 group-hover:translate-y-1 transition-all duration-500">
                 <div class="flex items-center gap-2">
@@ -128,6 +128,9 @@
 
         <!-- Right Column - Service Cards -->
         <div class="">
+          <h2 class="text-3xl font-bold mb-8 text-center" data-aos="fade-up" data-aos-delay="200">
+            Популярные иммиграционные визы
+          </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 motion-safe:animate-cards-slide-up">
             <NuxtLink
               :to="card.link"

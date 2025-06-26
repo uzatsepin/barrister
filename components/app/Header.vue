@@ -91,7 +91,7 @@
           <!-- Mobile Contact Info -->
           <div class="py-4 space-y-3 border-b border-gray-100">
             <a
-              href="tel:+19362896191"
+              href="https://api.whatsapp.com/send?phone=19362896191"
               class="flex items-center text-secondary-600 hover:text-primary-600 transition-colors"
             >
               <div

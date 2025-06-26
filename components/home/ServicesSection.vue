@@ -39,13 +39,13 @@
             <p class="text-secondary-600 mb-4">{{ service.description }}</p>
             
             <!-- Features list -->
-            <ul class="space-y-2 mb-6">
+            <ul class="mb-6 gap-3 flex flex-col">
               <li 
                 v-for="(feature, fIndex) in service.features" 
                 :key="fIndex"
-                class="flex items-start"
+                class="flex items-center gap-2"
               >
-                <Icon name="ph:check-circle" class="text-primary-500 mr-2 mt-1 flex-shrink-0" size="18" />
+                <Icon name="ph:check-circle" class="text-primary-500 flex-shrink-0" size="18" />
                 <span class="text-sm text-secondary-700">{{ feature }}</span>
               </li>
             </ul>
