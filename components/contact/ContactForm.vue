@@ -13,7 +13,7 @@
       </p>
       
       <!-- Pricing Info -->
-      <div class="inline-flex items-center justify-center bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl px-6 py-4 mb-2">
+      <div class="inline-flex flex-col items-center justify-center bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl px-6 py-4 mb-2">
         <div class="flex items-center space-x-4">
           <div class="flex items-center text-green-700">
             <Icon name="ph:currency-dollar" size="24" class="mr-2" />
@@ -24,6 +24,17 @@
             <Icon name="ph:clock" size="20" class="mr-2" />
             <span class="font-semibold">45-60 минут</span>
           </div>
+        </div>
+        <div class="mt-3 pt-3 border-t border-green-200 text-center text-sm max-w-sm">
+          <p class="text-green-800 font-medium">
+            Стоимость консультации — это ваш депозит на наши будущие услуги.
+          </p>
+           <p class="text-xs text-green-700 opacity-90 mt-1">
+            При продолжении работы мы вычтем эту сумму из общего счёта.
+          </p>
+          <p class="text-xs text-green-700 opacity-90 mt-1">
+            В ином случае, она покроет расходы на консультацию.
+          </p>
         </div>
       </div>
       <p class="text-sm text-gray-500">

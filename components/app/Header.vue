@@ -9,12 +9,12 @@
       <!-- Main Navigation -->
       <div class="py-3 sm:py-4 flex justify-between items-center">
         <NuxtLink to="/" class="flex items-center group gap-2">
-          <NuxtImg src="/logo.svg" alt="BarristerCorp" class="w-12 h-12" />
-          <span
+          <NuxtImg src="/logo.svg" alt="BarristerCorp" class="max-w-[140px]"/>
+          <!-- <span
             class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-800 group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-300"
           >
             BarristerCorp
-          </span>
+          </span> -->
         </NuxtLink>
 
         <!-- Desktop Menu -->

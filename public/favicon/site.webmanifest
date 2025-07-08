@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "BarristerCorp",
+  "short_name": "BarristerCorp",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
