@@ -17,7 +17,6 @@
               alt="Анжелика Фруман за работой" 
               class="w-full rounded-2xl shadow-2xl transform group-hover:scale-105 transition-all duration-700"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-primary-900/50 via-primary-900/20 to-transparent"></div>
             
             <!-- Expertise Badge -->
             <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-2 md:p-4 transform group-hover:translate-y-[-8px] transition-all duration-500">
@@ -25,7 +24,6 @@
                 <Icon name="ph:certificate" class="text-primary-500 w-10 h-10" />
                 <div>
                   <h3 class="font-semibold text-primary-900">Эксперт по иммиграции в США</h3>
-                  <p class="text-sm text-primary-600">Иммиграционное право и визовые процессы</p>
                 </div>
               </div>
             </div>
@@ -171,10 +169,10 @@ const tabs = [
             Моя роль заключалась в непосредственном взаимодействии с клиентами:
           </p>
           <ul class="list-disc list-inside space-y-2 ml-4 text-secondary-600">
-            <li>подготовке документов</li>
-            <li>заполнении форм</li>
-            <li>общении с иммиграционными ведомствами</li>
-            <li>поиске решений в нестандартных ситуациях</li>
+            <li>помощь в сборе и систематизации документов</li>
+            <li>сопровождение клиентов на всех этапах процесса</li>
+            <li>коммуникация</li>
+            <li>поиск решений в нестандартных ситуациях</li>
           </ul>
           <p class="text-lg leading-relaxed mt-4">
             Этот опыт позволил мне глубоко понять, как устроены юридические процессы изнутри, и выявить, что действительно важно для клиентов: <em class="text-primary-600 font-medium">простота, поддержка и ощущение, что о них заботятся</em>.
