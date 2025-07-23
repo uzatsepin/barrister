@@ -42,7 +42,7 @@ export default defineNuxtConfig({
   // Настройки runtimeConfig
   runtimeConfig: {
     public: {
-      directusUrl: 'https://api.barrister.guru',
+      directusUrl: 'https://api.barristercorp.com',
       siteUrl: 'https://barristercorp.com',
       siteName: 'BarristerCorp'
     }
